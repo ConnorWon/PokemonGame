@@ -9,11 +9,7 @@ public class Pokedex {
 
     // EFFECTS: constructs a Pokedex with 0 Pokemon within it
     public Pokedex() {
-        // call to a pre-existing list of Pokemon already internally created
-    }
-
-    public int getUsablePokemonSize() {
-        return usablePokemon.size();
+        usablePokemon = new ArrayList<>();
     }
 
     public ArrayList<Pokemon> getUsablePokemon() {
@@ -23,7 +19,7 @@ public class Pokedex {
     // MODIFIES: this
     // EFFECTS: adds a Pokemon to the Pokedex of usable Pokemon
     public void addPokemonToPokedex(Pokemon p) {
-//        usablePokemon.add(p);
+        usablePokemon.add(p);
     }
 
     // MODIFIES: this
