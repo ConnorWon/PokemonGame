@@ -1,6 +1,5 @@
-package model;
+package model.pokedex;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Represents a Pokemon with a name, list of moves, and attack, defense, and health points stats

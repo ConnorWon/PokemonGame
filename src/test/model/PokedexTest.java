@@ -1,5 +1,8 @@
 package model;
 
+import model.pokedex.Move;
+import model.pokedex.Pokedex;
+import model.pokedex.Pokemon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
