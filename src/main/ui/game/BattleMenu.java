@@ -7,6 +7,7 @@ import java.util.Scanner;
 import static ui.game.MainMenu.pokedex;
 import static ui.game.MainMenu.trainer;
 
+// The menu that allows users to select their Pokemon team
 public class BattleMenu {
 
     private Scanner input;
@@ -30,7 +31,7 @@ public class BattleMenu {
                 count++;
             }
 
-            // might have to change in order to protect against errors
+            //TODO 4: protect against improper inputs
             int choice = input.nextInt();
 
             if (choice < pokedex.getUsablePokemon().size()) {

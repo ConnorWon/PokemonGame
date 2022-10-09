@@ -4,10 +4,12 @@ import model.pokedex.Pokemon;
 
 import java.util.ArrayList;
 
+// TODO: change team to BattlingPokemon
+// Represents a Pokemon Trainer with a name and Pokemon team
 public class Trainer {
 
-    private String name;
-    private ArrayList<Pokemon> team;
+    protected String name;
+    protected ArrayList<Pokemon> team;
 
     // EFFECTS: constructs a trainer with given name, and empty team
     public Trainer(String name) {

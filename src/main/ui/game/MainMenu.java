@@ -2,14 +2,17 @@ package ui.game;
 
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
-import model.trainers.Trainer;
+import model.trainers.CpuTrainer;
+import model.trainers.UserTrainer;
 
 import java.util.Scanner;
 
+// The starting menu
 public class MainMenu {
 
     static Pokedex pokedex = new Pokedex();
-    static Trainer trainer;
+    static CpuTrainer red;
+    static UserTrainer trainer;
 
     private Scanner input;
 
@@ -22,14 +25,14 @@ public class MainMenu {
     // MODIFIES: this
     // EFFECTS: processes user inputs
     private void runMainMenu() {
-        Boolean appRunning = true;
+        boolean appRunning = true;
 
         initInput();
 
         System.out.println("Name your trainer: ");
         String name = input.next();
 
-        initTrainer(name);
+        initUserTrainer(name);
         initPokedex();
 
         while (appRunning) {
@@ -38,11 +41,13 @@ public class MainMenu {
             String choice = input.next();
             choice = choice.toLowerCase();
 
+            // TODO 3: clean up into a single method similar to that of parseInput from FitLifeGymChain
             if (choice.equals("b")) {
                 new BattleMenu();
             } else if (choice.equals("c")) {
                 new CreatePokemon();
             } else if (choice.equals("q")) {
+                System.out.println("Quitting...");
                 appRunning = false;
             } else {
                 System.out.println("Invalid input");
@@ -59,8 +64,17 @@ public class MainMenu {
 
     // MODIFIES: this
     // EFFECTS: initializes the user's trainer
-    private void initTrainer(String name) {
-        trainer = new Trainer(name);
+    private void initUserTrainer(String name) {
+        trainer = new UserTrainer(name);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes the CPU trainer
+    private void initCpuTrainer(Pokemon p1, Pokemon p2, Pokemon p3) {
+        red = new CpuTrainer("Red");
+        red.addTeamMember(p1);
+        red.addTeamMember(p2);
+        red.addTeamMember(p3);
     }
 
     // MODIFIES: this
@@ -75,6 +89,8 @@ public class MainMenu {
         pokedex.addPokemonToPokedex(charmander);
         pokedex.addPokemonToPokedex(squirtle);
         pokedex.addPokemonToPokedex(bulbasaur);
+
+        initCpuTrainer(pikachu, charmander, squirtle);
     }
 
     // EFFECTS: displays the menu options

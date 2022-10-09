@@ -1,5 +1,6 @@
 package model.pokedex;
 
+// Represents a single move of a Pokemon, has a name, power, pp (amount of times a move can be used), and move accuracy
 public class Move {
 
     private String name;
