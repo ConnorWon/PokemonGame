@@ -35,7 +35,7 @@ class PokedexTest {
         Pokemon actualPikachu = pokedex.getUsablePokemon().get(0);
         assertEquals("Pikachu", actualPikachu.getName());
         assertEquals("Electric", actualPikachu.getType());
-        assertEquals(35, actualPikachu.getHp());
+        assertEquals(35, actualPikachu.getHP());
         assertEquals(50,actualPikachu.getAtk());
         assertEquals(40, actualPikachu.getDef());
         assertEquals(moves, actualPikachu.getMoveSet());
@@ -47,7 +47,7 @@ class PokedexTest {
         Pokemon actualPikachu = pokedex.getUsablePokemon().get(0);
         assertEquals("Pikachu", actualPikachu.getName());
         assertEquals("Electric", actualPikachu.getType());
-        assertEquals(35, actualPikachu.getHp());
+        assertEquals(35, actualPikachu.getHP());
         assertEquals(50,actualPikachu.getAtk());
         assertEquals(40, actualPikachu.getDef());
         assertEquals(moves, actualPikachu.getMoveSet());
@@ -55,7 +55,7 @@ class PokedexTest {
         Pokemon actualCharmander = pokedex.getUsablePokemon().get(1);
         assertEquals("Charmander", actualCharmander.getName());
         assertEquals("Fire", actualCharmander.getType());
-        assertEquals(25, actualCharmander.getHp());
+        assertEquals(25, actualCharmander.getHP());
         assertEquals(45,actualCharmander.getAtk());
         assertEquals(35, actualCharmander.getDef());
         assertEquals(moves, actualCharmander.getMoveSet());

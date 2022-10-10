@@ -24,7 +24,7 @@ public class PokemonTest {
     public void testConstructor() {
         assertEquals("Pikachu", pikachu.getName());
         assertEquals("Electric", pikachu.getType());
-        assertEquals(35, pikachu.getHp());
+        assertEquals(35, pikachu.getHP());
         assertEquals(55, pikachu.getAtk());
         assertEquals(50, pikachu.getDef());
         assertEquals(moves, pikachu.getMoveSet());
@@ -36,7 +36,7 @@ public class PokemonTest {
         Move move = pikachu.getMoveSet().get(0);
         assertEquals("Thunderbolt", move.getName());
         assertEquals(95, move.getPower());
-        assertEquals(15, move.getPp());
+        assertEquals(15, move.getPP());
         assertEquals(100, move.getAccuracy());
         assertEquals(1, pikachu.getMoveSet().size());
     }
@@ -47,14 +47,14 @@ public class PokemonTest {
         Move move = pikachu.getMoveSet().get(0);
         assertEquals("Thunderbolt", move.getName());
         assertEquals(95, move.getPower());
-        assertEquals(15, move.getPp());
+        assertEquals(15, move.getPP());
         assertEquals(100, move.getAccuracy());
         assertEquals(1, pikachu.getMoveSet().size());
         pikachu.addMoveToMoveSet("Quick Attack", 40, 30, 100);
         Move moveTwo = pikachu.getMoveSet().get(1);
         assertEquals("Quick Attack", moveTwo.getName());
         assertEquals(40, moveTwo.getPower());
-        assertEquals(30, moveTwo.getPp());
+        assertEquals(30, moveTwo.getPP());
         assertEquals(100, moveTwo.getAccuracy());
         assertEquals(2, pikachu.getMoveSet().size());
     }

@@ -50,7 +50,7 @@ public class Pokemon {
         return type;
     }
 
-    public int getHp() {
+    public int getHP() {
         return hp;
     }
 

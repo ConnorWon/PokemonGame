@@ -19,7 +19,7 @@ public class TestMove {
     public void testConstructor() {
         assertEquals("Tackle", move.getName());
         assertEquals(40, move.getPower());
-        assertEquals(35, move.getPp());
+        assertEquals(35, move.getPP());
         assertEquals(100, move.getAccuracy());
     }
 

@@ -141,7 +141,7 @@ public class CreatePokemon {
         for (Move m : p.getMoveSet()) {
             System.out.println("\t Move " + count + " Name: " + m.getName());
             System.out.println("\t Power: " + m.getPower());
-            System.out.println("\t PP: " + m.getPp());
+            System.out.println("\t PP: " + m.getPP());
             System.out.println("\t Accuracy: " + m.getAccuracy() + "\n");
             count++;
         }
@@ -152,7 +152,7 @@ public class CreatePokemon {
         System.out.println("Pokemon Name: " + p.getName());
         System.out.println("Type: " + p.getType());
         System.out.println("Stats: ");
-        System.out.println("\t HP: " + p.getHp());
+        System.out.println("\t HP: " + p.getHP());
         System.out.println("\t Attack: " + p.getAtk());
         System.out.println("\t Defense: " + p.getDef());
         printMoveSpecs(p);

@@ -25,11 +25,15 @@ public class Move {
         return power;
     }
 
-    public int getPp() {
+    public int getPP() {
         return pp;
     }
 
     public int getAccuracy() {
         return accuracy;
+    }
+
+    public void setPP(int pp) {
+        this.pp = pp;
     }
 }
