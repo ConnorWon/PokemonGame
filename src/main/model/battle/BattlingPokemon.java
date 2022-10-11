@@ -70,7 +70,7 @@ public class BattlingPokemon {
     // EFFECTS: sets hitChance to a random number in [1, 100]
     public void setHitChance() {
         Random rand = new Random();
-        this.hitChance = rand.nextInt(100) + 1;
+        this.hitChance = 1 + rand.nextInt(100);
     }
 
     // TODO: Q: how to create a test for when i am using random numbers
@@ -85,6 +85,7 @@ public class BattlingPokemon {
     public int damageOutput(Move m, BattlingPokemon target) {
         setDamageRoll();
         setHitChance();
+        usedMove(m);
 
         if (getHitChance() <= m.getAccuracy()) {
             return (int) Math.round(((42.0 * m.getPower() * getAtk() / target.getDef()) / 50.0 + 2)

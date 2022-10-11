@@ -1,5 +1,6 @@
 package ui.game;
 
+import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.CpuTrainer;
@@ -10,9 +11,10 @@ import java.util.Scanner;
 // The starting menu
 public class MainMenu {
 
-    static Pokedex pokedex = new Pokedex();
+    // TODO: Q: allowed to do this? (want to make accessible to other classes, but not variables are not final)
+    static Pokedex pokedex;
     static CpuTrainer red;
-    static UserTrainer trainer;
+    static UserTrainer user;
 
     private Scanner input;
 
@@ -43,7 +45,7 @@ public class MainMenu {
 
             // TODO 3: clean up into a single method similar to that of parseInput from FitLifeGymChain
             if (choice.equals("b")) {
-                new BattleMenu();
+                new TeamSelect();
             } else if (choice.equals("c")) {
                 new CreatePokemon();
             } else if (choice.equals("q")) {
@@ -65,16 +67,20 @@ public class MainMenu {
     // MODIFIES: this
     // EFFECTS: initializes the user's trainer
     private void initUserTrainer(String name) {
-        trainer = new UserTrainer(name);
+        user = new UserTrainer(name);
     }
 
     // MODIFIES: this
     // EFFECTS: initializes the CPU trainer
     private void initCpuTrainer(Pokemon p1, Pokemon p2, Pokemon p3) {
         red = new CpuTrainer("Red");
-        red.addTeamMember(p1);
-        red.addTeamMember(p2);
-        red.addTeamMember(p3);
+        BattlingPokemon bp1 = new BattlingPokemon(p1);
+        BattlingPokemon bp2 = new BattlingPokemon(p2);
+        BattlingPokemon bp3 = new BattlingPokemon(p3);
+
+        red.addTeamMember(bp1);
+        red.addTeamMember(bp2);
+        red.addTeamMember(bp3);
     }
 
     // MODIFIES: this
@@ -85,6 +91,7 @@ public class MainMenu {
         Pokemon squirtle = initSquirtle();
         Pokemon bulbasaur = initBulbasaur();
 
+        pokedex = new Pokedex();
         pokedex.addPokemonToPokedex(pikachu);
         pokedex.addPokemonToPokedex(charmander);
         pokedex.addPokemonToPokedex(squirtle);

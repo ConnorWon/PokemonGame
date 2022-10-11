@@ -1,19 +1,20 @@
 package ui.game;
 
+import model.battle.BattlingPokemon;
 import model.pokedex.Pokemon;
 
 import java.util.Scanner;
 
 import static ui.game.MainMenu.pokedex;
-import static ui.game.MainMenu.trainer;
+import static ui.game.MainMenu.user;
 
 // The menu that allows users to select their Pokemon team
-public class BattleMenu {
+public class TeamSelect {
 
     private Scanner input;
 
     // EFFECTS: runs the battle menu
-    public BattleMenu() {
+    public TeamSelect() {
         runBattleMenu();
     }
 
@@ -21,10 +22,10 @@ public class BattleMenu {
     private void runBattleMenu() {
         initInput();
 
-        while (trainer.getTeam().size() < 3) {
+        while (user.getTeam().size() < 3) {
             int count = 1;
 
-            displayBattleMenu(trainer.getTeam().size());
+            displayBattleMenu(user.getTeam().size());
 
             for (Pokemon p : pokedex.getUsablePokemon()) {
                 System.out.println(count + " -> " + p.getName());
@@ -34,10 +35,13 @@ public class BattleMenu {
             //TODO 4: protect against improper inputs
             int choice = input.nextInt();
 
-            if (choice < pokedex.getUsablePokemon().size()) {
-                trainer.addTeamMember(pokedex.getUsablePokemon().get(choice - 1));
+            if (choice <= pokedex.getUsablePokemon().size()) {
+                BattlingPokemon bp = new BattlingPokemon(pokedex.getUsablePokemon().get(choice - 1));
+                user.addTeamMember(bp);
             }
         }
+        System.out.println("Battle Beginning...");
+        new BattleGame();
     }
 
     // MODIFIES: this

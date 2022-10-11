@@ -1,5 +1,6 @@
 package model;
 
+import model.battle.BattlingPokemon;
 import model.trainers.Trainer;
 import model.pokedex.Pokemon;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,16 +13,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainerTest {
 
     Trainer trainer;
-    ArrayList<Pokemon> team;
+    ArrayList<BattlingPokemon> team;
     Pokemon pikachu;
     Pokemon charmander;
+    BattlingPokemon battlePikachu;
+    BattlingPokemon battleCharmander;
 
     @BeforeEach
     public void runBefore() {
         trainer = new Trainer("Red");
         team = new ArrayList<>();
         pikachu = new Pokemon("Pikachu", "Electric", 50, 35, 40);
+        battlePikachu = new BattlingPokemon(pikachu);
         charmander = new Pokemon("Charmander", "Fire", 25, 30, 45);
+        battleCharmander = new BattlingPokemon(charmander);
     }
 
     @Test
@@ -32,30 +37,30 @@ public class TrainerTest {
 
     @Test
     public void testAddTeamMember() {
-        trainer.addTeamMember(pikachu);
-        team.add(pikachu);
+        trainer.addTeamMember(battlePikachu);
+        team.add(battlePikachu);
         assertEquals(team, trainer.getTeam());
     }
 
     @Test
     public void testAddTeamMemberMultipleTimes() {
-        trainer.addTeamMember(pikachu);
-        team.add(pikachu);
+        trainer.addTeamMember(battlePikachu);
+        team.add(battlePikachu);
         assertEquals(team, trainer.getTeam());
-        trainer.addTeamMember(charmander);
-        team.add(charmander);
+        trainer.addTeamMember(battleCharmander);
+        team.add(battleCharmander);
         assertEquals(team, trainer.getTeam());
     }
 
     @Test
     public void testAddTeamMemberMoreThan3Times() {
-        trainer.addTeamMember(pikachu);
-        team.add(pikachu);
-        trainer.addTeamMember(charmander);
-        team.add(charmander);
-        trainer.addTeamMember(pikachu);
-        team.add(pikachu);
-        trainer.addTeamMember(pikachu);
+        trainer.addTeamMember(battlePikachu);
+        team.add(battlePikachu);
+        trainer.addTeamMember(battleCharmander);
+        team.add(battleCharmander);
+        trainer.addTeamMember(battlePikachu);
+        team.add(battlePikachu);
+        trainer.addTeamMember(battlePikachu);
         assertEquals(team, trainer.getTeam());
     }
 

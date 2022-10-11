@@ -1,5 +1,6 @@
 package model.trainers;
 
+import model.battle.BattlingPokemon;
 import model.pokedex.Pokemon;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class Trainer {
 
     protected String name;
-    protected ArrayList<Pokemon> team;
+    protected ArrayList<BattlingPokemon> team;
 
     // EFFECTS: constructs a trainer with given name, and empty team
     public Trainer(String name) {
@@ -21,13 +22,13 @@ public class Trainer {
         return name;
     }
 
-    public ArrayList<Pokemon> getTeam() {
+    public ArrayList<BattlingPokemon> getTeam() {
         return team;
     }
 
     // MODIFIES: this
     // EFFECTS: adds a Pokemon to the team, with a maximum of 3 Pokemon
-    public void addTeamMember(Pokemon p) {
+    public void addTeamMember(BattlingPokemon p) {
         if (team.size() < 3) {
             team.add(p);
         }
