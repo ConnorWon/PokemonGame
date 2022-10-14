@@ -2,17 +2,18 @@ package ui.game;
 
 import model.battle.BattlingPokemon;
 import model.pokedex.Move;
+import model.trainers.CpuTrainer;
+import model.trainers.UserTrainer;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import static ui.game.MainMenu.red;
-import static ui.game.MainMenu.user;
-
 // Represents a Pokemon battle
 public class BattleGame {
 
+    private UserTrainer user;
+    private CpuTrainer red;
     private String userName;
     private String cpuName;
     private ArrayList<BattlingPokemon> userTeam;
@@ -25,8 +26,11 @@ public class BattleGame {
 
 
     // EFFECTS: starts the Pokemon battle
-    public BattleGame() {
+    public BattleGame(UserTrainer user, CpuTrainer red) {
         index = 0;
+
+        this.user = user;
+        this.red = red;
 
         userName = user.getName();
         cpuName = red.getName();
@@ -65,6 +69,7 @@ public class BattleGame {
             turn++;
         }
         user.clearTeam();
+        red.restorePokemonHP();
     }
 
     // TODO: make it so you can go back after selecting switch or move

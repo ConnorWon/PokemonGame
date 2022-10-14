@@ -1,20 +1,26 @@
 package ui.game;
 
 import model.battle.BattlingPokemon;
+import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
+import model.trainers.CpuTrainer;
+import model.trainers.UserTrainer;
 
 import java.util.Scanner;
-
-import static ui.game.MainMenu.pokedex;
-import static ui.game.MainMenu.user;
 
 // The menu that allows users to select their Pokemon team
 public class TeamSelect {
 
+    private Pokedex pokedex;
+    private UserTrainer user;
+    private CpuTrainer red;
     private Scanner input;
 
     // EFFECTS: runs the battle menu
-    public TeamSelect() {
+    public TeamSelect(Pokedex p, UserTrainer user, CpuTrainer red) {
+        pokedex = p;
+        this.user = user;
+        this.red = red;
         runBattleMenu();
     }
 
@@ -41,7 +47,7 @@ public class TeamSelect {
             }
         }
         System.out.println("Battle Beginning...");
-        new BattleGame();
+        new BattleGame(user, red);
     }
 
     // MODIFIES: this

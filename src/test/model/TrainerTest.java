@@ -29,6 +29,7 @@ public class TrainerTest {
         battleCharmander = new BattlingPokemon(charmander);
     }
 
+    // TODO: use isempty()
     @Test
     public void testConstructor() {
         assertEquals("Red", trainer.getName());

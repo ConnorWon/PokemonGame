@@ -11,11 +11,12 @@ import java.util.Scanner;
 // The starting menu
 public class MainMenu {
 
-    // TODO: Q: allowed to do this? (want to make accessible to other classes, but not variables are not final)
-    static Pokedex pokedex;
-    static CpuTrainer red;
-    static UserTrainer user;
-
+    // TODO: Q: allowed to do this? (want to make accessible to other classes, maybe ask again)
+    //      ANS: pass the field to each of the following ui classes and have a separate field named these things in each
+    //          of the ui classes
+    private Pokedex pokedex;
+    private CpuTrainer red;
+    private UserTrainer user;
     private Scanner input;
 
 
@@ -45,9 +46,9 @@ public class MainMenu {
 
             // TODO 3: clean up into a single method similar to that of parseInput from FitLifeGymChain
             if (choice.equals("b")) {
-                new TeamSelect();
+                new TeamSelect(pokedex, user, red);
             } else if (choice.equals("c")) {
-                new CreatePokemon();
+                new CreatePokemon(pokedex);
             } else if (choice.equals("q")) {
                 System.out.println("Quitting...");
                 appRunning = false;
@@ -70,6 +71,7 @@ public class MainMenu {
         user = new UserTrainer(name);
     }
 
+    // TODO: make cpu team random
     // MODIFIES: this
     // EFFECTS: initializes the CPU trainer
     private void initCpuTrainer(Pokemon p1, Pokemon p2, Pokemon p3) {
@@ -81,6 +83,7 @@ public class MainMenu {
         red.addTeamMember(bp1);
         red.addTeamMember(bp2);
         red.addTeamMember(bp3);
+        red.determineFullHPs();
     }
 
     // MODIFIES: this

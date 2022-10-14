@@ -1,25 +1,27 @@
 package ui.game;
 
 import model.pokedex.Move;
+import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 
 import java.util.Scanner;
-
-import static ui.game.MainMenu.pokedex;
 
 // TODO: make it so inputs do not produce errors
 // The menu that allows the user to create Pokemon of their own
 public class CreatePokemon {
 
+    private Pokedex pokedex;
     private Scanner input;
 
     // MODIFIES: MainMenu
     // EFFECTS: runs the Pokemon creation menu
-    public CreatePokemon() {
+    public CreatePokemon(Pokedex p) {
+        pokedex = p;
         runCreatePokemon();
     }
 
-    // TODO: Q: what to put for modifies clause?
+    // TODO: Q: what to put for modifies clause, as it modifies a field in main menu? ANS: yes (look for more cases in
+    //      pokedex is modified)
     // MODIFIES: MainMenu
     // EFFECTS: creates a Pokemon based on user inputs
     private void runCreatePokemon() {
@@ -87,7 +89,7 @@ public class CreatePokemon {
         return true;
     }
 
-    // TODO: Q: do I need to include this
+    // TODO: add EFFECTS clause for each
     // EFFECTS: gets the user's name for their Pokemon creation
     private String setPokemonName() {
         System.out.println("Pokemon Name: ");
