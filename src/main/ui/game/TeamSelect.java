@@ -16,16 +16,17 @@ public class TeamSelect {
     private CpuTrainer red;
     private Scanner input;
 
-    // EFFECTS: runs the battle menu
+    // EFFECTS: runs the team select menu
     public TeamSelect(Pokedex p, UserTrainer user, CpuTrainer red) {
         pokedex = p;
         this.user = user;
         this.red = red;
-        runBattleMenu();
+        runTeamSelect();
     }
 
+    // MODIFIES: this
     // EFFECTS: creates the users Pokemon team
-    private void runBattleMenu() {
+    private void runTeamSelect() {
         initInput();
 
         while (user.getTeam().size() < 3) {
@@ -38,12 +39,13 @@ public class TeamSelect {
                 count++;
             }
 
-            //TODO 4: protect against improper inputs
             int choice = input.nextInt();
 
             if (choice <= pokedex.getUsablePokemon().size()) {
                 BattlingPokemon bp = new BattlingPokemon(pokedex.getUsablePokemon().get(choice - 1));
                 user.addTeamMember(bp);
+            } else {
+                System.out.println("Invalid input");
             }
         }
         System.out.println("Battle Beginning...");

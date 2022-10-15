@@ -6,6 +6,7 @@ import model.pokedex.Pokemon;
 import model.trainers.CpuTrainer;
 import model.trainers.UserTrainer;
 
+import java.util.Random;
 import java.util.Scanner;
 
 // The starting menu
@@ -19,24 +20,20 @@ public class MainMenu {
     private UserTrainer user;
     private Scanner input;
 
-
     // EFFECTS: opens the starting menu
     public MainMenu() {
         runMainMenu();
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user inputs
+    // EFFECTS: processes user inputs for the main menu
     private void runMainMenu() {
         boolean appRunning = true;
 
         initInput();
-
-        System.out.println("Name your trainer: ");
-        String name = input.next();
-
-        initUserTrainer(name);
+        initUserTrainer();
         initPokedex();
+        initCpuTrainer();
 
         while (appRunning) {
             displayMenu();
@@ -44,9 +41,9 @@ public class MainMenu {
             String choice = input.next();
             choice = choice.toLowerCase();
 
-            // TODO 3: clean up into a single method similar to that of parseInput from FitLifeGymChain
             if (choice.equals("b")) {
                 new TeamSelect(pokedex, user, red);
+                initCpuTrainer();
             } else if (choice.equals("c")) {
                 new CreatePokemon(pokedex);
             } else if (choice.equals("q")) {
@@ -65,25 +62,13 @@ public class MainMenu {
         input.useDelimiter("\n");
     }
 
+    // REQUIRES: input != ""
     // MODIFIES: this
     // EFFECTS: initializes the user's trainer
-    private void initUserTrainer(String name) {
+    private void initUserTrainer() {
+        System.out.println("Name your trainer: ");
+        String name = input.next();
         user = new UserTrainer(name);
-    }
-
-    // TODO: make cpu team random
-    // MODIFIES: this
-    // EFFECTS: initializes the CPU trainer
-    private void initCpuTrainer(Pokemon p1, Pokemon p2, Pokemon p3) {
-        red = new CpuTrainer("Red");
-        BattlingPokemon bp1 = new BattlingPokemon(p1);
-        BattlingPokemon bp2 = new BattlingPokemon(p2);
-        BattlingPokemon bp3 = new BattlingPokemon(p3);
-
-        red.addTeamMember(bp1);
-        red.addTeamMember(bp2);
-        red.addTeamMember(bp3);
-        red.determineFullHPs();
     }
 
     // MODIFIES: this
@@ -99,8 +84,25 @@ public class MainMenu {
         pokedex.addPokemonToPokedex(charmander);
         pokedex.addPokemonToPokedex(squirtle);
         pokedex.addPokemonToPokedex(bulbasaur);
+    }
 
-        initCpuTrainer(pikachu, charmander, squirtle);
+    // MODIFIES: this
+    // EFFECTS: initializes the CPU trainer
+    private void initCpuTrainer() {
+        Random rand = new Random();
+        int p1 = rand.nextInt(4);
+        int p2 = rand.nextInt(4);
+        int p3 = rand.nextInt(4);
+
+
+        red = new CpuTrainer("Red");
+        BattlingPokemon bp1 = new BattlingPokemon(pokedex.getUsablePokemon().get(p1));
+        BattlingPokemon bp2 = new BattlingPokemon(pokedex.getUsablePokemon().get(p2));
+        BattlingPokemon bp3 = new BattlingPokemon(pokedex.getUsablePokemon().get(p3));
+
+        red.addTeamMember(bp1);
+        red.addTeamMember(bp2);
+        red.addTeamMember(bp3);
     }
 
     // EFFECTS: displays the menu options
@@ -108,7 +110,7 @@ public class MainMenu {
         System.out.println("Select: 'b = Battle' | 'c = Create Pokemon' | 'q = Quit'");
     }
 
-    // EFFECTS: initializes the starting Pokemon Pikachu
+    // EFFECTS: returns the starting Pokemon Pikachu
     private Pokemon initPikachu() {
         Pokemon pikachu = new Pokemon("Pikachu", "Electric", 35, 55, 30);
         pikachu.addMoveToMoveSet("Thunderbolt", 90, 15, 100);
@@ -119,7 +121,7 @@ public class MainMenu {
         return pikachu;
     }
 
-    // EFFECTS: initializes the starting Pokemon Charmander
+    // EFFECTS: returns the starting Pokemon Charmander
     private Pokemon initCharmander() {
         Pokemon charmander = new Pokemon("Charmander", "Fire", 39, 52, 43);
         charmander.addMoveToMoveSet("Flamethrower", 90, 15, 100);
@@ -130,7 +132,7 @@ public class MainMenu {
         return charmander;
     }
 
-    // EFFECTS: initializes the starting Pokemon Squirtle
+    // EFFECTS: returns the starting Pokemon Squirtle
     private Pokemon initSquirtle() {
         Pokemon squirtle = new Pokemon("Squirtle", "Water", 44, 48, 65);
         squirtle.addMoveToMoveSet("Hydro Pump", 110, 5, 80);
@@ -141,7 +143,7 @@ public class MainMenu {
         return squirtle;
     }
 
-    // EFFECTS: initializes the starting Pokemon Bulbasaur
+    // EFFECTS: returns the starting Pokemon Bulbasaur
     private Pokemon initBulbasaur() {
         Pokemon bulbasaur = new Pokemon("Bulbasaur", "Grass", 45, 49, 49);
         bulbasaur.addMoveToMoveSet("Solar Beam", 120, 10, 100);

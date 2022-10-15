@@ -88,6 +88,7 @@ public class BattlingPokemon {
 
     // TODO: Q: allowed to use type casting?
     // TODO: just link stackoverflow website where i learned to do this
+    // TODO: make it so if damage is greater than remaining health make it equal to remaining health
     // EFFECTS: returns the damage output by the Pokemon
     public int damageOutput(Move m, BattlingPokemon target) {
         setDamageRoll();
@@ -125,6 +126,15 @@ public class BattlingPokemon {
             Move move = new Move(m.getName(), m.getPower(), m.getPP(),m.getAccuracy());
             this.moveSet.add(move);
         }
+    }
+
+    // TODO: Q: do I have to put this for requires, b/c the method is only called when this requires clause is true
+    // REQUIRES: every move in moveSet has pp 0
+    // MODIFIES: this
+    // EFFECTS: calculates the damage output by Pokemon using the move struggle. Also damages the pokemon for using this
+    //          move
+    public void struggle() {
+
     }
 
 }

@@ -9,9 +9,5 @@ public class UserTrainer extends Trainer {
         super(name);
     }
 
-    // MODIFIES: Trainer
-    // EFFECTS: clears the trainers team
-    public void clearTeam() {
-        team.clear();
-    }
+
 }

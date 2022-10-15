@@ -6,24 +6,21 @@ import model.pokedex.Pokemon;
 
 import java.util.Scanner;
 
-// TODO: make it so inputs do not produce errors
 // The menu that allows the user to create Pokemon of their own
 public class CreatePokemon {
 
     private Pokedex pokedex;
     private Scanner input;
 
-    // MODIFIES: MainMenu
     // EFFECTS: runs the Pokemon creation menu
     public CreatePokemon(Pokedex p) {
         pokedex = p;
         runCreatePokemon();
     }
 
-    // TODO: Q: what to put for modifies clause, as it modifies a field in main menu? ANS: yes (look for more cases in
-    //      pokedex is modified)
-    // MODIFIES: MainMenu
-    // EFFECTS: creates a Pokemon based on user inputs
+    // TODO: look for more cases in pokedex is modified
+    // MODIFIES: this
+    // EFFECTS: creates a Pokemon to add to the list of usable Pokemon based on user inputs
     private void runCreatePokemon() {
         boolean keepRunning = true;
 
@@ -32,9 +29,9 @@ public class CreatePokemon {
         while (keepRunning) {
             String name = setPokemonName();
             String type = setPokemonType();
-            int hp = setPokemonHP();
-            int atk = setPokemonATK();
-            int def = setPokemonDEF();
+            int hp = setStat("HP");
+            int atk = setStat("ATK");
+            int def = setStat("DEF");
             Pokemon pokemon = new Pokemon(name, type, hp, atk, def);
 
             createPokemonMoves(pokemon);
@@ -46,6 +43,7 @@ public class CreatePokemon {
         }
     }
 
+    // MODIFIES: p
     // EFFECTS: creates the Pokemon's moves
     private void createPokemonMoves(Pokemon p) {
         boolean end = true;
@@ -53,9 +51,9 @@ public class CreatePokemon {
 
         while (p.getMoveSet().size() < 4 && end) {
             String moveName = setMoveName(counter);
-            int power = setMovePower();
-            int pp = setMovePP();
-            int accuracy = setMoveAccuracy();
+            int power = setStat("Power");
+            int pp = setStat("PP");
+            int accuracy = setStat("Accuracy");
             p.addMoveToMoveSet(moveName, power, pp, accuracy);
 
             if (p.getMoveSet().size() < 4) {
@@ -89,51 +87,42 @@ public class CreatePokemon {
         return true;
     }
 
-    // TODO: add EFFECTS clause for each
+    // REQUIRES: input != ""
     // EFFECTS: gets the user's name for their Pokemon creation
     private String setPokemonName() {
         System.out.println("Pokemon Name: ");
         return input.next();
     }
 
+    // REQUIRES: input != ""
+    // EFFECTS: returns the type the user wants for their Pokemon creation
     private String setPokemonType() {
         System.out.println("Type: ");
         return input.next();
     }
 
-    private int setPokemonHP() {
-        System.out.println("HP: ");
-        return input.nextInt();
-    }
-
-    private int setPokemonATK() {
-        System.out.println("ATK: ");
-        return input.nextInt();
-    }
-
-    private int setPokemonDEF() {
-        System.out.println("DEF: ");
-        return input.nextInt();
-    }
-
+    // EFFECTS: returns the name for the move they are creating for their Pokemon creation
     private String setMoveName(int counter) {
         System.out.println("Move " + counter + " Name");
         return input.next();
     }
 
-    private int setMovePower() {
-        System.out.println("Power: ");
-        return input.nextInt();
-    }
+    // EFFECTS: returns the number a user wants a certain stat to be, number must be greater than 0
+    private int setStat(String stat) {
+        boolean keepRunning = true;
+        int statNum = 1;
 
-    private int setMovePP() {
-        System.out.println("PP: ");
-        return input.nextInt();
-    }
+        while (keepRunning) {
+            System.out.println(stat + ": ");
+            statNum = input.nextInt();
 
-    private int setMoveAccuracy() {
-        System.out.println("Accuracy: ");
-        return input.nextInt();
+            if (statNum > 0) {
+                keepRunning = false;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+        return statNum;
     }
 
     // EFFECTS: prints the specifications of the Pokemon's moves

@@ -5,7 +5,6 @@ import model.pokedex.Pokemon;
 
 import java.util.ArrayList;
 
-// TODO: change team to BattlingPokemon
 // Represents a Pokemon Trainer with a name and Pokemon team
 public class Trainer {
 
@@ -32,6 +31,12 @@ public class Trainer {
         if (team.size() < 3) {
             team.add(p);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears the trainers team
+    public void clearTeam() {
+        team.clear();
     }
 
 }
