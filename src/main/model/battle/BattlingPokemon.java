@@ -69,7 +69,6 @@ public class BattlingPokemon {
         return damageRoll;
     }
 
-    // TODO: Q: how to create a test for when i am using random numbers (done)
     // MODIFIES: this
     // EFFECTS: sets hitChance to a random number in [1, 100]
     public void setHitChance() {
@@ -77,7 +76,6 @@ public class BattlingPokemon {
         this.hitChance = 1 + rand.nextInt(100);
     }
 
-    // TODO: Q: how to create a test for when i am using random numbers (done)
     // TODO: just link a reference to where i learned this code
     // MODIFIES: this
     // EFFECTS: sets damageRoll to a random number in [85, 100]
@@ -86,7 +84,6 @@ public class BattlingPokemon {
         this.damageRoll = 85 + rand.nextInt(16);
     }
 
-    // TODO: Q: allowed to use type casting?
     // TODO: just link stackoverflow website where i learned to do this
     // TODO: make it so if damage is greater than remaining health make it equal to remaining health
     // EFFECTS: returns the damage output by the Pokemon

@@ -12,9 +12,6 @@ import java.util.Scanner;
 // The starting menu
 public class MainMenu {
 
-    // TODO: Q: allowed to do this? (want to make accessible to other classes, maybe ask again)
-    //      ANS: pass the field to each of the following ui classes and have a separate field named these things in each
-    //          of the ui classes
     private Pokedex pokedex;
     private CpuTrainer red;
     private UserTrainer user;

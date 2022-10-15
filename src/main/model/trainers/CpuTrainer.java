@@ -12,6 +12,7 @@ public class CpuTrainer extends Trainer {
         super(name);
     }
 
+    // TODO: delete
 //    // MODIFIES: this
 //    // EFFECTS: stores what the full HP of each Pokemon is
 //    public void determineFullHPs() {

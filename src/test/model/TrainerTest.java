@@ -29,11 +29,10 @@ public class TrainerTest {
         battleCharmander = new BattlingPokemon(charmander);
     }
 
-    // TODO: use isempty()
     @Test
     public void testConstructor() {
         assertEquals("Red", trainer.getName());
-        assertEquals(team, trainer.getTeam());
+        assertTrue(trainer.getTeam().isEmpty());
     }
 
     @Test
@@ -65,4 +64,11 @@ public class TrainerTest {
         assertEquals(team, trainer.getTeam());
     }
 
+    @Test
+    public void testClearTeam() {
+        trainer.addTeamMember(battlePikachu);
+        trainer.addTeamMember(battleCharmander);
+        trainer.clearTeam();
+        assertTrue(trainer.getTeam().isEmpty());
+    }
 }

@@ -28,58 +28,59 @@ public class CpuTrainerTest {
         battleCharmander = new BattlingPokemon(charmander);
     }
 
-    @Test
-    public void testDetermineFullHPSinglePokemon() {
-        ArrayList<Integer> compare = new ArrayList<>();
-        compare.add(battlePikachu.getHP());
-        cpu.addTeamMember(battlePikachu);
-        cpu.determineFullHPs();
-        assertEquals(compare, cpu.getFullHPs());
-    }
-
-    @Test
-    public void testDetermineFullHPMultiplePokemon() {
-        ArrayList<Integer> compare = new ArrayList<>();
-        compare.add(battlePikachu.getHP());
-        compare.add(battleCharmander.getHP());
-        cpu.addTeamMember(battlePikachu);
-        cpu.addTeamMember(battleCharmander);
-        cpu.determineFullHPs();
-        assertEquals(compare, cpu.getFullHPs());
-    }
-
-    @Test
-    public void testRestorePokemonHPSinglePokemon() {
-        int compare = battlePikachu.getHP();
-
-        cpu.addTeamMember(battlePikachu);
-        cpu.determineFullHPs();
-
-        battlePikachu.setHP(0);
-        assertEquals(0, cpu.getTeam().get(0).getHP());
-
-        cpu.restorePokemonHP();
-        assertEquals(compare, cpu.getTeam().get(0).getHP());
-    }
-
-    @Test
-    public void testRestorePokemonHPMultiplePokemon() {
-        int compareP = battlePikachu.getHP();
-        int compareC = battleCharmander.getHP();
-
-        cpu.addTeamMember(battlePikachu);
-        cpu.addTeamMember(battleCharmander);
-        cpu.determineFullHPs();
-
-        battlePikachu.setHP(0);
-        assertEquals(0, cpu.getTeam().get(0).getHP());
-
-        battleCharmander.setHP(0);
-        assertEquals(0, cpu.getTeam().get(1).getHP());
-
-        cpu.restorePokemonHP();
-        assertEquals(compareP, cpu.getTeam().get(0).getHP());
-        assertEquals(compareC, cpu.getTeam().get(1).getHP());
-    }
+    // TODO: delete
+//    @Test
+//    public void testDetermineFullHPSinglePokemon() {
+//        ArrayList<Integer> compare = new ArrayList<>();
+//        compare.add(battlePikachu.getHP());
+//        cpu.addTeamMember(battlePikachu);
+//        cpu.determineFullHPs();
+//        assertEquals(compare, cpu.getFullHPs());
+//    }
+//
+//    @Test
+//    public void testDetermineFullHPMultiplePokemon() {
+//        ArrayList<Integer> compare = new ArrayList<>();
+//        compare.add(battlePikachu.getHP());
+//        compare.add(battleCharmander.getHP());
+//        cpu.addTeamMember(battlePikachu);
+//        cpu.addTeamMember(battleCharmander);
+//        cpu.determineFullHPs();
+//        assertEquals(compare, cpu.getFullHPs());
+//    }
+//
+//    @Test
+//    public void testRestorePokemonHPSinglePokemon() {
+//        int compare = battlePikachu.getHP();
+//
+//        cpu.addTeamMember(battlePikachu);
+//        cpu.determineFullHPs();
+//
+//        battlePikachu.setHP(0);
+//        assertEquals(0, cpu.getTeam().get(0).getHP());
+//
+//        cpu.restorePokemonHP();
+//        assertEquals(compare, cpu.getTeam().get(0).getHP());
+//    }
+//
+//    @Test
+//    public void testRestorePokemonHPMultiplePokemon() {
+//        int compareP = battlePikachu.getHP();
+//        int compareC = battleCharmander.getHP();
+//
+//        cpu.addTeamMember(battlePikachu);
+//        cpu.addTeamMember(battleCharmander);
+//        cpu.determineFullHPs();
+//
+//        battlePikachu.setHP(0);
+//        assertEquals(0, cpu.getTeam().get(0).getHP());
+//
+//        battleCharmander.setHP(0);
+//        assertEquals(0, cpu.getTeam().get(1).getHP());
+//
+//        cpu.restorePokemonHP();
+//        assertEquals(compareP, cpu.getTeam().get(0).getHP());
+//        assertEquals(compareC, cpu.getTeam().get(1).getHP());
+//    }
 
 }

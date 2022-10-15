@@ -19,12 +19,5 @@ public class UserTrainerTest {
     BattlingPokemon battleCharmander = new BattlingPokemon(charmander);
     ArrayList<BattlingPokemon> emptyTeam = new ArrayList<>();
 
-    @Test
-    public void testClearTeam() {
-        user.addTeamMember(battlePikachu);
-        user.addTeamMember(battleCharmander);
-        user.clearTeam();
-        assertEquals(emptyTeam, user.getTeam());
-    }
 
 }

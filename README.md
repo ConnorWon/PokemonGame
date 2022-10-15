@@ -24,10 +24,10 @@ I have enjoyed for so long.
 
 ## User Stories
 
-- As a user, I want to be able to create a Pokemon and have that Pokemon added 
+- As a user, I want to be able to create Pokemon and have those Pokemon added 
 to the list of Pokemon usable for battle
-- As a user, I want to be able to battle a computer controlled opponent
+- As a user, I want to be able to battle a computer controlled opponent in a 3 v 3 Pokemon battle
 - As a user, I want to be able to select the 3 Pokemon that I use for battle
-- As a user, I want to be able to battle another trainer, during the battle I want to be able to use a move to attack 
-the opponent, and I want to be able to switch the Pokemon that I currently have in the battle for another Pokemon in my 
-party
+- As a user, during the battle I want to be able to select the move my Pokemon will use to attack the opponent
+- As a user, during the battle I want to be able to swap the Pokemon that I currently have in the battle for 
+another Pokemon in on my team
