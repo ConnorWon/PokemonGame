@@ -30,4 +30,4 @@ to the list of Pokemon usable for battle
 - As a user, I want to be able to select the 3 Pokemon that I use for battle
 - As a user, during the battle I want to be able to select the move my Pokemon will use to attack the opponent
 - As a user, during the battle I want to be able to swap the Pokemon that I currently have in the battle for 
-another Pokemon in on my team
+another Pokemon on my team

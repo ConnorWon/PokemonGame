@@ -22,26 +22,6 @@ public class Pokemon {
         this.def = def;
     }
 
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
-//
-//    public void setHp(int hp) {
-//        this.hp = hp;
-//    }
-//
-//    public void setAtk(int atk) {
-//        this.atk = atk;
-//    }
-//
-//    public void setDef(int def) {
-//        this.def = def;
-//    }
-
     public String getName() {
         return name;
     }
@@ -66,7 +46,7 @@ public class Pokemon {
         return moveSet;
     }
 
-    // REQUIRES: power > 0, name cannot equal ""
+    // REQUIRES: power & accuracy & pp > 0, name cannot equal ""
     // MODIFIES: this
     // EFFECTS: adds a move to the Pokemon's move set
     public void addMoveToMoveSet(String name, int power, int pp, int accuracy) {

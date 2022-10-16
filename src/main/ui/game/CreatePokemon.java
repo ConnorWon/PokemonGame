@@ -6,6 +6,8 @@ import model.pokedex.Pokemon;
 
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 // The menu that allows the user to create Pokemon of their own
 public class CreatePokemon {
 
@@ -18,7 +20,6 @@ public class CreatePokemon {
         runCreatePokemon();
     }
 
-    // TODO: look for more cases in pokedex is modified
     // MODIFIES: this
     // EFFECTS: creates a Pokemon to add to the list of usable Pokemon based on user inputs
     private void runCreatePokemon() {
@@ -87,37 +88,44 @@ public class CreatePokemon {
         return true;
     }
 
-    // REQUIRES: input != ""
-    // EFFECTS: gets the user's name for their Pokemon creation
+    // EFFECTS: returns the user's name for their Pokemon creation
     private String setPokemonName() {
-        System.out.println("Pokemon Name: ");
+        System.out.println("Pokemon Name (don't enter null string):");
         return input.next();
     }
 
-    // REQUIRES: input != ""
     // EFFECTS: returns the type the user wants for their Pokemon creation
     private String setPokemonType() {
-        System.out.println("Type: ");
+        System.out.println("Type (don't enter null string):");
         return input.next();
     }
 
     // EFFECTS: returns the name for the move they are creating for their Pokemon creation
+    //          is "?"
     private String setMoveName(int counter) {
-        System.out.println("Move " + counter + " Name");
+        System.out.println("Move " + counter + " Name (don't enter null string):");
         return input.next();
     }
 
-    // EFFECTS: returns the number a user wants a certain stat to be, number must be greater than 0
+    // EFFECTS: returns the number a user wants a certain stat to be
     private int setStat(String stat) {
         boolean keepRunning = true;
         int statNum = 1;
+        String choice;
 
         while (keepRunning) {
-            System.out.println(stat + ": ");
-            statNum = input.nextInt();
+            System.out.println(stat + ":");
+            choice = input.next();
 
-            if (statNum > 0) {
-                keepRunning = false;
+            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
+            if (choice != null && choice.matches("[0-9.]+")) {
+                statNum = parseInt(choice);
+
+                if (statNum > 0) {
+                    keepRunning = false;
+                } else {
+                    System.out.println("Invalid input");
+                }
             } else {
                 System.out.println("Invalid input");
             }

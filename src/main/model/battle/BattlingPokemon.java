@@ -6,11 +6,7 @@ import model.pokedex.Pokemon;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO 7: create a class for pokemon that are used in battle
-// have to look up info like how stats and damage are calculated for battles
 // Represents a Pokemon being used to battle
-// Calculates the damage being produced during battle
-// * may have to expand more on the above description
 public class BattlingPokemon {
 
     String name;
@@ -57,10 +53,6 @@ public class BattlingPokemon {
         return moveSet;
     }
 
-    public void setHP(int hp) {
-        this.hp = hp;
-    }
-
     public int getHitChance() {
         return hitChance;
     }
@@ -72,20 +64,19 @@ public class BattlingPokemon {
     // MODIFIES: this
     // EFFECTS: sets hitChance to a random number in [1, 100]
     public void setHitChance() {
+        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         this.hitChance = 1 + rand.nextInt(100);
     }
 
-    // TODO: just link a reference to where i learned this code
     // MODIFIES: this
     // EFFECTS: sets damageRoll to a random number in [85, 100]
     public void setDamageRoll() {
+        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         this.damageRoll = 85 + rand.nextInt(16);
     }
 
-    // TODO: just link stackoverflow website where i learned to do this
-    // TODO: make it so if damage is greater than remaining health make it equal to remaining health
     // EFFECTS: returns the damage output by the Pokemon
     public int damageOutput(Move m, BattlingPokemon target) {
         setDamageRoll();
@@ -93,6 +84,7 @@ public class BattlingPokemon {
         usedMove(m);
 
         if (getHitChance() <= m.getAccuracy()) {
+            // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java
             return (int) Math.round(((42.0 * m.getPower() * getAtk() / target.getDef()) / 50.0 + 2)
                     * getDamageRoll() / 100.0);
         } else {
@@ -125,13 +117,18 @@ public class BattlingPokemon {
         }
     }
 
-    // TODO: Q: do I have to put this for requires, b/c the method is only called when this requires clause is true
     // REQUIRES: every move in moveSet has pp 0
     // MODIFIES: this
-    // EFFECTS: calculates the damage output by Pokemon using the move struggle. Also damages the pokemon for using this
+    // EFFECTS: calculates the damage output by Pokemon using the move struggle. Also damages the Pokemon for using this
     //          move
-    public void struggle() {
+    public int struggle(BattlingPokemon target) {
+        setDamageRoll();
+        // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java
+        int damage = (int) Math.round(((42.0 * 50 * getAtk() / target.getDef()) / 50.0 + 2) * getDamageRoll() / 100.0);
+        int recoil = damage / 2;
+        damageTaken(recoil);
 
+        return damage;
     }
 
 }

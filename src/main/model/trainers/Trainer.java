@@ -1,7 +1,6 @@
 package model.trainers;
 
 import model.battle.BattlingPokemon;
-import model.pokedex.Pokemon;
 
 import java.util.ArrayList;
 

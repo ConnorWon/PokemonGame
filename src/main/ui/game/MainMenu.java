@@ -3,8 +3,7 @@ package ui.game;
 import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
-import model.trainers.CpuTrainer;
-import model.trainers.UserTrainer;
+import model.trainers.Trainer;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -13,8 +12,8 @@ import java.util.Scanner;
 public class MainMenu {
 
     private Pokedex pokedex;
-    private CpuTrainer red;
-    private UserTrainer user;
+    private Trainer red;
+    private Trainer user;
     private Scanner input;
 
     // EFFECTS: opens the starting menu
@@ -43,6 +42,7 @@ public class MainMenu {
                 initCpuTrainer();
             } else if (choice.equals("c")) {
                 new CreatePokemon(pokedex);
+                initCpuTrainer();
             } else if (choice.equals("q")) {
                 System.out.println("Quitting...");
                 appRunning = false;
@@ -63,9 +63,9 @@ public class MainMenu {
     // MODIFIES: this
     // EFFECTS: initializes the user's trainer
     private void initUserTrainer() {
-        System.out.println("Name your trainer: ");
+        System.out.println("Name your trainer (don't enter null string): ");
         String name = input.next();
-        user = new UserTrainer(name);
+        user = new Trainer(name);
     }
 
     // MODIFIES: this
@@ -86,13 +86,14 @@ public class MainMenu {
     // MODIFIES: this
     // EFFECTS: initializes the CPU trainer
     private void initCpuTrainer() {
+        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
-        int p1 = rand.nextInt(4);
-        int p2 = rand.nextInt(4);
-        int p3 = rand.nextInt(4);
+        int p1 = rand.nextInt(pokedex.getUsablePokemon().size());
+        int p2 = rand.nextInt(pokedex.getUsablePokemon().size());
+        int p3 = rand.nextInt(pokedex.getUsablePokemon().size());
 
 
-        red = new CpuTrainer("Red");
+        red = new Trainer("Red");
         BattlingPokemon bp1 = new BattlingPokemon(pokedex.getUsablePokemon().get(p1));
         BattlingPokemon bp2 = new BattlingPokemon(pokedex.getUsablePokemon().get(p2));
         BattlingPokemon bp3 = new BattlingPokemon(pokedex.getUsablePokemon().get(p3));

@@ -2,18 +2,19 @@ package ui.game;
 
 import model.battle.BattlingPokemon;
 import model.pokedex.Move;
-import model.trainers.CpuTrainer;
-import model.trainers.UserTrainer;
+import model.trainers.Trainer;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 // Represents a Pokemon battle
 public class BattleGame {
 
-    private UserTrainer user;
-    private CpuTrainer red;
+    private Trainer user;
+    private Trainer red;
     private String userName;
     private String cpuName;
     private ArrayList<BattlingPokemon> userTeam;
@@ -24,9 +25,8 @@ public class BattleGame {
     private boolean battleContinue;
     private int index;
 
-    // TODO: Q: would I have to state what I am initializing in this constructor, like I would for my model classes
     // EFFECTS: starts the Pokemon battle
-    public BattleGame(UserTrainer user, CpuTrainer red) {
+    public BattleGame(Trainer user, Trainer red) {
         index = 0;
 
         this.user = user;
@@ -94,8 +94,6 @@ public class BattleGame {
         System.out.println(cpuCurrent.getName() + " - HP: " + cpuCurrent.getHP() + "\n");
     }
 
-    // TODO: make it so you can go back after selecting switch or move
-    // TODO: Q: modify chain?
     // MODIFIES: this
     // EFFECTS: displays the main battle menu and processes the user's inputs
     private void mainBattleMenu(int turn) {
@@ -114,7 +112,6 @@ public class BattleGame {
         }
     }
 
-    // TODO: include struggling
     // MODIFIES: this
     // EFFECTS: displays the moves of the user's Pokemon that is currently in battle
     private void displayMove() {
@@ -133,29 +130,34 @@ public class BattleGame {
         if (hasPP) {
             userMoveChoice();
         } else {
-//            useStruggle();
+            displayDamage(-1, userName, cpuName, userCurrent, cpuCurrent);
         }
 
-        // TODO: make it so cpu can use struggle too
         if (cpuCurrent.getHP() != 0) {
             cpuMoveChoice();
         }
     }
 
-    // TODO: make it so if all pp 0 use struggle
     // MODIFIES: this
     // EFFECTS: lets user select the move they want to use
     private void userMoveChoice() {
         boolean keepGoing = true;
 
         while (keepGoing) {
-            int choice = input.nextInt();
+            String choice = input.next();
 
-            if (userCurrent.getMoveSet().get(choice - 1).getPP() != 0) {
-                displayDamage(choice - 1, userName, cpuName, userCurrent, cpuCurrent);
-                keepGoing = false;
-            } else if (userCurrent.getMoveSet().get(choice - 1).getPP() == 0) {
-                System.out.println("Move is out of PP");
+            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
+            if (choice != null && choice.matches("[0-9.]+")) {
+                int num = parseInt(choice);
+
+                if (num > userCurrent.getMoveSet().size() || num <= 0) {
+                    System.out.println("Invalid input");
+                } else if (userCurrent.getMoveSet().get(num - 1).getPP() != 0) {
+                    displayDamage(num - 1, userName, cpuName, userCurrent, cpuCurrent);
+                    keepGoing = false;
+                } else {
+                    System.out.println("Move is out of PP");
+                }
             } else {
                 System.out.println("Invalid input");
             }
@@ -166,50 +168,71 @@ public class BattleGame {
     // EFFECTS: chooses move for cpu trainer
     private void cpuMoveChoice() {
         boolean keepGoing = true;
+        boolean hasPP = false;
 
-        while (keepGoing) {
-            Random rand = new Random();
-            int choice = rand.nextInt(4);
-
-            if (cpuCurrent.getMoveSet().get(choice).getPP() != 0) {
-                displayDamage(choice, cpuName, userName, cpuCurrent, userCurrent);
-                keepGoing = false;
+        for (Move m : cpuCurrent.getMoveSet()) {
+            if (m.getPP() != 0) {
+                hasPP = true;
             }
         }
-    }
 
-    // TODO: Q: what to do here for modifies as the things it is modifying are actually apart of this but are taken in
-    //          as parameters to avoid code duplication?
-    // MODIFIES: defBP, atkBP
-    // EFFECTS: displays the damage output by the Pokemon and the remaining health of the opposing Pokemon. If opposing
-    //          Pokemon health is 0, it faints
-    private void displayDamage(int move, String atkT, String defT, BattlingPokemon atkBP, BattlingPokemon defBP) {
-        int damage = atkBP.damageOutput(atkBP.getMoveSet().get(move), defBP);
-        defBP.damageTaken(damage);
-
-        System.out.println("\n" + atkT + "'s " + atkBP.getName() + " used " + atkBP.getMoveSet().get(move).getName());
-
-        if (damage == 0) {
-            System.out.println(atkBP.getMoveSet().get(move).getName() + " missed");
+        if (!hasPP) {
+            displayDamage(-1, cpuName, userName, cpuCurrent, userCurrent);
         } else {
-            System.out.println(defT + "'s " + defBP.getName() + " took " + damage + " damage");
+            while (keepGoing) {
+                // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
+                Random rand = new Random();
+                int choice = rand.nextInt(cpuCurrent.getMoveSet().size());
 
-            if (defBP.getHP() == 0) {
-                System.out.println(defT + "'s " + defBP.getName() + " has fainted");
-            } else {
-                System.out.println(defT + "'s " + defBP.getName() + " has " + defBP.getHP() + " HP");
+                if (cpuCurrent.getMoveSet().get(choice).getPP() != 0) {
+                    displayDamage(choice, cpuName, userName, cpuCurrent, userCurrent);
+                    keepGoing = false;
+                }
             }
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: displays the damage output and damage taken by a Pokemon that uses struggle
-    private void useStruggle() {
+    // EFFECTS: displays the damage output by the attacking Pokemon
+    private void displayDamage(int move, String atkT, String defT, BattlingPokemon atkBP, BattlingPokemon defBP) {
+        if (move < 0) {
+            int damage = atkBP.struggle(defBP);
+            int recoil = damage / 2;
+            defBP.damageTaken(damage);
 
+            System.out.println("\n" + atkT + "'s " + atkBP.getName() + " used struggle");
+            System.out.println(defT + "'s " + defBP.getName() + " took " + damage + " damage");
+            System.out.println(atkT + "'s " + atkBP.getName() + " took " + recoil + " as recoil damage");
+            remainingHP(defBP, defT);
+            remainingHP(atkBP, atkT);
+        } else {
+            int damage = atkBP.damageOutput(atkBP.getMoveSet().get(move), defBP);
+            defBP.damageTaken(damage);
+
+            System.out.println("\n" + atkT + "'s " + atkBP.getName() + " used "
+                    + atkBP.getMoveSet().get(move).getName());
+
+            if (damage == 0) {
+                System.out.println(atkBP.getMoveSet().get(move).getName() + " missed");
+            } else {
+                System.out.println(defT + "'s " + defBP.getName() + " took " + damage + " damage");
+                remainingHP(defBP, defT);
+            }
+        }
+    }
+
+    // EFFECTS: displays the remaining hp of a Pokemon after an attack. If the Pokemon has 0 health, it faints
+    private void remainingHP(BattlingPokemon bp, String t) {
+        if (bp.getHP() == 0) {
+            System.out.println(t + "'s " + bp.getName() + " has fainted");
+        } else {
+            System.out.println(t + "'s " + bp.getName() + " has " + bp.getHP() + " HP");
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: switches the Pokemon that is currently in the battle for the user
+    // EFFECTS: displays the Pokemon that can be switched to and lets user choose which Pokemon they want to swap into
+    //          battle
     private void switchPokemon() {
         int count = 1;
 
@@ -221,20 +244,36 @@ public class BattleGame {
 
         boolean keepGoing = true;
         while (keepGoing) {
-            int choice = input.nextInt();
+            String choice = input.next();
 
-            if (choice > userTeam.size() || choice <= 0) {
-                System.out.println("Invalid Choice. Choose again.");
-            } else if (userTeam.get(choice - 1).equals(userCurrent)) {
-                System.out.println(userCurrent.getName() + " is already in battle. Choose again.");
-            } else if (userTeam.get(choice - 1).getHP() == 0) {
-                System.out.println(userTeam.get(choice - 1).getName() + " has fainted. Choose again");
+            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
+            if (choice != null && choice.matches("[0-9.]+")) {
+                keepGoing = determineSwitch(choice);
             } else {
-                userCurrent = userTeam.get(choice - 1);
-                keepGoing = false;
+                System.out.println("Invalid input");
             }
         }
         cpuMoveChoice();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: determines which Pokemon the trainer wants to switch too, checking to see if switch is valid
+    private boolean determineSwitch(String c) {
+        int choice = parseInt(c);
+
+        if (choice > userTeam.size() || choice <= 0) {
+            System.out.println("Invalid Choice. Choose again.");
+            return true;
+        } else if (userTeam.get(choice - 1).equals(userCurrent)) {
+            System.out.println(userCurrent.getName() + " is already in battle. Choose again.");
+            return true;
+        } else if (userTeam.get(choice - 1).getHP() == 0) {
+            System.out.println(userTeam.get(choice - 1).getName() + " has fainted. Choose again");
+            return true;
+        } else {
+            userCurrent = userTeam.get(choice - 1);
+            return false;
+        }
     }
 
     // EFFECTS: determines if the battle is over. If over displays battle end text

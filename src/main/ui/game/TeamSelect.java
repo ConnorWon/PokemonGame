@@ -3,21 +3,22 @@ package ui.game;
 import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
-import model.trainers.CpuTrainer;
-import model.trainers.UserTrainer;
+import model.trainers.Trainer;
 
 import java.util.Scanner;
+
+import static java.lang.Integer.parseInt;
 
 // The menu that allows users to select their Pokemon team
 public class TeamSelect {
 
     private Pokedex pokedex;
-    private UserTrainer user;
-    private CpuTrainer red;
+    private Trainer user;
+    private Trainer red;
     private Scanner input;
 
     // EFFECTS: runs the team select menu
-    public TeamSelect(Pokedex p, UserTrainer user, CpuTrainer red) {
+    public TeamSelect(Pokedex p, Trainer user, Trainer red) {
         pokedex = p;
         this.user = user;
         this.red = red;
@@ -39,11 +40,11 @@ public class TeamSelect {
                 count++;
             }
 
-            int choice = input.nextInt();
+            String choice = input.next();
 
-            if (choice <= pokedex.getUsablePokemon().size()) {
-                BattlingPokemon bp = new BattlingPokemon(pokedex.getUsablePokemon().get(choice - 1));
-                user.addTeamMember(bp);
+            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
+            if (choice != null && choice.matches("[0-9.]+")) {
+                addToTeam(choice);
             } else {
                 System.out.println("Invalid input");
             }
@@ -67,6 +68,19 @@ public class TeamSelect {
             System.out.println("Select your second team member");
         } else if (num == 2) {
             System.out.println("Select your last team member");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds the chosen Pokemon to the user's team
+    private void addToTeam(String choice) {
+        int num = parseInt(choice);
+
+        if (num <= pokedex.getUsablePokemon().size()) {
+            BattlingPokemon bp = new BattlingPokemon(pokedex.getUsablePokemon().get(num - 1));
+            user.addTeamMember(bp);
+        } else {
+            System.out.println("Invalid input");
         }
     }
 }

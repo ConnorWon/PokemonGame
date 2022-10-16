@@ -47,6 +47,7 @@ public class TrainerTest {
         trainer.addTeamMember(battlePikachu);
         team.add(battlePikachu);
         assertEquals(team, trainer.getTeam());
+
         trainer.addTeamMember(battleCharmander);
         team.add(battleCharmander);
         assertEquals(team, trainer.getTeam());
@@ -55,12 +56,12 @@ public class TrainerTest {
     @Test
     public void testAddTeamMemberMoreThan3Times() {
         trainer.addTeamMember(battlePikachu);
-        team.add(battlePikachu);
         trainer.addTeamMember(battleCharmander);
-        team.add(battleCharmander);
+        trainer.addTeamMember(battlePikachu);
         trainer.addTeamMember(battlePikachu);
         team.add(battlePikachu);
-        trainer.addTeamMember(battlePikachu);
+        team.add(battleCharmander);
+        team.add(battlePikachu);
         assertEquals(team, trainer.getTeam());
     }
 
