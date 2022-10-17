@@ -10,14 +10,15 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests methods in the Trainer class
 public class TrainerTest {
 
-    Trainer trainer;
-    ArrayList<BattlingPokemon> team;
-    Pokemon pikachu;
-    Pokemon charmander;
-    BattlingPokemon battlePikachu;
-    BattlingPokemon battleCharmander;
+    private Trainer trainer;
+    private ArrayList<BattlingPokemon> team;
+    private Pokemon pikachu;
+    private Pokemon charmander;
+    private BattlingPokemon battlePikachu;
+    private BattlingPokemon battleCharmander;
 
     @BeforeEach
     public void runBefore() {
@@ -72,4 +73,5 @@ public class TrainerTest {
         trainer.clearTeam();
         assertTrue(trainer.getTeam().isEmpty());
     }
+
 }

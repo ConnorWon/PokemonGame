@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // Represents a list of all the Pokemon available to be used in battle
 public class Pokedex {
 
-    ArrayList<Pokemon> usablePokemon;
+    private ArrayList<Pokemon> usablePokemon;
 
     // EFFECTS: constructs a Pokedex with 0 Pokemon within it
     public Pokedex() {
@@ -17,7 +17,7 @@ public class Pokedex {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a Pokemon to the Pokedex of usable Pokemon
+    // EFFECTS: adds a Pokemon to the Pokedex
     public void addPokemonToPokedex(Pokemon p) {
         usablePokemon.add(p);
     }

@@ -21,7 +21,7 @@ public class CreatePokemon {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a Pokemon to add to the list of usable Pokemon based on user inputs
+    // EFFECTS: creates a Pokemon to add to the list of Pokemon usable for battle based on the user's inputs
     private void runCreatePokemon() {
         boolean keepRunning = true;
 
@@ -40,7 +40,7 @@ public class CreatePokemon {
             printPokemonSpecs(pokemon);
             pokedex.addPokemonToPokedex(pokemon);
 
-            keepRunning = repeatStep(false);
+            keepRunning = repeatStep("Do you want to create another Pokemon (y/n)? ");
         }
     }
 
@@ -58,22 +58,20 @@ public class CreatePokemon {
             p.addMoveToMoveSet(moveName, power, pp, accuracy);
 
             if (p.getMoveSet().size() < 4) {
-                end = repeatStep(true);
+                end = repeatStep("Do you want to add another move (y/n)? ");
                 counter++;
             }
         }
     }
 
-    // EFFECTS: returns whether user wants to repeat step
-    private boolean repeatStep(boolean move) {
+    // REQUIRES: step to be a question
+    // EFFECTS: returns whether user wants to repeat step or not
+    private boolean repeatStep(String step) {
         boolean keepRunning = true;
 
         while (keepRunning) {
-            if (move) {
-                System.out.println("Do you want to add another move (y/n)? ");
-            } else {
-                System.out.println("Do you want to create another Pokemon (y/n)? ");
-            }
+            System.out.println(step);
+
             String another = input.next();
             another = another.toLowerCase();
 
@@ -101,7 +99,6 @@ public class CreatePokemon {
     }
 
     // EFFECTS: returns the name for the move they are creating for their Pokemon creation
-    //          is "?"
     private String setMoveName(int counter) {
         System.out.println("Move " + counter + " Name (don't enter null string):");
         return input.next();

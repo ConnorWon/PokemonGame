@@ -4,11 +4,11 @@ import model.battle.BattlingPokemon;
 
 import java.util.ArrayList;
 
-// Represents a Pokemon Trainer with a name and Pokemon team
+// Represents a Pokemon Trainer with a name and a battle ready Pokemon team
 public class Trainer {
 
-    protected String name;
-    protected ArrayList<BattlingPokemon> team;
+    private String name;
+    private ArrayList<BattlingPokemon> team;
 
     // EFFECTS: constructs a trainer with given name, and empty team
     public Trainer(String name) {
@@ -25,7 +25,7 @@ public class Trainer {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a Pokemon to the team, with a maximum of 3 Pokemon
+    // EFFECTS: adds a battle ready Pokemon to the team, with a maximum of 3 Pokemon
     public void addTeamMember(BattlingPokemon p) {
         if (team.size() < 3) {
             team.add(p);

@@ -22,7 +22,6 @@ public class BattleGame {
     private BattlingPokemon userCurrent;
     private BattlingPokemon cpuCurrent;
     private Scanner input;
-    private boolean battleContinue;
     private int index;
 
     // EFFECTS: starts the Pokemon battle
@@ -36,7 +35,7 @@ public class BattleGame {
         cpuName = red.getName();
         userTeam = user.getTeam();
         cpuTeam = red.getTeam();
-        userCurrent = userTeam.get(0);
+        userCurrent = userTeam.get(index);
         cpuCurrent = cpuTeam.get(index);
 
         input = new Scanner(System.in);
@@ -53,7 +52,7 @@ public class BattleGame {
         System.out.println(userName + " sends out " + userCurrent.getName());
         System.out.println(cpuName + " sends out " + cpuCurrent.getName());
 
-        battleContinue = true;
+        boolean battleContinue = true;
         int turn = 1;
 
         while (battleContinue) {
@@ -73,11 +72,10 @@ public class BattleGame {
     }
 
     // MODIFIES: this
-    // EFFECTS: switch fainted Pokemon out of battle
+    // EFFECTS: determines if a Pokemon on the battlefield has fainted, if so switches them out
     private void pokemonFainted() {
         if (userCurrent.getHP() == 0) {
             switchPokemon();
-            System.out.println(userName + " sends out " + userCurrent.getName());
         }
         if (cpuCurrent.getHP() == 0) {
             index++;
@@ -95,7 +93,7 @@ public class BattleGame {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays the main battle menu and processes the user's inputs
+    // EFFECTS: displays the main battle menu and processes the user's inputs for the menu
     private void mainBattleMenu(int turn) {
         System.out.println("Turn " + turn);
         System.out.println("m = MOVE \t s = SWITCH");
@@ -106,14 +104,19 @@ public class BattleGame {
         if (choice.equals("m")) {
             displayMove();
         } else if (choice.equals("s")) {
-            switchPokemon();
+            if (cannotSwitch()) {
+                System.out.println("Your other Pokemon have all fainted. You must attack.");
+            } else {
+                switchPokemon();
+                cpuMoveChoice();
+            }
         } else {
             System.out.println("Invalid input");
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: displays the moves of the user's Pokemon that is currently in battle
+    // EFFECTS: displays the moves of the Pokemon that is currently in battle for the user
     private void displayMove() {
         int num = 1;
         boolean hasPP = false;
@@ -139,7 +142,7 @@ public class BattleGame {
     }
 
     // MODIFIES: this
-    // EFFECTS: lets user select the move they want to use
+    // EFFECTS: lets the user select the move they want their Pokemon to use
     private void userMoveChoice() {
         boolean keepGoing = true;
 
@@ -165,7 +168,7 @@ public class BattleGame {
     }
 
     // MODIFIES: this
-    // EFFECTS: chooses move for cpu trainer
+    // EFFECTS: chooses the move the cpu's Pokemon will use
     private void cpuMoveChoice() {
         boolean keepGoing = true;
         boolean hasPP = false;
@@ -173,6 +176,7 @@ public class BattleGame {
         for (Move m : cpuCurrent.getMoveSet()) {
             if (m.getPP() != 0) {
                 hasPP = true;
+                break;
             }
         }
 
@@ -231,8 +235,7 @@ public class BattleGame {
     }
 
     // MODIFIES: this
-    // EFFECTS: displays the Pokemon that can be switched to and lets user choose which Pokemon they want to swap into
-    //          battle
+    // EFFECTS: displays the user's Pokemon team and lets the user choose which Pokemon they want to swap into battle
     private void switchPokemon() {
         int count = 1;
 
@@ -253,12 +256,12 @@ public class BattleGame {
                 System.out.println("Invalid input");
             }
         }
-        cpuMoveChoice();
     }
 
     // MODIFIES: this
-    // EFFECTS: determines which Pokemon the trainer wants to switch too, checking to see if switch is valid
+    // EFFECTS: determines which Pokemon the user wants to switch to, checking to see if the switch is valid
     private boolean determineSwitch(String c) {
+        // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
         int choice = parseInt(c);
 
         if (choice > userTeam.size() || choice <= 0) {
@@ -272,11 +275,12 @@ public class BattleGame {
             return true;
         } else {
             userCurrent = userTeam.get(choice - 1);
+            System.out.println("\n" + userName + " sends out " + userCurrent.getName());
             return false;
         }
     }
 
-    // EFFECTS: determines if the battle is over. If over displays battle end text
+    // EFFECTS: displays battle end text
     private void battleEnd() {
         if (allPokemonFainted(userTeam) && allPokemonFainted(cpuTeam)) {
             System.out.println("Battle Over!");
@@ -288,9 +292,21 @@ public class BattleGame {
         }
     }
 
-    // EFFECTS: determines if all the Pokemon of a trainer has fainted
+    // EFFECTS: determines if all the Pokemon of a trainer have fainted
     private boolean allPokemonFainted(ArrayList<BattlingPokemon> team) {
         return team.get(0).getHP() == 0 && team.get(1).getHP() == 0 && team.get(2).getHP() == 0;
+    }
+
+    // EFFECTS: returns true if there isn't a Pokemon the user can switch to
+    private boolean cannotSwitch() {
+        int bp1HP = userTeam.get(0).getHP();
+        int bp2HP = userTeam.get(1).getHP();
+        int bp3HP = userTeam.get(2).getHP();
+        boolean combo1 = bp1HP == 0 && bp2HP == 0;
+        boolean combo2 = bp1HP == 0 && bp3HP == 0;
+        boolean combo3 = bp2HP == 0 && bp3HP == 0;
+
+        return combo1 || combo2 || combo3;
     }
 
 }

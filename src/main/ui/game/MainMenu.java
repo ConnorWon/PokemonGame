@@ -25,7 +25,6 @@ public class MainMenu {
     // EFFECTS: processes user inputs for the main menu
     private void runMainMenu() {
         boolean appRunning = true;
-
         initInput();
         initUserTrainer();
         initPokedex();
@@ -33,7 +32,6 @@ public class MainMenu {
 
         while (appRunning) {
             displayMenu();
-
             String choice = input.next();
             choice = choice.toLowerCase();
 
@@ -59,7 +57,6 @@ public class MainMenu {
         input.useDelimiter("\n");
     }
 
-    // REQUIRES: input != ""
     // MODIFIES: this
     // EFFECTS: initializes the user's trainer
     private void initUserTrainer() {
@@ -69,7 +66,7 @@ public class MainMenu {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes starting Pokemon
+    // EFFECTS: initializes the starting Pokedex
     private void initPokedex() {
         Pokemon pikachu = initPikachu();
         Pokemon charmander = initCharmander();
@@ -108,7 +105,7 @@ public class MainMenu {
         System.out.println("Select: 'b = Battle' | 'c = Create Pokemon' | 'q = Quit'");
     }
 
-    // EFFECTS: returns the starting Pokemon Pikachu
+    // EFFECTS: creates and returns the starting Pokemon Pikachu
     private Pokemon initPikachu() {
         Pokemon pikachu = new Pokemon("Pikachu", "Electric", 35, 55, 30);
         pikachu.addMoveToMoveSet("Thunderbolt", 90, 15, 100);
@@ -119,7 +116,7 @@ public class MainMenu {
         return pikachu;
     }
 
-    // EFFECTS: returns the starting Pokemon Charmander
+    // EFFECTS: creates and returns the starting Pokemon Charmander
     private Pokemon initCharmander() {
         Pokemon charmander = new Pokemon("Charmander", "Fire", 39, 52, 43);
         charmander.addMoveToMoveSet("Flamethrower", 90, 15, 100);
@@ -130,7 +127,7 @@ public class MainMenu {
         return charmander;
     }
 
-    // EFFECTS: returns the starting Pokemon Squirtle
+    // EFFECTS: creates and returns the starting Pokemon Squirtle
     private Pokemon initSquirtle() {
         Pokemon squirtle = new Pokemon("Squirtle", "Water", 44, 48, 65);
         squirtle.addMoveToMoveSet("Hydro Pump", 110, 5, 80);
@@ -141,7 +138,7 @@ public class MainMenu {
         return squirtle;
     }
 
-    // EFFECTS: returns the starting Pokemon Bulbasaur
+    // EFFECTS: creates and returns the starting Pokemon Bulbasaur
     private Pokemon initBulbasaur() {
         Pokemon bulbasaur = new Pokemon("Bulbasaur", "Grass", 45, 49, 49);
         bulbasaur.addMoveToMoveSet("Solar Beam", 120, 10, 100);
@@ -151,4 +148,5 @@ public class MainMenu {
 
         return bulbasaur;
     }
+
 }

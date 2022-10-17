@@ -6,19 +6,19 @@ import model.pokedex.Pokemon;
 import java.util.ArrayList;
 import java.util.Random;
 
-// Represents a Pokemon being used to battle
+// Represents a Pokemon ready to be used in battle
 public class BattlingPokemon {
 
-    String name;
-    String type;
-    int hp;
-    int atk;
-    int def;
-    ArrayList<Move> moveSet;
-    int hitChance;
-    int damageRoll;
+    private String name;
+    private String type;
+    private int hp;
+    private int atk;
+    private int def;
+    private ArrayList<Move> moveSet;
+    private int hitChance;
+    private int damageRoll;
 
-    // EFFECTS: constructs a battling Pokemon using the info from the given Pokemon
+    // EFFECTS: constructs a battle ready Pokemon using the info from the given Pokemon
     public BattlingPokemon(Pokemon p) {
         this.name = p.getName();
         this.type = p.getType();
@@ -77,7 +77,7 @@ public class BattlingPokemon {
         this.damageRoll = 85 + rand.nextInt(16);
     }
 
-    // EFFECTS: returns the damage output by the Pokemon
+    // EFFECTS: returns the damage output by the Pokemon based on its move m and the Pokemon its targeting
     public int damageOutput(Move m, BattlingPokemon target) {
         setDamageRoll();
         setHitChance();
@@ -92,8 +92,9 @@ public class BattlingPokemon {
         }
     }
 
+    // REQUIRES: damage >= 0
     // MODIFIES: this
-    // EFFECTS: calculates the damage taken based on the number given and changes the Pokemon's HP accordingly
+    // EFFECTS: processes the damage a Pokemon has taken
     public void damageTaken(int damage) {
         if (damage > this.hp) {
             this.hp = 0;
@@ -102,14 +103,16 @@ public class BattlingPokemon {
         }
     }
 
+    // REQUIRES: Move m to have PP
     // MODIFIES: m
-    // EFFECTS: decreases the pp of the move by 1
+    // EFFECTS: decreases the PP of the move by 1
     public void usedMove(Move m) {
         m.setPP(m.getPP() - 1);
     }
 
+    // REQUIRES: moveSet to not be empty
     // MODIFIES: this
-    // EFFECTS: construct move set for battling Pokemon
+    // EFFECTS: constructs the move set for the battling Pokemon
     private void constructMoveSet(ArrayList<Move> moveSet) {
         for (Move m : moveSet) {
             Move move = new Move(m.getName(), m.getPower(), m.getPP(),m.getAccuracy());
@@ -117,10 +120,10 @@ public class BattlingPokemon {
         }
     }
 
-    // REQUIRES: every move in moveSet has pp 0
+    // REQUIRES: every move in moveSet has PP 0
     // MODIFIES: this
-    // EFFECTS: calculates the damage output by Pokemon using the move struggle. Also damages the Pokemon for using this
-    //          move
+    // EFFECTS: calculates the damage output by the Pokemon using the move struggle based on target Pokemon. Also
+    //          calculates the recoil damage the Pokemon using struggle takes
     public int struggle(BattlingPokemon target) {
         setDamageRoll();
         // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java

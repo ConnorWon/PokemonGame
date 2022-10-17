@@ -7,11 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests methods in the Pokedex class
 class PokedexTest {
 
-    Pokedex pokedex;
-    Pokemon pikachu = new Pokemon("Pikachu", "Electric", 35, 50, 40);
-    Pokemon charmander = new Pokemon("Charmander", "Fire", 25, 45, 35);
+    private Pokedex pokedex;
+    private Pokemon pikachu = new Pokemon("Pikachu", "Electric", 35, 50, 40);
+    private Pokemon charmander = new Pokemon("Charmander", "Fire", 25, 45, 35);
 
     @BeforeEach
     public void runBefore() {

@@ -26,20 +26,13 @@ public class TeamSelect {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates the users Pokemon team
+    // EFFECTS: creates the Pokemon team the user will use for battle
     private void runTeamSelect() {
         initInput();
 
         while (user.getTeam().size() < 3) {
-            int count = 1;
-
             displayBattleMenu(user.getTeam().size());
-
-            for (Pokemon p : pokedex.getUsablePokemon()) {
-                System.out.println(count + " -> " + p.getName());
-                count++;
-            }
-
+            displayPokemonInPokedex();
             String choice = input.next();
 
             // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
@@ -71,9 +64,19 @@ public class TeamSelect {
         }
     }
 
+    // EFFECTS: displays the Pokemon the user can choose for their team
+    private void displayPokemonInPokedex() {
+        int count = 1;
+        for (Pokemon p : pokedex.getUsablePokemon()) {
+            System.out.println(count + " -> " + p.getName());
+            count++;
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: adds the chosen Pokemon to the user's team
     private void addToTeam(String choice) {
+        // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
         int num = parseInt(choice);
 
         if (num <= pokedex.getUsablePokemon().size()) {
@@ -83,5 +86,6 @@ public class TeamSelect {
             System.out.println("Invalid input");
         }
     }
+
 }
 

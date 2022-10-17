@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests methods in the Pokemon class
 public class PokemonTest {
 
-    Pokemon pikachu;
+    private Pokemon pikachu;
 
     @BeforeEach
     public void runBefore() {
@@ -94,4 +95,5 @@ public class PokemonTest {
         assertEquals(15, move4.getPP());
         assertEquals(75, move4.getAccuracy());
     }
+
 }

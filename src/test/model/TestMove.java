@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests methods in the Move class
 public class TestMove {
 
-    Move move;
+    private Move move;
 
     @BeforeEach
     public void runBefore() {

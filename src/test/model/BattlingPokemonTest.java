@@ -8,16 +8,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// tests methods in the Battling Pokemon class
 public class BattlingPokemonTest {
 
-    Pokemon pikachuOneMove;
-    Pokemon pikachuNoPP;
-    Pokemon pikachuMiss;
-    BattlingPokemon battlePikachuOneMove;
-    BattlingPokemon battlePikachuNoPP;
-    BattlingPokemon battlePikachuMaxMoves;
-    BattlingPokemon battlePikachuTwoMoves;
-    BattlingPokemon battlePikachuMiss;
+    private Pokemon pikachuOneMove;
+    private Pokemon pikachuNoPP;
+    private Pokemon pikachuMiss;
+    private BattlingPokemon battlePikachuOneMove;
+    private BattlingPokemon battlePikachuNoPP;
+    private BattlingPokemon battlePikachuMaxMoves;
+    private BattlingPokemon battlePikachuTwoMoves;
+    private BattlingPokemon battlePikachuMiss;
 
     @BeforeEach
     public void runBefore() {
@@ -176,4 +177,5 @@ public class BattlingPokemonTest {
         assertEquals(expectedDamage, damage);
         assertEquals(maxHP - recoil, battlePikachuNoPP.getHP());
     }
+
 }

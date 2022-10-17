@@ -28,6 +28,7 @@ I have enjoyed for so long.
 to the list of Pokemon usable for battle
 - As a user, I want to be able to battle a computer controlled opponent in a 3 v 3 Pokemon battle
 - As a user, I want to be able to select the 3 Pokemon that I use for battle
-- As a user, during the battle I want to be able to select the move my Pokemon will use to attack the opponent
+- As a user, during the battle I want to be able to select the move my Pokemon will use to attack the opponent's
+Pokemon
 - As a user, during the battle I want to be able to swap the Pokemon that I currently have in the battle for 
 another Pokemon on my team
