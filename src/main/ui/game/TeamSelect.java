@@ -7,6 +7,7 @@ import model.trainers.Trainer;
 
 import java.util.Scanner;
 
+// TODO: make it so the user can choose to use the same team
 import static java.lang.Integer.parseInt;
 
 // The menu that allows users to select their Pokemon team

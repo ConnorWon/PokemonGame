@@ -1,11 +1,15 @@
 package model.trainers;
 
 import model.battle.BattlingPokemon;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
+// TODO: add a win loss record for the user trainer, may have to then split off to user trainer class
 // Represents a Pokemon Trainer with a name and a battle ready Pokemon team
-public class Trainer {
+public class Trainer implements Writable {
 
     private String name;
     private ArrayList<BattlingPokemon> team;
@@ -36,6 +40,13 @@ public class Trainer {
     // EFFECTS: clears the trainers team
     public void clearTeam() {
         team.clear();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        return json;
     }
 
 }

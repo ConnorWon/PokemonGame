@@ -1,0 +1,45 @@
+{
+    "pokedex": {"pokemon": [
+        {
+            "def": 30,
+            "moves": [
+                {
+                    "pp": 15,
+                    "name": "Thunderbolt",
+                    "accuracy": 100,
+                    "power": 90
+                },
+                {
+                    "pp": 15,
+                    "name": "Iron Tail",
+                    "accuracy": 75,
+                    "power": 100
+                },
+                {
+                    "pp": 15,
+                    "name": "Volt Tackle",
+                    "accuracy": 100,
+                    "power": 120
+                }
+            ],
+            "name": "Pikachu",
+            "hp": 35,
+            "atk": 55,
+            "type": "Electric"
+        },
+        {
+            "def": 43,
+            "moves": [{
+                "pp": 15,
+                "name": "Flamethrower",
+                "accuracy": 100,
+                "power": 90
+            }],
+            "name": "Charmander",
+            "hp": 39,
+            "atk": 52,
+            "type": "Fire"
+        }
+    ]},
+    "user": {"name": "testUser"}
+}

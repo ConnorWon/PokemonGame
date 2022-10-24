@@ -1,7 +1,10 @@
 package model.pokedex;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a single move of a Pokemon. Has a name, power, pp (amount of times a move can be used), and move accuracy
-public class Move {
+public class Move implements Writable {
 
     private String name;
     private int power;
@@ -35,5 +38,17 @@ public class Move {
 
     public void setPP(int pp) {
         this.pp = pp;
+    }
+
+    // Based on the supplied Workroom example for CPSC 210
+    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("power", power);
+        json.put("pp", pp);
+        json.put("accuracy", accuracy);
+        return json;
     }
 }

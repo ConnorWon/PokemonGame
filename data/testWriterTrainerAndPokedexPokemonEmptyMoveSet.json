@@ -1,0 +1,21 @@
+{
+    "pokedex": {"pokemon": [
+        {
+            "def": 30,
+            "moves": [],
+            "name": "Pikachu",
+            "hp": 35,
+            "atk": 55,
+            "type": "Electric"
+        },
+        {
+            "def": 43,
+            "moves": [],
+            "name": "Charmander",
+            "hp": 39,
+            "atk": 52,
+            "type": "Fire"
+        }
+    ]},
+    "user": {"name": "testUser"}
+}
