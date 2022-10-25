@@ -44,6 +44,7 @@ public class BattleGame {
         runBattleGame();
     }
 
+    // TODO: make it so user's team does not get cleared after battle
     // MODIFIES: this
     // EFFECTS: runs the Pokemon battle
     private void runBattleGame() {

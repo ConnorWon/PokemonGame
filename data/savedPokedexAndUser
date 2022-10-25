@@ -1,0 +1,197 @@
+{
+    "pokedex": {"pokemon": [
+        {
+            "def": 30,
+            "moves": [
+                {
+                    "pp": 15,
+                    "name": "Thunderbolt",
+                    "accuracy": 100,
+                    "power": 90
+                },
+                {
+                    "pp": 15,
+                    "name": "Iron Tail",
+                    "accuracy": 75,
+                    "power": 100
+                },
+                {
+                    "pp": 15,
+                    "name": "Volt Tackle",
+                    "accuracy": 100,
+                    "power": 120
+                },
+                {
+                    "pp": 30,
+                    "name": "Quick Attack",
+                    "accuracy": 100,
+                    "power": 40
+                }
+            ],
+            "name": "Pikachu",
+            "hp": 35,
+            "atk": 55,
+            "type": "Electric"
+        },
+        {
+            "def": 43,
+            "moves": [
+                {
+                    "pp": 15,
+                    "name": "Flamethrower",
+                    "accuracy": 100,
+                    "power": 90
+                },
+                {
+                    "pp": 15,
+                    "name": "Fire Spin",
+                    "accuracy": 85,
+                    "power": 35
+                },
+                {
+                    "pp": 20,
+                    "name": "Dragon Breath",
+                    "accuracy": 100,
+                    "power": 60
+                },
+                {
+                    "pp": 20,
+                    "name": "Slash",
+                    "accuracy": 100,
+                    "power": 70
+                }
+            ],
+            "name": "Charmander",
+            "hp": 39,
+            "atk": 52,
+            "type": "Fire"
+        },
+        {
+            "def": 65,
+            "moves": [
+                {
+                    "pp": 5,
+                    "name": "Hydro Pump",
+                    "accuracy": 80,
+                    "power": 110
+                },
+                {
+                    "pp": 20,
+                    "name": "Water Pulse",
+                    "accuracy": 100,
+                    "power": 60
+                },
+                {
+                    "pp": 25,
+                    "name": "Bite",
+                    "accuracy": 100,
+                    "power": 60
+                },
+                {
+                    "pp": 40,
+                    "name": "Rapid Spin",
+                    "accuracy": 100,
+                    "power": 50
+                }
+            ],
+            "name": "Squirtle",
+            "hp": 44,
+            "atk": 48,
+            "type": "Water"
+        },
+        {
+            "def": 49,
+            "moves": [
+                {
+                    "pp": 10,
+                    "name": "Solar Beam",
+                    "accuracy": 100,
+                    "power": 120
+                },
+                {
+                    "pp": 15,
+                    "name": "Seed Bomb",
+                    "accuracy": 100,
+                    "power": 80
+                },
+                {
+                    "pp": 25,
+                    "name": "Razor Leaf",
+                    "accuracy": 95,
+                    "power": 55
+                },
+                {
+                    "pp": 25,
+                    "name": "Vine Whip",
+                    "accuracy": 100,
+                    "power": 45
+                }
+            ],
+            "name": "Bulbasaur",
+            "hp": 45,
+            "atk": 49,
+            "type": "Grass"
+        },
+        {
+            "def": 100,
+            "moves": [
+                {
+                    "pp": 30,
+                    "name": "Water Gun",
+                    "accuracy": 100,
+                    "power": 40
+                },
+                {
+                    "pp": 5,
+                    "name": "Hydro Pump",
+                    "accuracy": 70,
+                    "power": 110
+                },
+                {
+                    "pp": 15,
+                    "name": "Drill Peck",
+                    "accuracy": 100,
+                    "power": 90
+                }
+            ],
+            "name": "Piplup",
+            "hp": 100,
+            "atk": 100,
+            "type": "Water"
+        },
+        {
+            "def": 90,
+            "moves": [
+                {
+                    "pp": 20,
+                    "name": "Psychic",
+                    "accuracy": 100,
+                    "power": 80
+                },
+                {
+                    "pp": 20,
+                    "name": "Shadow Ball",
+                    "accuracy": 100,
+                    "power": 80
+                },
+                {
+                    "pp": 15,
+                    "name": "Thunderbolt",
+                    "accuracy": 100,
+                    "power": 90
+                },
+                {
+                    "pp": 20,
+                    "name": "Psybeam",
+                    "accuracy": 100,
+                    "power": 60
+                }
+            ],
+            "name": "Espeon",
+            "hp": 100,
+            "atk": 110,
+            "type": "Psychic"
+        }
+    ]},
+    "user": {"name": "Connor"}
+}

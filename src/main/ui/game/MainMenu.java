@@ -4,20 +4,31 @@ import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
 // The starting menu
 public class MainMenu {
 
+    private static final String DATA_STORE = "./data/savedPokedexAndUser";
     private Pokedex pokedex;
     private Trainer red;
     private Trainer user;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
 
     // EFFECTS: opens the starting menu
     public MainMenu() {
+        jsonWriter = new JsonWriter(DATA_STORE);
+        jsonReader = new JsonReader(DATA_STORE);
+        initInput();
         runMainMenu();
     }
 
@@ -25,9 +36,7 @@ public class MainMenu {
     // EFFECTS: processes user inputs for the main menu
     private void runMainMenu() {
         boolean appRunning = true;
-        initInput();
-        initUserTrainer();
-        initPokedex();
+        initData();
         initCpuTrainer();
 
         while (appRunning) {
@@ -42,11 +51,85 @@ public class MainMenu {
                 new CreatePokemon(pokedex);
                 initCpuTrainer();
             } else if (choice.equals("q")) {
+                determineSaveData();
                 System.out.println("Quitting...");
                 appRunning = false;
             } else {
                 System.out.println("Invalid input");
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes the data to be used for the app
+    private void initData() {
+        boolean keepGoing = true;
+
+        while (keepGoing) {
+            System.out.println("Do you want to load the data from your previous save (y/n)?");
+            String choice = input.next();
+            choice = choice.toLowerCase();
+
+            if (choice.equals("y")) {
+                try {
+                    loadData();
+                } catch (IOException e) {
+                    System.out.println("Unable to read from file: " + DATA_STORE);
+                    initUserTrainer();
+                    initPokedex();
+                }
+                keepGoing = false;
+            } else if (choice.equals("n")) {
+                initUserTrainer();
+                initPokedex();
+                keepGoing = false;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Pokedex and user's trainer info from file
+    private void loadData() throws IOException {
+        System.out.println("Loading data...");
+        pokedex = jsonReader.readForPokedex();
+        user = jsonReader.readForTrainer();
+        System.out.println("Loaded data from " + DATA_STORE);
+    }
+
+    // EFFECTS: determines if user wants to save their Pokedex and trainer info to file
+    private void determineSaveData() {
+        boolean keepGoing = true;
+
+        while (keepGoing) {
+            System.out.println("Do you want to save your data (y/n)?");
+            String choice = input.next();
+            choice = choice.toLowerCase();
+
+            if (choice.equals("y")) {
+                saveData();
+                keepGoing = false;
+            } else if (choice.equals("n")) {
+                keepGoing = false;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
+    }
+
+    // Based on the supplied Workroom example for CPSC 210
+    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: saves the Pokedex and user's trainer info to file
+    private void saveData() {
+        try {
+            System.out.println("Saving Data...");
+            jsonWriter.open();
+            jsonWriter.write(pokedex, user);
+            jsonWriter.close();
+            System.out.println("Data has been saved to " + DATA_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + DATA_STORE);
         }
     }
 
