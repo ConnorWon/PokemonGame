@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// tests methods in the JsonWriter class
 public class JsonWriterTest extends JsonTest{
 
     Pokemon pikachu;

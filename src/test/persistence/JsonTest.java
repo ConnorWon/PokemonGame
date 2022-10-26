@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// provides useful methods for the Json test classes
 public class JsonTest {
 
     protected void checkPokemon(String name, String type, int hp, int atk, int def, Pokemon p) {

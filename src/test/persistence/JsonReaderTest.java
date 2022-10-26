@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// tests methods in the JsonReader class
 public class JsonReaderTest extends JsonTest{
 
     @Test
@@ -38,7 +40,7 @@ public class JsonReaderTest extends JsonTest{
 
     @Test
     public void testTrainerReaderPokedexPresent() {
-        JsonReader reader = new JsonReader("./data/testPokedexReaderTrainerPresent.json");
+        JsonReader reader = new JsonReader("./data/testReaderPokedexAndTrainerPresent.json");
         try {
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
@@ -135,7 +137,7 @@ public class JsonReaderTest extends JsonTest{
 
     @Test
     public void testPokedexReaderTrainerPresent() {
-        JsonReader reader = new JsonReader("./data/testPokedexReaderTrainerPresent.json");
+        JsonReader reader = new JsonReader("./data/testReaderPokedexAndTrainerPresent.json");
         try {
             Pokedex pokedex = reader.readForPokedex();
             ArrayList<Pokemon> usablePokemon = pokedex.getUsablePokemon();

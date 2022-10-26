@@ -1,6 +1,7 @@
 package model.trainers;
 
 import model.battle.BattlingPokemon;
+import model.pokedex.Move;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -40,6 +41,17 @@ public class Trainer implements Writable {
     // EFFECTS: clears the trainers team
     public void clearTeam() {
         team.clear();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: restores the HP and PP of Pokemon
+    public void restorePokemonHPAndPP() {
+        for (BattlingPokemon bp : team) {
+            bp.restoreHP();
+            for (Move m : bp.getMoveSet()) {
+                m.restorePP();
+            }
+        }
     }
 
     @Override

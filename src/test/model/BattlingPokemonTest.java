@@ -17,7 +17,6 @@ public class BattlingPokemonTest {
     private BattlingPokemon battlePikachuOneMove;
     private BattlingPokemon battlePikachuNoPP;
     private BattlingPokemon battlePikachuMaxMoves;
-    private BattlingPokemon battlePikachuTwoMoves;
     private BattlingPokemon battlePikachuMiss;
 
     @BeforeEach
@@ -138,35 +137,11 @@ public class BattlingPokemonTest {
     }
 
     @Test
-    public void testUsedMove() {
-        battlePikachuOneMove.usedMove(battlePikachuOneMove.getMoveSet().get(0));
-        assertEquals(14, battlePikachuOneMove.getMoveSet().get(0).getPP());
-    }
-
-    @Test
-    public void testUsedMoveMultipleTimes() {
-        battlePikachuOneMove.usedMove(battlePikachuOneMove.getMoveSet().get(0));
-        assertEquals(14, battlePikachuOneMove.getMoveSet().get(0).getPP());
-        battlePikachuOneMove.usedMove(battlePikachuOneMove.getMoveSet().get(0));
-        assertEquals(13, battlePikachuOneMove.getMoveSet().get(0).getPP());
-    }
-
-    @Test
-    public void testUsedMoveDifferentMoves() {
-        pikachuOneMove.addMoveToMoveSet("Iron Tail", 100, 10, 75);
-        battlePikachuTwoMoves = new BattlingPokemon(pikachuOneMove);
-        battlePikachuTwoMoves.usedMove(battlePikachuTwoMoves.getMoveSet().get(0));
-        assertEquals(14, battlePikachuTwoMoves.getMoveSet().get(0).getPP());
-        battlePikachuTwoMoves.usedMove(battlePikachuTwoMoves.getMoveSet().get(1));
-        assertEquals(9, battlePikachuTwoMoves.getMoveSet().get(1).getPP());
-    }
-
-    @Test
     public void testStruggle() {
         pikachuNoPP = new Pokemon("Pikachu", "Electric", 35, 55, 50);
         pikachuNoPP.addMoveToMoveSet("Thunderbolt", 100, 1, 1);
         battlePikachuNoPP = new BattlingPokemon(pikachuNoPP);
-        battlePikachuNoPP.usedMove(battlePikachuNoPP.getMoveSet().get(0));
+        battlePikachuNoPP.getMoveSet().get(0).usedMove();
 
         int maxHP = battlePikachuNoPP.getHP();
         int damage = battlePikachuNoPP.struggle(battlePikachuNoPP);
@@ -176,6 +151,21 @@ public class BattlingPokemonTest {
 
         assertEquals(expectedDamage, damage);
         assertEquals(maxHP - recoil, battlePikachuNoPP.getHP());
+    }
+
+    @Test
+    public void testRestoreHP() {
+        battlePikachuOneMove.damageTaken(10);
+        assertEquals(170, battlePikachuOneMove.getHP());
+        battlePikachuOneMove.restoreHP();
+        assertEquals(180, battlePikachuOneMove.getHP());
+    }
+
+    @Test
+    public void testRestoreHPAtFull() {
+        assertEquals(180, battlePikachuOneMove.getHP());
+        battlePikachuOneMove.restoreHP();
+        assertEquals(180, battlePikachuOneMove.getHP());
     }
 
 }

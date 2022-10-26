@@ -14,17 +14,19 @@ public class BattlingPokemon {
     private int hp;
     private int atk;
     private int def;
+    private int fullHP;
     private ArrayList<Move> moveSet;
     private int hitChance;
     private int damageRoll;
 
     // EFFECTS: constructs a battle ready Pokemon using the info from the given Pokemon
     public BattlingPokemon(Pokemon p) {
-        this.name = p.getName();
-        this.type = p.getType();
-        this.hp = 110 + 2 * p.getHP();
-        this.atk = 5 + 2 * p.getAtk();
-        this.def = 5 + 2 * p.getDef();
+        name = p.getName();
+        type = p.getType();
+        hp = 110 + 2 * p.getHP();
+        fullHP = hp;
+        atk = 5 + 2 * p.getAtk();
+        def = 5 + 2 * p.getDef();
         moveSet = new ArrayList<>();
         constructMoveSet(p.getMoveSet());
     }
@@ -81,7 +83,7 @@ public class BattlingPokemon {
     public int damageOutput(Move m, BattlingPokemon target) {
         setDamageRoll();
         setHitChance();
-        usedMove(m);
+        m.usedMove();
 
         if (getHitChance() <= m.getAccuracy()) {
             // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java
@@ -101,13 +103,6 @@ public class BattlingPokemon {
         } else {
             this.hp -= damage;
         }
-    }
-
-    // REQUIRES: Move m to have PP
-    // MODIFIES: m
-    // EFFECTS: decreases the PP of the move by 1
-    public void usedMove(Move m) {
-        m.setPP(m.getPP() - 1);
     }
 
     // REQUIRES: moveSet to not be empty
@@ -132,6 +127,12 @@ public class BattlingPokemon {
         damageTaken(recoil);
 
         return damage;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: restores the HP of the Pokemon back to full
+    public void restoreHP() {
+        hp = fullHP;
     }
 
 }

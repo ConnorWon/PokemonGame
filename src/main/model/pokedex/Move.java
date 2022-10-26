@@ -10,13 +10,15 @@ public class Move implements Writable {
     private int power;
     private int pp;
     private int accuracy;
+    private int fullPP;
 
     // REQUIRES: power & accuracy & pp > 0, name != ""
-    // EFFECTS: creates a move with the given name, power, pp, and accuracy
+    // EFFECTS: creates a move with the given name, power, pp, and accuracy; stores the original pp value
     public Move(String name, int power, int pp, int accuracy) {
         this.name = name;
         this.power = power;
         this.pp = pp;
+        fullPP = pp;
         this.accuracy = accuracy;
     }
 
@@ -36,8 +38,17 @@ public class Move implements Writable {
         return accuracy;
     }
 
-    public void setPP(int pp) {
-        this.pp = pp;
+    // REQUIRES: pp > 0
+    // MODIFIES: this
+    // EFFECTS: decreases move's pp by 1
+    public void usedMove() {
+        pp -= 1;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: restores the PP of the move back to full
+    public void restorePP() {
+        pp = fullPP;
     }
 
     // Based on the supplied Workroom example for CPSC 210

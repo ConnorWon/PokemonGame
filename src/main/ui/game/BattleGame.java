@@ -23,10 +23,12 @@ public class BattleGame {
     private BattlingPokemon cpuCurrent;
     private Scanner input;
     private int index;
+    private int turn;
 
     // EFFECTS: starts the Pokemon battle
     public BattleGame(Trainer user, Trainer red) {
         index = 0;
+        turn = 1;
 
         this.user = user;
         this.red = red;
@@ -44,7 +46,6 @@ public class BattleGame {
         runBattleGame();
     }
 
-    // TODO: make it so user's team does not get cleared after battle
     // MODIFIES: this
     // EFFECTS: runs the Pokemon battle
     private void runBattleGame() {
@@ -54,21 +55,19 @@ public class BattleGame {
         System.out.println(cpuName + " sends out " + cpuCurrent.getName());
 
         boolean battleContinue = true;
-        int turn = 1;
 
         while (battleContinue) {
             pokemonFainted();
 
             displayPokemonBattling();
-            mainBattleMenu(turn);
+            mainBattleMenu();
 
             if (allPokemonFainted(userTeam) || allPokemonFainted(cpuTeam)) {
                 battleEnd();
                 battleContinue = false;
             }
-            turn++;
         }
-        user.clearTeam();
+        user.restorePokemonHPAndPP();
         red.clearTeam();
     }
 
@@ -95,7 +94,7 @@ public class BattleGame {
 
     // MODIFIES: this
     // EFFECTS: displays the main battle menu and processes the user's inputs for the menu
-    private void mainBattleMenu(int turn) {
+    private void mainBattleMenu() {
         System.out.println("Turn " + turn);
         System.out.println("m = MOVE \t s = SWITCH");
 
@@ -104,12 +103,14 @@ public class BattleGame {
 
         if (choice.equals("m")) {
             displayMove();
+            turn++;
         } else if (choice.equals("s")) {
             if (cannotSwitch()) {
                 System.out.println("Your other Pokemon have all fainted. You must attack.");
             } else {
                 switchPokemon();
                 cpuMoveChoice();
+                turn++;
             }
         } else {
             System.out.println("Invalid input");

@@ -36,3 +36,5 @@ another Pokemon on my team
 the current Pokedex and the user's trainer info to file
 - As a user, on application start up, I want to be given the option to load the previous save of the 
 Pokedex and user's trainer info from file
+- As a user, after selecting my Pokemon team once, I want to be able to use that same team again in  
+future battles without having to choose my team again

@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
+// TODO: implement reading user's team from file
 // represents a reader that reads the Pokedex and user's Trainer from JSON data stored in file
 public class JsonReader {
     private String source;

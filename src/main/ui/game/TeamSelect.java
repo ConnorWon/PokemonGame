@@ -31,6 +31,10 @@ public class TeamSelect {
     private void runTeamSelect() {
         initInput();
 
+        if (user.getTeam().size() != 0) {
+            keepTeam();
+        }
+
         while (user.getTeam().size() < 3) {
             displayBattleMenu(user.getTeam().size());
             displayPokemonInPokedex();
@@ -52,6 +56,28 @@ public class TeamSelect {
     private void initInput() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+    }
+
+    // REQUIRES: user.getTeam().size() > 0
+    // MODIFIES: this
+    // EFFECTS: determines if the user wants to keep the team they previously were using
+    private void keepTeam() {
+        boolean keepGoing = true;
+
+        while (keepGoing) {
+            System.out.println("Do you want to keep your previous team (y/n)?");
+            String choice = input.next();
+            choice = choice.toLowerCase();
+
+            if (choice.equals("y")) {
+                keepGoing = false;
+            } else if (choice.equals("n")) {
+                user.clearTeam();
+                keepGoing = false;
+            } else {
+                System.out.println("Invalid input");
+            }
+        }
     }
 
     // EFFECTS: displays the Pokemon select screen
