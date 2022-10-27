@@ -2,6 +2,9 @@ package model.battle;
 
 import model.pokedex.Move;
 import model.pokedex.Pokemon;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,7 +17,6 @@ public class BattlingPokemon {
     private int hp;
     private int atk;
     private int def;
-    private int fullHP;
     private ArrayList<Move> moveSet;
     private int hitChance;
     private int damageRoll;
@@ -24,7 +26,6 @@ public class BattlingPokemon {
         name = p.getName();
         type = p.getType();
         hp = 110 + 2 * p.getHP();
-        fullHP = hp;
         atk = 5 + 2 * p.getAtk();
         def = 5 + 2 * p.getDef();
         moveSet = new ArrayList<>();
@@ -127,12 +128,6 @@ public class BattlingPokemon {
         damageTaken(recoil);
 
         return damage;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: restores the HP of the Pokemon back to full
-    public void restoreHP() {
-        hp = fullHP;
     }
 
 }

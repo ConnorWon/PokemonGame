@@ -1,6 +1,7 @@
 {
-  "pokedex": {
-    "pokemon": [
+  "user": {
+    "name": "testUser",
+    "team": [
       {
         "name": "Pikachu",
         "type": "Electric",
@@ -42,11 +43,22 @@
             "accuracy": 100
           }
         ]
+      },
+      {
+        "name": "Squirtle",
+        "type": "Water",
+        "hp": 50,
+        "atk": 51,
+        "def": 52,
+        "moves": [
+          {
+            "name": "Water Gun",
+            "power": 35,
+            "pp": 30,
+            "accuracy": 100
+          }
+        ]
       }
     ]
-  },
-  "user": {
-    "name": "testUser",
-    "team": []
   }
 }

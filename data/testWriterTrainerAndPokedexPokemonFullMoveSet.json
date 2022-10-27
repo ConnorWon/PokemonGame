@@ -67,5 +67,8 @@
             "type": "Fire"
         }
     ]},
-    "user": {"name": "testUser"}
+    "user": {
+        "name": "testUser",
+        "team": []
+    }
 }

@@ -38,19 +38,4 @@ public class MoveTest {
         assertEquals(33, move.getPP());
     }
 
-    @Test
-    public void testRestorePP() {
-        move.usedMove();
-        assertEquals(34, move.getPP());
-        move.restorePP();
-        assertEquals(35, move.getPP());
-    }
-
-    @Test
-    public void testRestorePPAtFull() {
-        assertEquals(35, move.getPP());
-        move.restorePP();
-        assertEquals(35, move.getPP());
-    }
-
 }

@@ -191,7 +191,137 @@
             "hp": 100,
             "atk": 110,
             "type": "Psychic"
+        },
+        {
+            "def": 90,
+            "moves": [
+                {
+                    "pp": 15,
+                    "name": "Dragon Claw",
+                    "accuracy": 100,
+                    "power": 90
+                },
+                {
+                    "pp": 10,
+                    "name": "Earthquake",
+                    "accuracy": 100,
+                    "power": 100
+                },
+                {
+                    "pp": 20,
+                    "name": "Crunch",
+                    "accuracy": 100,
+                    "power": 80
+                },
+                {
+                    "pp": 20,
+                    "name": "Slash",
+                    "accuracy": 100,
+                    "power": 70
+                }
+            ],
+            "name": "Garchomp",
+            "hp": 110,
+            "atk": 100,
+            "type": "Dragon"
         }
     ]},
-    "user": {"name": "Connor"}
+    "user": {
+        "name": "Connor",
+        "team": [
+            {
+                "def": 90,
+                "moves": [
+                    {
+                        "pp": 15,
+                        "name": "Dragon Claw",
+                        "accuracy": 100,
+                        "power": 90
+                    },
+                    {
+                        "pp": 10,
+                        "name": "Earthquake",
+                        "accuracy": 100,
+                        "power": 100
+                    },
+                    {
+                        "pp": 20,
+                        "name": "Crunch",
+                        "accuracy": 100,
+                        "power": 80
+                    },
+                    {
+                        "pp": 20,
+                        "name": "Slash",
+                        "accuracy": 100,
+                        "power": 70
+                    }
+                ],
+                "name": "Garchomp",
+                "hp": 110,
+                "atk": 100,
+                "type": "Dragon"
+            },
+            {
+                "def": 90,
+                "moves": [
+                    {
+                        "pp": 20,
+                        "name": "Psychic",
+                        "accuracy": 100,
+                        "power": 80
+                    },
+                    {
+                        "pp": 20,
+                        "name": "Shadow Ball",
+                        "accuracy": 100,
+                        "power": 80
+                    },
+                    {
+                        "pp": 15,
+                        "name": "Thunderbolt",
+                        "accuracy": 100,
+                        "power": 90
+                    },
+                    {
+                        "pp": 20,
+                        "name": "Psybeam",
+                        "accuracy": 100,
+                        "power": 60
+                    }
+                ],
+                "name": "Espeon",
+                "hp": 100,
+                "atk": 110,
+                "type": "Psychic"
+            },
+            {
+                "def": 100,
+                "moves": [
+                    {
+                        "pp": 30,
+                        "name": "Water Gun",
+                        "accuracy": 100,
+                        "power": 40
+                    },
+                    {
+                        "pp": 5,
+                        "name": "Hydro Pump",
+                        "accuracy": 70,
+                        "power": 110
+                    },
+                    {
+                        "pp": 15,
+                        "name": "Drill Peck",
+                        "accuracy": 100,
+                        "power": 90
+                    }
+                ],
+                "name": "Piplup",
+                "hp": 100,
+                "atk": 100,
+                "type": "Water"
+            }
+        ]
+    }
 }

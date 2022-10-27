@@ -153,19 +153,4 @@ public class BattlingPokemonTest {
         assertEquals(maxHP - recoil, battlePikachuNoPP.getHP());
     }
 
-    @Test
-    public void testRestoreHP() {
-        battlePikachuOneMove.damageTaken(10);
-        assertEquals(170, battlePikachuOneMove.getHP());
-        battlePikachuOneMove.restoreHP();
-        assertEquals(180, battlePikachuOneMove.getHP());
-    }
-
-    @Test
-    public void testRestoreHPAtFull() {
-        assertEquals(180, battlePikachuOneMove.getHP());
-        battlePikachuOneMove.restoreHP();
-        assertEquals(180, battlePikachuOneMove.getHP());
-    }
-
 }

@@ -1,5 +1,6 @@
 package persistence;
 
+import model.pokedex.Move;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
@@ -7,9 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Based on the supplied Workroom example for CPSC 210
@@ -64,14 +67,14 @@ public class JsonReader {
     private void fillPokedex(Pokedex p, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("pokemon");
         for (Object json : jsonArray) {
-            JSONObject pokemon = (JSONObject) json;
-            addPokemon(p, pokemon);
+            JSONObject pokemonJson = (JSONObject) json;
+            Pokemon pokemon = addPokemon(pokemonJson);
+            p.addPokemonToPokedex(pokemon);
         }
     }
 
-    // MODIFIES: p
-    // EFFECTS: parses a Pokemon from JSON object and adds it to Pokedex
-    private void addPokemon(Pokedex p, JSONObject jsonObject) {
+    // EFFECTS: parses a Pokemon from JSON object and returns it
+    private Pokemon addPokemon(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String type = jsonObject.getString("type");
         int hp = jsonObject.getInt("hp");
@@ -85,7 +88,7 @@ public class JsonReader {
             addMove(pokemon, move);
         }
 
-        p.addPokemonToPokedex(pokemon);
+        return pokemon;
     }
 
     // MODIFIES: p
@@ -102,7 +105,20 @@ public class JsonReader {
     private Trainer parseTrainer(JSONObject jsonObject) {
         JSONObject jsonUser = jsonObject.getJSONObject("user");
         String name = jsonUser.getString("name");
-        return new Trainer(name);
+        Trainer user = new Trainer(name);
+        fillTeam(user, jsonUser);
+        return user;
+    }
+
+    // MODIFIES: user
+    // EFFECTS: parses the saved Pokemon team from JSON object and adds them back to the user's team
+    private void fillTeam(Trainer user, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("team");
+        for (Object json : jsonArray) {
+            JSONObject bp = (JSONObject) json;
+            Pokemon pokemon = addPokemon(bp);
+            user.addTeamMember(pokemon);
+        }
     }
 
 }

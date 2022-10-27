@@ -171,4 +171,91 @@ public class JsonWriterTest extends JsonTest{
         }
     }
 
+    @Test
+    public void testWriterTrainerTeamPresentAndPokedex() {
+        try {
+            pikachu.addMoveToMoveSet("Thunderbolt", 90, 15, 100);
+            pikachu.addMoveToMoveSet("Iron Tail", 100, 15, 75);
+            pikachu.addMoveToMoveSet("Volt Tackle", 120, 15, 100);
+            pikachu.addMoveToMoveSet("Quick Attack", 40, 30, 100);
+            pokedex.addPokemonToPokedex(pikachu);
+
+            charmander.addMoveToMoveSet("Flamethrower", 90, 15, 100);
+            charmander.addMoveToMoveSet("Fire Spin", 35, 15, 85);
+            charmander.addMoveToMoveSet("Dragon Breath", 60, 20, 100);
+            charmander.addMoveToMoveSet("Slash", 70, 20, 100);
+            pokedex.addPokemonToPokedex(charmander);
+
+            Pokemon squirtle = new Pokemon("Squirtle", "Water", 50, 51, 52);
+            squirtle.addMoveToMoveSet("Surf", 90, 15, 100);
+            squirtle.addMoveToMoveSet("Water Gun", 35, 30, 100);
+            squirtle.addMoveToMoveSet("Rapid Spin", 30, 40, 100);
+            squirtle.addMoveToMoveSet("Water Pulse", 60, 20, 100);
+            pokedex.addPokemonToPokedex(squirtle);
+
+            user.addTeamMember(pikachu);
+            user.addTeamMember(charmander);
+            user.addTeamMember(squirtle);
+
+            JsonWriter writer = new JsonWriter("./data/testWriterTrainerTeamPresentAndPokedex.json");
+            writer.open();
+            writer.write(pokedex, user);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterTrainerTeamPresentAndPokedex.json");
+
+            pokedex = reader.readForPokedex();
+            ArrayList<Pokemon> usablePokemon = pokedex.getUsablePokemon();
+            assertEquals(3, usablePokemon.size());
+
+            Pokemon checkerPikachu = pokedex.getUsablePokemon().get(0);
+            checkPokemon("Pikachu", "Electric", 35, 55, 30, checkerPikachu);
+            checkMove("Thunderbolt", 90, 15, 100, checkerPikachu.getMoveSet().get(0));
+            checkMove("Iron Tail", 100, 15, 75, checkerPikachu.getMoveSet().get(1));
+            checkMove("Volt Tackle", 120, 15, 100, checkerPikachu.getMoveSet().get(2));
+            checkMove("Quick Attack", 40, 30, 100, checkerPikachu.getMoveSet().get(3));
+
+            Pokemon checkerCharmander = pokedex.getUsablePokemon().get(1);
+            checkPokemon("Charmander", "Fire", 39, 52, 43, checkerCharmander);
+            checkMove("Flamethrower", 90, 15, 100, checkerCharmander.getMoveSet().get(0));
+            checkMove("Fire Spin", 35, 15, 85, checkerCharmander.getMoveSet().get(1));
+            checkMove("Dragon Breath", 60, 20, 100, checkerCharmander.getMoveSet().get(2));
+            checkMove("Slash", 70, 20, 100,checkerCharmander.getMoveSet().get(3));
+
+            Pokemon checkerSquirtle = pokedex.getUsablePokemon().get(2);
+            checkPokemon("Squirtle", "Water", 50, 51, 52, checkerSquirtle);
+            checkMove("Surf", 90, 15, 100, checkerSquirtle.getMoveSet().get(0));
+            checkMove("Water Gun", 35, 30, 100, checkerSquirtle.getMoveSet().get(1));
+            checkMove("Rapid Spin", 30, 40, 100, checkerSquirtle.getMoveSet().get(2));
+            checkMove("Water Pulse", 60, 20, 100, checkerSquirtle.getMoveSet().get(3));
+
+            user = reader.readForTrainer();
+            assertEquals("testUser", user.getName());
+
+            Pokemon teamPikachu = user.getTeam().get(0);
+            checkPokemon("Pikachu", "Electric", 35, 55, 30, teamPikachu);
+            checkMove("Thunderbolt", 90, 15, 100, teamPikachu.getMoveSet().get(0));
+            checkMove("Iron Tail", 100, 15, 75, teamPikachu.getMoveSet().get(1));
+            checkMove("Volt Tackle", 120, 15, 100, teamPikachu.getMoveSet().get(2));
+            checkMove("Quick Attack", 40, 30, 100, teamPikachu.getMoveSet().get(3));
+
+            Pokemon teamCharmander = user.getTeam().get(1);
+            checkPokemon("Charmander", "Fire", 39, 52, 43, teamCharmander);
+            checkMove("Flamethrower", 90, 15, 100, teamCharmander.getMoveSet().get(0));
+            checkMove("Fire Spin", 35, 15, 85, teamCharmander.getMoveSet().get(1));
+            checkMove("Dragon Breath", 60, 20, 100, teamCharmander.getMoveSet().get(2));
+            checkMove("Slash", 70, 20, 100,teamCharmander.getMoveSet().get(3));
+
+            Pokemon teamSquirtle = user.getTeam().get(2);
+            checkPokemon("Squirtle", "Water", 50, 51, 52, teamSquirtle);
+            checkMove("Surf", 90, 15, 100, teamSquirtle.getMoveSet().get(0));
+            checkMove("Water Gun", 35, 30, 100, teamSquirtle.getMoveSet().get(1));
+            checkMove("Rapid Spin", 30, 40, 100, teamSquirtle.getMoveSet().get(2));
+            checkMove("Water Pulse", 60, 20, 100, teamSquirtle.getMoveSet().get(3));
+
+        } catch (IOException e) {
+            fail("Not expected");
+        }
+    }
+
 }

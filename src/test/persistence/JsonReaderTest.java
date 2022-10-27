@@ -1,11 +1,13 @@
 package persistence;
 
+import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,11 +30,35 @@ public class JsonReaderTest extends JsonTest{
     }
 
     @Test
-    public void testTrainerReaderRegularUse() {
-        JsonReader reader = new JsonReader("./data/testTrainerReaderRegularUse.json");
+    public void testTrainerReaderEmptyTeam() {
+        JsonReader reader = new JsonReader("./data/testTrainerReaderEmptyTeam.json");
         try {
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
+        } catch (IOException e) {
+            fail("File couldn't be read");
+        }
+    }
+
+    @Test
+    public void testTrainerReaderTeamPresent() {
+        JsonReader reader = new JsonReader("./data/testTrainerReaderTeamPresent.json");
+        try {
+            Trainer user = reader.readForTrainer();
+            assertEquals("testUser", user.getName());
+            Pokemon pikachu = user.getTeam().get(0);
+            checkPokemon("Pikachu", "Electric", 35, 55, 30, pikachu);
+            checkMove("Thunderbolt", 90, 15, 100, pikachu.getMoveSet().get(0));
+            checkMove("Iron Tail", 100, 15, 75, pikachu.getMoveSet().get(1));
+            checkMove("Volt Tackle", 120, 15, 100, pikachu.getMoveSet().get(2));
+
+            Pokemon charmander = user.getTeam().get(1);
+            checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
+            checkMove("Flamethrower", 90, 15, 100, charmander.getMoveSet().get(0));
+
+            Pokemon squirtle = user.getTeam().get(2);
+            checkPokemon("Squirtle", "Water", 50, 51, 52, squirtle);
+            checkMove("Water Gun", 35, 30, 100, squirtle.getMoveSet().get(0));
         } catch (IOException e) {
             fail("File couldn't be read");
         }

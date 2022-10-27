@@ -2,6 +2,7 @@ package model.trainers;
 
 import model.battle.BattlingPokemon;
 import model.pokedex.Move;
+import model.pokedex.Pokemon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -13,25 +14,31 @@ import java.util.ArrayList;
 public class Trainer implements Writable {
 
     private String name;
-    private ArrayList<BattlingPokemon> team;
+    private ArrayList<Pokemon> team;
+    private ArrayList<BattlingPokemon> activeTeam;
 
     // EFFECTS: constructs a trainer with given name, and empty team
     public Trainer(String name) {
         this.name = name;
         team = new ArrayList<>();
+        activeTeam = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<BattlingPokemon> getTeam() {
+    public ArrayList<Pokemon> getTeam() {
         return team;
+    }
+
+    public ArrayList<BattlingPokemon> getActiveTeam() {
+        return activeTeam;
     }
 
     // MODIFIES: this
     // EFFECTS: adds a battle ready Pokemon to the team, with a maximum of 3 Pokemon
-    public void addTeamMember(BattlingPokemon p) {
+    public void addTeamMember(Pokemon p) {
         if (team.size() < 3) {
             team.add(p);
         }
@@ -44,13 +51,16 @@ public class Trainer implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: restores the HP and PP of Pokemon
-    public void restorePokemonHPAndPP() {
-        for (BattlingPokemon bp : team) {
-            bp.restoreHP();
-            for (Move m : bp.getMoveSet()) {
-                m.restorePP();
-            }
+    // EFFECTS: clears the trainers active team
+    public void clearActiveTeam() {
+        activeTeam.clear();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: turns all Pokemon on team into battle ready Battling Pokemon, and puts them on battle ready team
+    public void prepareForBattle() {
+        for (Pokemon p : team) {
+            activeTeam.add(new BattlingPokemon(p));
         }
     }
 
@@ -58,7 +68,18 @@ public class Trainer implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("team", teamToJson());
         return json;
+    }
+
+    private JSONArray teamToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Pokemon p : team) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

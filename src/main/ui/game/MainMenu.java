@@ -15,7 +15,7 @@ import java.util.Scanner;
 // The starting menu
 public class MainMenu {
 
-    private static final String DATA_STORE = "./data/savedPokedexAndUser";
+    private static final String DATA_STORE = "./data/savedPokedexAndUser.json";
     private Pokedex pokedex;
     private Trainer red;
     private Trainer user;
@@ -174,13 +174,9 @@ public class MainMenu {
 
 
         red = new Trainer("Red");
-        BattlingPokemon bp1 = new BattlingPokemon(pokedex.getUsablePokemon().get(p1));
-        BattlingPokemon bp2 = new BattlingPokemon(pokedex.getUsablePokemon().get(p2));
-        BattlingPokemon bp3 = new BattlingPokemon(pokedex.getUsablePokemon().get(p3));
-
-        red.addTeamMember(bp1);
-        red.addTeamMember(bp2);
-        red.addTeamMember(bp3);
+        red.addTeamMember(pokedex.getUsablePokemon().get(p1));
+        red.addTeamMember(pokedex.getUsablePokemon().get(p2));
+        red.addTeamMember(pokedex.getUsablePokemon().get(p3));
     }
 
     // EFFECTS: displays the menu options

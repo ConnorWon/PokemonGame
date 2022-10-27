@@ -1,4 +1,7 @@
 {
     "pokedex": {"pokemon": []},
-    "user": {"name": "testUser"}
+    "user": {
+        "name": "testUser",
+        "team": []
+    }
 }

@@ -48,6 +48,8 @@ public class TeamSelect {
             }
         }
         System.out.println("Battle Beginning...");
+        user.prepareForBattle();
+        red.prepareForBattle();
         new BattleGame(user, red);
     }
 
@@ -107,8 +109,7 @@ public class TeamSelect {
         int num = parseInt(choice);
 
         if (num <= pokedex.getUsablePokemon().size()) {
-            BattlingPokemon bp = new BattlingPokemon(pokedex.getUsablePokemon().get(num - 1));
-            user.addTeamMember(bp);
+            user.addTeamMember(pokedex.getUsablePokemon().get(num - 1));
         } else {
             System.out.println("Invalid input");
         }

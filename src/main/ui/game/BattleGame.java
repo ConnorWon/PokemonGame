@@ -35,8 +35,8 @@ public class BattleGame {
 
         userName = user.getName();
         cpuName = red.getName();
-        userTeam = user.getTeam();
-        cpuTeam = red.getTeam();
+        userTeam = user.getActiveTeam();
+        cpuTeam = red.getActiveTeam();
         userCurrent = userTeam.get(index);
         cpuCurrent = cpuTeam.get(index);
 
@@ -67,8 +67,9 @@ public class BattleGame {
                 battleContinue = false;
             }
         }
-        user.restorePokemonHPAndPP();
         red.clearTeam();
+        red.clearActiveTeam();
+        user.clearActiveTeam();
     }
 
     // MODIFIES: this
