@@ -32,32 +32,18 @@ public class PokemonTest {
         pikachu.addMoveToMoveSet("Thunderbolt", 95, 15, 100);
         Move move = pikachu.getMoveSet().get(0);
 
-        assertEquals("Thunderbolt", move.getName());
-        assertEquals(95, move.getPower());
-        assertEquals(15, move.getPP());
-        assertEquals(100, move.getAccuracy());
-        assertEquals(1, pikachu.getMoveSet().size());
+        checkMove("Thunderbolt", 95, 15, 100, move);
     }
 
     @Test
     public void testAddMoveToMoveSetMultipleTimes() {
         pikachu.addMoveToMoveSet("Thunderbolt", 95, 15, 100);
-        Move move = pikachu.getMoveSet().get(0);
-
-        assertEquals("Thunderbolt", move.getName());
-        assertEquals(95, move.getPower());
-        assertEquals(15, move.getPP());
-        assertEquals(100, move.getAccuracy());
-        assertEquals(1, pikachu.getMoveSet().size());
+        Move move1 = pikachu.getMoveSet().get(0);
+        checkMove("Thunderbolt", 95, 15, 100, move1);
 
         pikachu.addMoveToMoveSet("Quick Attack", 40, 30, 100);
-        Move moveTwo = pikachu.getMoveSet().get(1);
-
-        assertEquals("Quick Attack", moveTwo.getName());
-        assertEquals(40, moveTwo.getPower());
-        assertEquals(30, moveTwo.getPP());
-        assertEquals(100, moveTwo.getAccuracy());
-        assertEquals(2, pikachu.getMoveSet().size());
+        Move move2 = pikachu.getMoveSet().get(1);
+        checkMove("Quick Attack", 40, 30, 100, move2);
     }
 
     @Test
@@ -73,27 +59,19 @@ public class PokemonTest {
         Move move3 = pikachu.getMoveSet().get(2);
         Move move4 = pikachu.getMoveSet().get(3);
 
+        checkMove("Thunderbolt", 95, 15, 100, move1);
+        checkMove("Quick Attack", 40, 30, 100, move2);
+        checkMove("Tackle", 40, 35, 100, move3);
+        checkMove("Iron Tail", 100, 15, 75, move4);
         assertEquals(4, pikachu.getMoveSet().size());
+    }
 
-        assertEquals("Thunderbolt", move1.getName());
-        assertEquals(95, move1.getPower());
-        assertEquals(15, move1.getPP());
-        assertEquals(100, move1.getAccuracy());
-
-        assertEquals("Quick Attack", move2.getName());
-        assertEquals(40, move2.getPower());
-        assertEquals(30, move2.getPP());
-        assertEquals(100, move2.getAccuracy());
-
-        assertEquals("Tackle", move3.getName());
-        assertEquals(40, move3.getPower());
-        assertEquals(35, move3.getPP());
-        assertEquals(100, move3.getAccuracy());
-
-        assertEquals("Iron Tail", move4.getName());
-        assertEquals(100, move4.getPower());
-        assertEquals(15, move4.getPP());
-        assertEquals(75, move4.getAccuracy());
+    // EFFECTS: checks to see if Move m has the correct info
+    private void checkMove(String name, int power, int pp, int accuracy, Move m) {
+        assertEquals(name, m.getName());
+        assertEquals(power, m.getPower());
+        assertEquals(pp, m.getPP());
+        assertEquals(accuracy, m.getAccuracy());
     }
 
 }

@@ -9,7 +9,6 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// TODO: add a win loss record for the user trainer, may have to then split off to user trainer class
 // Represents a Pokemon Trainer with a name and a battle ready Pokemon team
 public class Trainer implements Writable {
 
@@ -64,6 +63,9 @@ public class Trainer implements Writable {
         }
     }
 
+    // Based on the supplied Workroom example for CPSC 210
+    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns the Trainer's data as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -72,6 +74,9 @@ public class Trainer implements Writable {
         return json;
     }
 
+    // Based on the supplied Workroom example for CPSC 210
+    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns a trainer's Pokemon team as a JSON array
     private JSONArray teamToJson() {
         JSONArray jsonArray = new JSONArray();
 

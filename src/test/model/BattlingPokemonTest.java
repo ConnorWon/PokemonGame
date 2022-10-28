@@ -35,12 +35,7 @@ public class BattlingPokemonTest {
         assertEquals(115, battlePikachuOneMove.getAtk());
         assertEquals(105, battlePikachuOneMove.getDef());
 
-        Move move = battlePikachuOneMove.getMoveSet().get(0);
-        assertEquals("Thunderbolt", move.getName());
-        assertEquals(95, move.getPower());
-        assertEquals(15, move.getPP());
-        assertEquals(100, move.getAccuracy());
-
+        checkMove("Thunderbolt", 95, 15, 100, battlePikachuOneMove.getMoveSet().get(0));
         assertEquals(1, battlePikachuOneMove.getMoveSet().size());
     }
 
@@ -57,30 +52,10 @@ public class BattlingPokemonTest {
         assertEquals(115, battlePikachuMaxMoves.getAtk());
         assertEquals(105, battlePikachuMaxMoves.getDef());
 
-        Move move = battlePikachuMaxMoves.getMoveSet().get(0);
-        assertEquals("Thunderbolt", move.getName());
-        assertEquals(95, move.getPower());
-        assertEquals(15, move.getPP());
-        assertEquals(100, move.getAccuracy());
-
-        Move move2 = battlePikachuMaxMoves.getMoveSet().get(1);
-        assertEquals("Quick Attack", move2.getName());
-        assertEquals(40, move2.getPower());
-        assertEquals(30, move2.getPP());
-        assertEquals(100, move2.getAccuracy());
-
-        Move move3 = battlePikachuMaxMoves.getMoveSet().get(2);
-        assertEquals("Iron Tail", move3.getName());
-        assertEquals(100, move3.getPower());
-        assertEquals(15, move3.getPP());
-        assertEquals(75, move3.getAccuracy());
-
-        Move move4 = battlePikachuMaxMoves.getMoveSet().get(3);
-        assertEquals("Volt Tackle", move4.getName());
-        assertEquals(120, move4.getPower());
-        assertEquals(15, move4.getPP());
-        assertEquals(100, move4.getAccuracy());
-
+        checkMove("Thunderbolt", 95, 15, 100, battlePikachuMaxMoves.getMoveSet().get(0));
+        checkMove("Quick Attack", 40, 30, 100, battlePikachuMaxMoves.getMoveSet().get(1));
+        checkMove("Iron Tail", 100, 15, 75, battlePikachuMaxMoves.getMoveSet().get(2));
+        checkMove("Volt Tackle", 120, 15, 100, battlePikachuMaxMoves.getMoveSet().get(3));
         assertEquals(4, battlePikachuMaxMoves.getMoveSet().size());
     }
 
@@ -153,4 +128,11 @@ public class BattlingPokemonTest {
         assertEquals(maxHP - recoil, battlePikachuNoPP.getHP());
     }
 
+    // EFFECTS: checks to see if Move m has the correct info
+    private void checkMove(String name, int power, int pp, int accuracy, Move m) {
+        assertEquals(name, m.getName());
+        assertEquals(power, m.getPower());
+        assertEquals(pp, m.getPP());
+        assertEquals(accuracy, m.getAccuracy());
+    }
 }

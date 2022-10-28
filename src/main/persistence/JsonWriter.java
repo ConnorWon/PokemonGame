@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
-// TODO: implement saving user's team to file
 // Represents a writer that writes JSON representation of Pokedex and user's trainer to file
 public class JsonWriter {
     private static final int TAB = 4;

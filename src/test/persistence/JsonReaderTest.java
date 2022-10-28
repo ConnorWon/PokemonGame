@@ -7,7 +7,6 @@ import model.trainers.Trainer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,10 +46,7 @@ public class JsonReaderTest extends JsonTest{
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
             Pokemon pikachu = user.getTeam().get(0);
-            checkPokemon("Pikachu", "Electric", 35, 55, 30, pikachu);
-            checkMove("Thunderbolt", 90, 15, 100, pikachu.getMoveSet().get(0));
-            checkMove("Iron Tail", 100, 15, 75, pikachu.getMoveSet().get(1));
-            checkMove("Volt Tackle", 120, 15, 100, pikachu.getMoveSet().get(2));
+            checkNotFullMovesPikachu(pikachu);
 
             Pokemon charmander = user.getTeam().get(1);
             checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
@@ -122,10 +118,7 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(2, usablePokemon.size());
 
             Pokemon pikachu = pokedex.getUsablePokemon().get(0);
-            checkPokemon("Pikachu", "Electric", 35, 55, 30, pikachu);
-            checkMove("Thunderbolt", 90, 15, 100, pikachu.getMoveSet().get(0));
-            checkMove("Iron Tail", 100, 15, 75, pikachu.getMoveSet().get(1));
-            checkMove("Volt Tackle", 120, 15, 100, pikachu.getMoveSet().get(2));
+            checkNotFullMovesPikachu(pikachu);
 
             Pokemon charmander = pokedex.getUsablePokemon().get(1);
             checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
@@ -144,18 +137,10 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(2, usablePokemon.size());
 
             Pokemon pikachu = pokedex.getUsablePokemon().get(0);
-            checkPokemon("Pikachu", "Electric", 35, 55, 30, pikachu);
-            checkMove("Thunderbolt", 90, 15, 100, pikachu.getMoveSet().get(0));
-            checkMove("Iron Tail", 100, 15, 75, pikachu.getMoveSet().get(1));
-            checkMove("Volt Tackle", 120, 15, 100, pikachu.getMoveSet().get(2));
-            checkMove("Quick Attack", 40, 30, 100, pikachu.getMoveSet().get(3));
+            checkFullMovesPikachu(pikachu);
 
             Pokemon charmander = pokedex.getUsablePokemon().get(1);
-            checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
-            checkMove("Flamethrower", 90, 15, 100, charmander.getMoveSet().get(0));
-            checkMove("Fire Spin", 35, 15, 85, charmander.getMoveSet().get(1));
-            checkMove("Dragon Breath", 60, 20, 100, charmander.getMoveSet().get(2));
-            checkMove("Slash", 70, 20, 100,charmander.getMoveSet().get(3));
+            checkFullMovesCharmander(charmander);
         } catch (IOException e) {
             fail("File couldn't be read");
         }
@@ -170,10 +155,7 @@ public class JsonReaderTest extends JsonTest{
             assertEquals(2, usablePokemon.size());
 
             Pokemon pikachu = pokedex.getUsablePokemon().get(0);
-            checkPokemon("Pikachu", "Electric", 35, 55, 30, pikachu);
-            checkMove("Thunderbolt", 90, 15, 100, pikachu.getMoveSet().get(0));
-            checkMove("Iron Tail", 100, 15, 75, pikachu.getMoveSet().get(1));
-            checkMove("Volt Tackle", 120, 15, 100, pikachu.getMoveSet().get(2));
+            checkNotFullMovesPikachu(pikachu);
 
             Pokemon charmander = pokedex.getUsablePokemon().get(1);
             checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);

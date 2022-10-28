@@ -45,6 +45,7 @@ public class Move implements Writable {
 
     // Based on the supplied Workroom example for CPSC 210
     // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns the Move data as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

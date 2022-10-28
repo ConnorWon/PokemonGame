@@ -82,6 +82,7 @@ public class TrainerTest {
     @Test
     public void testPrepareForBattle() {
         Pokemon squirtle = new Pokemon("Squirtle", "Water", 50, 50, 50);
+        squirtle.addMoveToMoveSet("Water Gun", 30, 40, 100);
         trainer.addTeamMember(pikachu);
         trainer.addTeamMember(charmander);
         trainer.addTeamMember(squirtle);
@@ -90,53 +91,18 @@ public class TrainerTest {
         BattlingPokemon battlePikachu = trainer.getActiveTeam().get(0);
         BattlingPokemon battleCharmander = trainer.getActiveTeam().get(1);
         BattlingPokemon battleSquirtle = trainer.getActiveTeam().get(2);
-        assertEquals("Pikachu", battlePikachu.getName());
-        assertEquals("Electric", battlePikachu.getType());
-        assertEquals(180, battlePikachu.getHP());
-        assertEquals(115, battlePikachu.getAtk());
-        assertEquals(105, battlePikachu.getDef());
 
-        Move move = battlePikachu.getMoveSet().get(0);
-        assertEquals("Thunderbolt", move.getName());
-        assertEquals(90, move.getPower());
-        assertEquals(15, move.getPP());
-        assertEquals(100, move.getAccuracy());
+        checkPokemon("Pikachu", "Electric", 180, 115, 105, battlePikachu);
+        checkMove("Thunderbolt", 90, 15, 100, battlePikachu.getMoveSet().get(0));
+        checkMove("Iron Tail", 100, 15, 75, battlePikachu.getMoveSet().get(1));
+        checkMove("Quick Attack", 40, 30, 100, battlePikachu.getMoveSet().get(2));
 
-        Move move2 = battlePikachu.getMoveSet().get(1);
-        assertEquals("Iron Tail", move2.getName());
-        assertEquals(100, move2.getPower());
-        assertEquals(15, move2.getPP());
-        assertEquals(75, move2.getAccuracy());
+        checkPokemon("Charmander", "Fire", 188, 109, 91, battleCharmander);
+        checkMove("Flamethrower", 90, 15, 100, battleCharmander.getMoveSet().get(0));
+        checkMove("Ember", 30, 35, 100, battleCharmander.getMoveSet().get(1));
 
-        Move move3 = battlePikachu.getMoveSet().get(2);
-        assertEquals("Quick Attack", move3.getName());
-        assertEquals(40, move3.getPower());
-        assertEquals(30, move3.getPP());
-        assertEquals(100, move3.getAccuracy());
-
-        assertEquals("Charmander", battleCharmander.getName());
-        assertEquals("Fire", battleCharmander.getType());
-        assertEquals(188, battleCharmander.getHP());
-        assertEquals(109, battleCharmander.getAtk());
-        assertEquals(91, battleCharmander.getDef());
-
-        Move moveC1 = battleCharmander.getMoveSet().get(0);
-        assertEquals("Flamethrower", moveC1.getName());
-        assertEquals(90, moveC1.getPower());
-        assertEquals(15, moveC1.getPP());
-        assertEquals(100, moveC1.getAccuracy());
-
-        Move moveC2 = battleCharmander.getMoveSet().get(1);
-        assertEquals("Ember", moveC2.getName());
-        assertEquals(30, moveC2.getPower());
-        assertEquals(35, moveC2.getPP());
-        assertEquals(100, moveC2.getAccuracy());
-
-        assertEquals("Squirtle", battleSquirtle.getName());
-        assertEquals("Water", battleSquirtle.getType());
-        assertEquals(210, battleSquirtle.getHP());
-        assertEquals(105, battleSquirtle.getAtk());
-        assertEquals(105, battleSquirtle.getDef());
+        checkPokemon("Squirtle", "Water", 210, 105, 105, battleSquirtle);
+        checkMove("Water Gun", 30, 40, 100, battleSquirtle.getMoveSet().get(0));
     }
 
     @Test
@@ -148,5 +114,21 @@ public class TrainerTest {
         assertTrue(trainer.getActiveTeam().isEmpty());
     }
 
+    // EFFECTS: checks to see if BattlingPokemon bp has the correct info
+    private void checkPokemon(String name, String type, int hp, int atk, int def, BattlingPokemon bp) {
+        assertEquals(name, bp.getName());
+        assertEquals(type, bp.getType());
+        assertEquals(hp, bp.getHP());
+        assertEquals(atk, bp.getAtk());
+        assertEquals(def, bp.getDef());
+    }
+
+    // EFFECTS: checks to see if Move m has the correct info
+    private void checkMove(String name, int power, int pp, int accuracy, Move m) {
+        assertEquals(name, m.getName());
+        assertEquals(power, m.getPower());
+        assertEquals(pp, m.getPP());
+        assertEquals(accuracy, m.getAccuracy());
+    }
 
 }
