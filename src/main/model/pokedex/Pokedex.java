@@ -48,5 +48,6 @@ public class Pokedex implements Writable {
 
         return jsonArray;
     }
+
 }
 

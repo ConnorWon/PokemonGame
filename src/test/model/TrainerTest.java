@@ -38,7 +38,7 @@ public class TrainerTest {
     public void testConstructor() {
         assertEquals("Red", trainer.getName());
         assertTrue(trainer.getTeam().isEmpty());
-        assertTrue(trainer.getActiveTeam().isEmpty());
+        assertTrue(trainer.getBattleTeam().isEmpty());
     }
 
     @Test
@@ -88,9 +88,10 @@ public class TrainerTest {
         trainer.addTeamMember(squirtle);
         trainer.prepareForBattle();
 
-        BattlingPokemon battlePikachu = trainer.getActiveTeam().get(0);
-        BattlingPokemon battleCharmander = trainer.getActiveTeam().get(1);
-        BattlingPokemon battleSquirtle = trainer.getActiveTeam().get(2);
+        BattlingPokemon battlePikachu = trainer.getBattleTeam().get(0);
+        BattlingPokemon battleCharmander = trainer.getBattleTeam().get(1);
+        BattlingPokemon battleSquirtle = trainer.getBattleTeam().get(2);
+        assertEquals(3, trainer.getBattleTeam().size());
 
         checkPokemon("Pikachu", "Electric", 180, 115, 105, battlePikachu);
         checkMove("Thunderbolt", 90, 15, 100, battlePikachu.getMoveSet().get(0));
@@ -110,8 +111,8 @@ public class TrainerTest {
         trainer.addTeamMember(pikachu);
         trainer.addTeamMember(charmander);
         trainer.prepareForBattle();
-        trainer.clearActiveTeam();
-        assertTrue(trainer.getActiveTeam().isEmpty());
+        trainer.clearBattleTeam();
+        assertTrue(trainer.getBattleTeam().isEmpty());
     }
 
     // EFFECTS: checks to see if BattlingPokemon bp has the correct info

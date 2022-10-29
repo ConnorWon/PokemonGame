@@ -1,6 +1,5 @@
 package ui.game;
 
-import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
@@ -89,6 +88,8 @@ public class MainMenu {
         }
     }
 
+    // Based on the supplied Workroom example for CPSC 210
+    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads Pokedex and user's trainer info from file
     private void loadData() throws IOException {
@@ -98,6 +99,7 @@ public class MainMenu {
         System.out.println("Loaded data from " + DATA_STORE);
     }
 
+    // MODIFIES: this
     // EFFECTS: determines if user wants to save their Pokedex and trainer info to file
     private void determineSaveData() {
         boolean keepGoing = true;
@@ -120,6 +122,7 @@ public class MainMenu {
 
     // Based on the supplied Workroom example for CPSC 210
     // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
     // EFFECTS: saves the Pokedex and user's trainer info to file
     private void saveData() {
         try {
@@ -171,7 +174,6 @@ public class MainMenu {
         int p1 = rand.nextInt(pokedex.getUsablePokemon().size());
         int p2 = rand.nextInt(pokedex.getUsablePokemon().size());
         int p3 = rand.nextInt(pokedex.getUsablePokemon().size());
-
 
         red = new Trainer("Red");
         red.addTeamMember(pokedex.getUsablePokemon().get(p1));

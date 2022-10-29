@@ -35,8 +35,8 @@ public class BattleGame {
 
         userName = user.getName();
         cpuName = red.getName();
-        userTeam = user.getActiveTeam();
-        cpuTeam = red.getActiveTeam();
+        userTeam = user.getBattleTeam();
+        cpuTeam = red.getBattleTeam();
         userCurrent = userTeam.get(index);
         cpuCurrent = cpuTeam.get(index);
 
@@ -68,8 +68,8 @@ public class BattleGame {
             }
         }
         red.clearTeam();
-        red.clearActiveTeam();
-        user.clearActiveTeam();
+        red.clearBattleTeam();
+        user.clearBattleTeam();
     }
 
     // MODIFIES: this

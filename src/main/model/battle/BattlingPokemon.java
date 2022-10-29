@@ -2,9 +2,6 @@ package model.battle;
 
 import model.pokedex.Move;
 import model.pokedex.Pokemon;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -106,7 +103,7 @@ public class BattlingPokemon {
         }
     }
 
-    // REQUIRES: moveSet to not be empty
+    // REQUIRES: moveSet not empty
     // MODIFIES: this
     // EFFECTS: constructs the move set for the battling Pokemon
     private void constructMoveSet(ArrayList<Move> moveSet) {
@@ -116,7 +113,7 @@ public class BattlingPokemon {
         }
     }
 
-    // REQUIRES: every move in moveSet has PP 0
+    // REQUIRES: every move in moveSet has PP = 0
     // MODIFIES: this
     // EFFECTS: calculates the damage output by the Pokemon using the move struggle based on target Pokemon. Also
     //          calculates the recoil damage the Pokemon using struggle takes

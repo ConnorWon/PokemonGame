@@ -1,13 +1,11 @@
 package ui.game;
 
-import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
 
 import java.util.Scanner;
 
-// TODO: make it so the user can choose to use the same team
 import static java.lang.Integer.parseInt;
 
 // The menu that allows users to select their Pokemon team
@@ -31,12 +29,12 @@ public class TeamSelect {
     private void runTeamSelect() {
         initInput();
 
-        if (user.getTeam().size() != 0) {
+        if (user.getTeam().size() == 3) {
             keepTeam();
         }
 
         while (user.getTeam().size() < 3) {
-            displayBattleMenu(user.getTeam().size());
+            displayTeamSelectMenu(user.getTeam().size());
             displayPokemonInPokedex();
             String choice = input.next();
 
@@ -60,7 +58,7 @@ public class TeamSelect {
         input.useDelimiter("\n");
     }
 
-    // REQUIRES: user.getTeam().size() > 0
+    // REQUIRES: user.getTeam().size() == 3
     // MODIFIES: this
     // EFFECTS: determines if the user wants to keep the team they previously were using
     private void keepTeam() {
@@ -83,7 +81,7 @@ public class TeamSelect {
     }
 
     // EFFECTS: displays the Pokemon select screen
-    private void displayBattleMenu(int num)  {
+    private void displayTeamSelectMenu(int num)  {
         if (num == 0) {
             System.out.println("Select your first team member");
         } else if (num == 1) {

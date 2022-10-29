@@ -56,4 +56,5 @@ public class JsonTest {
         checkMove("Dragon Breath", 60, 20, 100, charmander.getMoveSet().get(2));
         checkMove("Slash", 70, 20, 100,charmander.getMoveSet().get(3));
     }
+
 }

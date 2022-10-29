@@ -1,6 +1,5 @@
 package persistence;
 
-import model.battle.BattlingPokemon;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
@@ -34,6 +33,7 @@ public class JsonReaderTest extends JsonTest{
         try {
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
+            assertTrue(user.getTeam().isEmpty());
         } catch (IOException e) {
             fail("File couldn't be read");
         }
@@ -45,6 +45,7 @@ public class JsonReaderTest extends JsonTest{
         try {
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
+            assertEquals(3, user.getTeam().size());
             Pokemon pikachu = user.getTeam().get(0);
             checkNotFullMovesPikachu(pikachu);
 
@@ -66,6 +67,17 @@ public class JsonReaderTest extends JsonTest{
         try {
             Trainer user = reader.readForTrainer();
             assertEquals("testUser", user.getName());
+            assertEquals(3, user.getTeam().size());
+            Pokemon pikachu = user.getTeam().get(0);
+            checkNotFullMovesPikachu(pikachu);
+
+            Pokemon charmander = user.getTeam().get(1);
+            checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
+            checkMove("Flamethrower", 90, 15, 100, charmander.getMoveSet().get(0));
+
+            Pokemon squirtle = user.getTeam().get(2);
+            checkPokemon("Squirtle", "Water", 50, 51, 52, squirtle);
+            checkMove("Water Gun", 35, 30, 100, squirtle.getMoveSet().get(0));
         } catch (IOException e) {
             fail("File couldn't be read");
         }
@@ -152,7 +164,7 @@ public class JsonReaderTest extends JsonTest{
         try {
             Pokedex pokedex = reader.readForPokedex();
             ArrayList<Pokemon> usablePokemon = pokedex.getUsablePokemon();
-            assertEquals(2, usablePokemon.size());
+            assertEquals(3, usablePokemon.size());
 
             Pokemon pikachu = pokedex.getUsablePokemon().get(0);
             checkNotFullMovesPikachu(pikachu);
@@ -160,6 +172,10 @@ public class JsonReaderTest extends JsonTest{
             Pokemon charmander = pokedex.getUsablePokemon().get(1);
             checkPokemon("Charmander", "Fire", 39, 52, 43, charmander);
             checkMove("Flamethrower", 90, 15, 100, charmander.getMoveSet().get(0));
+
+            Pokemon squirtle = pokedex.getUsablePokemon().get(2);
+            checkPokemon("Squirtle", "Water", 50, 51, 52, squirtle);
+            checkMove("Water Gun", 35, 30, 100, squirtle.getMoveSet().get(0));
         } catch (IOException e) {
             fail("File couldn't be read");
         }

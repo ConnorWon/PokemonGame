@@ -1,6 +1,5 @@
 package persistence;
 
-import model.pokedex.Move;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import model.trainers.Trainer;
@@ -8,19 +7,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Based on the supplied Workroom example for CPSC 210
 // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
-// TODO: implement reading user's team from file
 // represents a reader that reads the Pokedex and user's Trainer from JSON data stored in file
 public class JsonReader {
+
     private String source;
 
     // EFFECTS: constructs reader to read from source file
@@ -87,7 +84,6 @@ public class JsonReader {
             JSONObject move = (JSONObject) json;
             addMove(pokemon, move);
         }
-
         return pokemon;
     }
 
@@ -115,8 +111,8 @@ public class JsonReader {
     private void fillTeam(Trainer user, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("team");
         for (Object json : jsonArray) {
-            JSONObject bp = (JSONObject) json;
-            Pokemon pokemon = addPokemon(bp);
+            JSONObject p = (JSONObject) json;
+            Pokemon pokemon = addPokemon(p);
             user.addTeamMember(pokemon);
         }
     }

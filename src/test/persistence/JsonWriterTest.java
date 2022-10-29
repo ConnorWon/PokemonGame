@@ -216,7 +216,7 @@ public class JsonWriterTest extends JsonTest{
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a not yet full move set to Pikachu and then adds Pikachu to Pokedex
+    // EFFECTS: adds a not completely full move set to Pikachu and then adds Pikachu to Pokedex
     private void addNotFullMovesPikachu(Pokemon pikachu) {
         pikachu.addMoveToMoveSet("Thunderbolt", 90, 15, 100);
         pikachu.addMoveToMoveSet("Iron Tail", 100, 15, 75);

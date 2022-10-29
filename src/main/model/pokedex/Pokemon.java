@@ -53,7 +53,7 @@ public class Pokemon implements Writable {
 
     // REQUIRES: power & accuracy & pp > 0, name != ""
     // MODIFIES: this
-    // EFFECTS: adds a move to the Pokemon's move set
+    // EFFECTS: adds a move to the Pokemon's move set up until the Pokemon has 4 moves, then no more moves will be added
     public void addMoveToMoveSet(String name, int power, int pp, int accuracy) {
         if (moveSet.size() < 4) {
             Move move = new Move(name, power, pp, accuracy);
@@ -88,4 +88,5 @@ public class Pokemon implements Writable {
 
         return jsonArray;
     }
+
 }

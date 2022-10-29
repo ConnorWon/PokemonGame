@@ -12,7 +12,7 @@ public class Move implements Writable {
     private int accuracy;
 
     // REQUIRES: power & accuracy & pp > 0, name != ""
-    // EFFECTS: creates a move with the given name, power, pp, and accuracy; stores the original pp value
+    // EFFECTS: creates a move with the given name, power, pp, and accuracy
     public Move(String name, int power, int pp, int accuracy) {
         this.name = name;
         this.power = power;
@@ -55,4 +55,5 @@ public class Move implements Writable {
         json.put("accuracy", accuracy);
         return json;
     }
+
 }
