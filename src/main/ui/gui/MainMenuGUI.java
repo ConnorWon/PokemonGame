@@ -29,7 +29,8 @@ public class MainMenuGUI extends JFrame implements ActionListener {
         btnPanel.setBackground(Color.LIGHT_GRAY);
         add(btnPanel, BorderLayout.SOUTH);
         add(titlePanel);
-        setPreferredSize(new Dimension(500, 500));
+        setMinimumSize(new Dimension(500, 500));
+        setMaximumSize(new Dimension(500, 500));
 
         pack();
         setVisible(true);
@@ -76,15 +77,16 @@ public class MainMenuGUI extends JFrame implements ActionListener {
 
     private void createTitleTextLabel() {
         String sep = System.getProperty("file.separator");
-        titleText = new ImageIcon(System.getProperty("user.dir") + sep + "images" + sep + "titleText.png");
+        titleText = new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images" + sep
+                + "titleText.png");
         titleTextAsLabel = new JLabel(titleText);
         titleTextAsLabel.setBounds(15, 5, 466, 87);
     }
 
     private void createTitleImageLabel() {
         String sep = System.getProperty("file.separator");
-        titleImage = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + sep + "images" + sep
-                + "titleScreenImage.jpg").getImage().getScaledInstance(565, 450, Image.SCALE_DEFAULT));
+        titleImage = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images"
+                + sep + "titleScreenImage.jpg").getImage().getScaledInstance(565, 450, Image.SCALE_DEFAULT));
         titleImageAsLabel = new JLabel(titleImage);
         titleImageAsLabel.setBounds(0, 0, 565, 450);
     }
