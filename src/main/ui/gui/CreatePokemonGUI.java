@@ -1,13 +1,21 @@
 package ui.gui;
 
+import model.pokedex.Pokedex;
+import model.pokedex.Pokemon;
+
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import static java.lang.Integer.parseInt;
 import static javax.swing.BoxLayout.*;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-public class CreatePokemonGUI extends JPanel {
+public class CreatePokemonGUI extends JPanel implements ActionListener {
 
     private JPanel pkmnInfoTextFields;
     private JPanel moveInputs;
@@ -17,27 +25,33 @@ public class CreatePokemonGUI extends JPanel {
     private JFormattedTextField atkField;
     private JFormattedTextField defField;
     private JFrame appWindow;
+    private Map<String, ArrayList<JTextField>> moveFields;
+    private Pokedex pokedex;
 
-    public CreatePokemonGUI(JFrame appWindow) {
+    public CreatePokemonGUI(JFrame appWindow, Pokedex pokedex) {
+        moveFields = new HashMap<>();
         this.appWindow = appWindow;
+        this.pokedex = pokedex;
         appWindow.setMinimumSize(new Dimension(500, 500));
         appWindow.setPreferredSize(new Dimension(500, 500));
         appWindow.setMaximumSize(new Dimension(500, 500));
 
         setLayout(new BoxLayout(this, Y_AXIS));
-        setMinimumSize(new Dimension(500, 500));
-        setPreferredSize(new Dimension(500, 500));
-        setMaximumSize(new Dimension(500, 500));
-        setAlignmentX(CENTER_ALIGNMENT);
+//        setMinimumSize(new Dimension(500, 500));
+////        setPreferredSize(new Dimension(500, 500));
+//        setMaximumSize(new Dimension(500, 500));
+//        setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel title = new JLabel("Create Pokemon");
         title.setFont(new Font("Times", Font.BOLD, 22));
+        title.setAlignmentX(CENTER_ALIGNMENT);
         add(title);
+        add(Box.createRigidArea(new Dimension(0, 20)));
         add(createTextFields());
         add(createMoveInputs());
+        add(createButtons());
 
         appWindow.add(this);
-        appWindow.setDefaultCloseOperation(EXIT_ON_CLOSE);
         appWindow.pack();
         appWindow.setVisible(true);
 
@@ -47,11 +61,11 @@ public class CreatePokemonGUI extends JPanel {
     private JPanel createTextFields() {
         pkmnInfoTextFields = new JPanel();
         pkmnInfoTextFields.setLayout(new BoxLayout(pkmnInfoTextFields, Y_AXIS));
-        pkmnInfoTextFields.setMaximumSize(new Dimension(500, 200));
-        pkmnInfoTextFields.setAlignmentX(CENTER_ALIGNMENT);
+//        pkmnInfoTextFields.setMaximumSize(new Dimension(500, 200));
+//        pkmnInfoTextFields.setAlignmentX(CENTER_ALIGNMENT);
 
         pkmnInfoTextFields.add(createNameAndTypeInputs());
-        pkmnInfoTextFields.add(Box.createRigidArea(new Dimension(0, 20)));
+//        pkmnInfoTextFields.add(Box.createRigidArea(new Dimension(0, 20)));
         pkmnInfoTextFields.add(createStatsInputs());
 
         return pkmnInfoTextFields;
@@ -59,15 +73,17 @@ public class CreatePokemonGUI extends JPanel {
 
     private JPanel createNameAndTypeInputs() {
         JPanel nameAndTypeInputs = new JPanel();
-        nameAndTypeInputs.setLayout(new BoxLayout(nameAndTypeInputs, X_AXIS));
+//        nameAndTypeInputs.setLayout(new BoxLayout(nameAndTypeInputs, X_AXIS));
 
         nameField = new JTextField();
         nameField.setColumns(10);
         nameField.setMaximumSize(new Dimension(100, 20));
+        nameField.addActionListener(this);
 //        nameField.setAlignmentX((float) 0.175);
 
         typeField = new JComboBox<>();
-        typeField.setMaximumSize(new Dimension(100, 25));
+        typeField.setPreferredSize(new Dimension(100, 25));
+        typeField.addActionListener(this);
 //        typeField.setAlignmentX((float) 0.175);
 
         JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
@@ -88,7 +104,7 @@ public class CreatePokemonGUI extends JPanel {
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private JPanel createStatsInputs() {
         JPanel statsInputs = new JPanel();
-        statsInputs.setLayout(new BoxLayout(statsInputs, X_AXIS));
+//        statsInputs.setLayout(new BoxLayout(statsInputs, X_AXIS));
 
         String[] labelsStrings = new String[] {
                 "HP:",
@@ -101,18 +117,20 @@ public class CreatePokemonGUI extends JPanel {
         int fieldNum = 0;
 
         hpField = new JFormattedTextField(formatter("###"));
-        hpField.setColumns(10);
-        hpField.setMaximumSize(new Dimension(35, 20));
+        hpField.setColumns(3);
+//        hpField.setMinimumSize(new Dimension(35, 20));
+//        hpField.setPreferredSize(new Dimension(35, 20));
+//        hpField.setMaximumSize(new Dimension(35, 20));
         fields[fieldNum++] = hpField;
 
         atkField = new JFormattedTextField(formatter("###"));
-        atkField.setColumns(10);
-        atkField.setMaximumSize(new Dimension(35, 20));
+        atkField.setColumns(3);
+//        atkField.setPreferredSize(new Dimension(35, 20));
         fields[fieldNum++] = atkField;
 
         defField = new JFormattedTextField(formatter("###"));
-        defField.setColumns(10);
-        defField.setMaximumSize(new Dimension(35, 20));
+        defField.setColumns(3);
+//        defField.setPreferredSize(new Dimension(35, 20));
         fields[fieldNum] = defField;
 
 //        statsInputs.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -143,15 +161,16 @@ public class CreatePokemonGUI extends JPanel {
     private JPanel createMoveInputs() {
         moveInputs = new JPanel();
         moveInputs.setLayout(new BoxLayout(moveInputs, Y_AXIS));
-        moveInputs.setMaximumSize(new Dimension(500, 200));
-        moveInputs.setAlignmentX(CENTER_ALIGNMENT);
+//        moveInputs.setMaximumSize(new Dimension(500, 200));
+//        moveInputs.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel title = new JLabel("Move Set");
         title.setFont(new Font("", Font.BOLD, 14));
+        title.setAlignmentX(CENTER_ALIGNMENT);
         JPanel move1And2 = new JPanel();
-        move1And2.setLayout(new BoxLayout(move1And2, X_AXIS));
+//        move1And2.setLayout(new BoxLayout(move1And2, X_AXIS));
         JPanel move3And4 = new JPanel();
-        move3And4.setLayout(new BoxLayout(move3And4, X_AXIS));
+//        move3And4.setLayout(new BoxLayout(move3And4, X_AXIS));
 
         for (int i = 0; i < 2; i++) {
             move1And2.add(createMoveInput(i + 1));
@@ -171,60 +190,124 @@ public class CreatePokemonGUI extends JPanel {
         movePanel.setLayout(new BoxLayout(movePanel, Y_AXIS));
 
         JLabel title = new JLabel("Move " + i);
+        title.setAlignmentX(CENTER_ALIGNMENT);
+
         movePanel.add(title);
-        movePanel.add(createMoveNameAndPowerInput());
-        movePanel.add(createMovePPAndAccuracyInput());
+        movePanel.add(createMoveNameInput(i));
+        movePanel.add(createMovePPPowerAccuracyInput(i));
 
         return movePanel;
     }
 
-    private JPanel createMoveNameAndPowerInput() {
+    private JPanel createMoveNameInput(int i) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, X_AXIS));
+        ArrayList<JTextField> fields = new ArrayList<>();
 
         JTextField nameField = new JTextField();
         nameField.setColumns(10);
-        nameField.setMaximumSize(new Dimension(100, 20));
-
-        JFormattedTextField powerField = new JFormattedTextField(formatter("###"));
-        powerField.setColumns(10);
-        powerField.setMaximumSize(new Dimension(35, 20));
+        fields.add(nameField);
+        moveFields.put("move" + i, fields);
 
         JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
         nameLabel.setLabelFor(nameField);
         panel.add(nameLabel);
         panel.add(nameField);
 
-        JLabel powerLabel = new JLabel("Power:", JLabel.TRAILING);
-        powerLabel.setLabelFor(powerField);
-        panel.add(powerLabel);
-        panel.add(powerField);
-
         return panel;
     }
 
-    private JPanel createMovePPAndAccuracyInput() {
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private JPanel createMovePPPowerAccuracyInput(int i) {
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, X_AXIS));
+        ArrayList<JTextField> fields = moveFields.get("move" + i);
+
+        JFormattedTextField powerField = new JFormattedTextField(formatter("###"));
+        powerField.setColumns(2);
+        fields.add(powerField);
 
         JFormattedTextField ppField = new JFormattedTextField(formatter("###"));
-        ppField.setColumns(10);
-        ppField.setMaximumSize(new Dimension(35, 20));
+        ppField.setColumns(2);
+        fields.add(ppField);
 
         JFormattedTextField accField = new JFormattedTextField(formatter("###"));
-        accField.setColumns(10);
-        accField.setMaximumSize(new Dimension(35, 20));
+        accField.setColumns(2);
+        fields.add(accField);
+
+        JLabel powerLabel = new JLabel("POW:", JLabel.TRAILING);
+        powerLabel.setLabelFor(powerField);
+        panel.add(powerLabel);
+        panel.add(powerField);
 
         JLabel ppLabel = new JLabel("PP:", JLabel.TRAILING);
         ppLabel.setLabelFor(ppField);
         panel.add(ppLabel);
         panel.add(ppField);
 
-        JLabel accLabel = new JLabel("Accuracy:", JLabel.TRAILING);
+        JLabel accLabel = new JLabel("ACC:", JLabel.TRAILING);
         accLabel.setLabelFor(accField);
         panel.add(accLabel);
         panel.add(accField);
 
         return panel;
+    }
+
+    // make it so create btn is not active until all fields are filled out (only 1 move fields must be filled)
+    private JPanel createButtons() {
+        JPanel btnPanel = new JPanel();
+
+        JButton backButton = new JButton("Back");
+        backButton.setActionCommand("back");
+        backButton.setPreferredSize(new Dimension(100, 35));
+
+        JButton createPkmnButton = new JButton("Create");
+        createPkmnButton.setActionCommand("create");
+        createPkmnButton.setPreferredSize(new Dimension(100, 35));
+
+        backButton.addActionListener(this);
+        createPkmnButton.addActionListener(this);
+
+        btnPanel.add(backButton);
+        btnPanel.add(createPkmnButton);
+        return btnPanel;
+    }
+
+    private void addPokemon() {
+        String name = nameField.getText();
+//        String type = typeField
+        int hp = parseInt(hpField.getText());
+        int atk = parseInt(atkField.getText());
+        int def = parseInt(defField.getText());
+
+        Pokemon pokemon = new Pokemon(name, type, hp, atk, def);
+
+        for (int i = 1; i < 5; i++) {
+            addMove(pokemon, i);
+        }
+
+        pokedex.addPokemonToPokedex(pokemon);
+    }
+
+    private void addMove(Pokemon p, int i) {
+        ArrayList<JTextField> move = moveFields.get("move" + i);
+        String name = move.get(0).getText();
+        int power = parseInt(move.get(1).getText());
+        int pp = parseInt(move.get(2).getText());
+        int accuracy = parseInt(move.get(3).getText());
+
+        p.addMoveToMoveSet(name, power, pp, accuracy);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ("create".equals(e.getActionCommand())) {
+            // add pokemon to Pokedex
+            addPokemon();
+        } else if ("back".equals(e.getActionCommand())) {
+            appWindow.remove(this);
+            new MainMenuGUI(appWindow);
+        } else {
+            // save option pop-up
+            System.exit(0);
+        }
     }
 }
