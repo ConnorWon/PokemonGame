@@ -1,7 +1,6 @@
 package ui.gui;
 
 import model.pokedex.Pokedex;
-import model.pokedex.Pokemon;
 import model.trainers.Trainer;
 
 import javax.swing.*;
@@ -10,8 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
-
+// The main menu
 public class MainMenuGUI implements ActionListener {
 
     private JPanel btnPanel;
@@ -29,12 +27,12 @@ public class MainMenuGUI implements ActionListener {
     private Trainer user;
     private Trainer red;
 
-    public MainMenuGUI(JFrame frame) {
-        initPokedex();
-        initCpuTrainer();
-
+    // EFFECTS: constructs the GUI for the Main Menu
+    public MainMenuGUI(JFrame frame, Pokedex pokedex, Trainer user) {
+        this.pokedex = pokedex;
+        this.user = user;
         this.frame = frame;
-        frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        initCpuTrainer();
 
         createButtons();
         createTitle();
@@ -50,6 +48,8 @@ public class MainMenuGUI implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates buttons for the Menu
     private void createButtons() {
         btnPanel = new JPanel();
 
@@ -74,6 +74,8 @@ public class MainMenuGUI implements ActionListener {
         btnPanel.add(quitButton);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the title screen image for the Main Menu
     private void createTitle() {
         titlePanel = new JPanel();
         titlePanel.setPreferredSize(new Dimension(500, 450));
@@ -89,6 +91,8 @@ public class MainMenuGUI implements ActionListener {
         titlePanel.add(titlePane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the title text image to the GUI
     private void createTitleTextLabel() {
         String sep = System.getProperty("file.separator");
         titleText = new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images" + sep
@@ -97,6 +101,8 @@ public class MainMenuGUI implements ActionListener {
         titleTextAsLabel.setBounds(15, 5, 466, 87);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the title image to the GUI
     private void createTitleImageLabel() {
         String sep = System.getProperty("file.separator");
         titleImage = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images"
@@ -105,6 +111,8 @@ public class MainMenuGUI implements ActionListener {
         titleImageAsLabel.setBounds(0, 0, 565, 450);
     }
 
+    // MODIFIES: this
+    // EFFECTS: determines what response should occur if a button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("battle".equals(e.getActionCommand())) {
@@ -112,26 +120,12 @@ public class MainMenuGUI implements ActionListener {
         } else if ("create".equals(e.getActionCommand())) {
             frame.remove(btnPanel);
             frame.remove(titlePanel);
-            new CreatePokemonGUI(frame, pokedex);
+            new CreatePokemonGUI(frame, pokedex, user);
         } else {
-            // save option pop-up
-            System.exit(0);
+            frame.remove(btnPanel);
+            frame.remove(titlePanel);
+            new ClosingGUI(frame, pokedex, user);
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: initializes the starting Pokedex
-    private void initPokedex() {
-        Pokemon pikachu = initPikachu();
-        Pokemon charmander = initCharmander();
-        Pokemon squirtle = initSquirtle();
-        Pokemon bulbasaur = initBulbasaur();
-
-        pokedex = new Pokedex();
-        pokedex.addPokemonToPokedex(pikachu);
-        pokedex.addPokemonToPokedex(charmander);
-        pokedex.addPokemonToPokedex(squirtle);
-        pokedex.addPokemonToPokedex(bulbasaur);
     }
 
     // MODIFIES: this
@@ -147,49 +141,5 @@ public class MainMenuGUI implements ActionListener {
         red.addTeamMember(pokedex.getUsablePokemon().get(p1));
         red.addTeamMember(pokedex.getUsablePokemon().get(p2));
         red.addTeamMember(pokedex.getUsablePokemon().get(p3));
-    }
-
-    // EFFECTS: creates and returns the starting Pokemon Pikachu
-    private Pokemon initPikachu() {
-        Pokemon pikachu = new Pokemon("Pikachu", "Electric", 35, 55, 30);
-        pikachu.addMoveToMoveSet("Thunderbolt", 90, 15, 100);
-        pikachu.addMoveToMoveSet("Iron Tail", 100, 15, 75);
-        pikachu.addMoveToMoveSet("Volt Tackle", 120, 15, 100);
-        pikachu.addMoveToMoveSet("Quick Attack", 40, 30, 100);
-
-        return pikachu;
-    }
-
-    // EFFECTS: creates and returns the starting Pokemon Charmander
-    private Pokemon initCharmander() {
-        Pokemon charmander = new Pokemon("Charmander", "Fire", 39, 52, 43);
-        charmander.addMoveToMoveSet("Flamethrower", 90, 15, 100);
-        charmander.addMoveToMoveSet("Fire Spin", 35, 15, 85);
-        charmander.addMoveToMoveSet("Dragon Breath", 60, 20, 100);
-        charmander.addMoveToMoveSet("Slash", 70, 20, 100);
-
-        return charmander;
-    }
-
-    // EFFECTS: creates and returns the starting Pokemon Squirtle
-    private Pokemon initSquirtle() {
-        Pokemon squirtle = new Pokemon("Squirtle", "Water", 44, 48, 65);
-        squirtle.addMoveToMoveSet("Hydro Pump", 110, 5, 80);
-        squirtle.addMoveToMoveSet("Water Pulse", 60, 20, 100);
-        squirtle.addMoveToMoveSet("Bite", 60, 25, 100);
-        squirtle.addMoveToMoveSet("Rapid Spin", 50, 40, 100);
-
-        return squirtle;
-    }
-
-    // EFFECTS: creates and returns the starting Pokemon Bulbasaur
-    private Pokemon initBulbasaur() {
-        Pokemon bulbasaur = new Pokemon("Bulbasaur", "Grass", 45, 49, 49);
-        bulbasaur.addMoveToMoveSet("Solar Beam", 120, 10, 100);
-        bulbasaur.addMoveToMoveSet("Seed Bomb", 80, 15, 100);
-        bulbasaur.addMoveToMoveSet("Razor Leaf", 55, 25, 95);
-        bulbasaur.addMoveToMoveSet("Vine Whip", 45, 25, 100);
-
-        return bulbasaur;
     }
 }

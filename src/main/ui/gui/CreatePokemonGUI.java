@@ -2,11 +2,11 @@ package ui.gui;
 
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
+import model.trainers.Trainer;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +18,12 @@ import java.util.Map;
 import static java.lang.Integer.parseInt;
 import static javax.swing.BoxLayout.*;
 
+// References:
+//      Buttons - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+//      TextFields - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
+//      FormattedTextFields - https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+//      Combo Box - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
+// The create Pokemon menu
 public class CreatePokemonGUI extends JPanel implements ActionListener {
 
     private JPanel pkmnInfoTextFields;
@@ -30,13 +36,16 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
     private JFrame appWindow;
     private Map<String, ArrayList<JTextField>> moveFields;
     private Pokedex pokedex;
+    private Trainer user;
     private NumberFormat numFormat = NumberFormat.getNumberInstance();
     private JButton createPkmnButton;
 
-    public CreatePokemonGUI(JFrame appWindow, Pokedex pokedex) {
+    // EFFECTS: constructs the GUI for the create Pokemon menu
+    public CreatePokemonGUI(JFrame appWindow, Pokedex pokedex, Trainer user) {
         moveFields = new HashMap<>();
         this.appWindow = appWindow;
         this.pokedex = pokedex;
+        this.user = user;
         appWindow.setMinimumSize(new Dimension(500, 500));
         appWindow.setPreferredSize(new Dimension(500, 500));
         appWindow.setMaximumSize(new Dimension(500, 500));
@@ -47,17 +56,13 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         numFormat.setMinimumFractionDigits(0);
 
         setLayout(new BoxLayout(this, Y_AXIS));
-//        setMinimumSize(new Dimension(500, 500));
-//        setPreferredSize(new Dimension(500, 500));
-//        setMaximumSize(new Dimension(500, 500));
-//        setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel title = new JLabel("Create Pokemon");
         title.setFont(new Font("Times", Font.BOLD, 22));
         title.setAlignmentX(CENTER_ALIGNMENT);
         add(title);
         add(Box.createRigidArea(new Dimension(0, 20)));
-        add(createTextFields());
+        add(createPkmnStatsInputs());
         add(createMoveInputs());
         add(createButtons());
 
@@ -66,36 +71,32 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         appWindow.setVisible(true);
     }
 
-    // based on TextInput Demo from documentation website
-    private JPanel createTextFields() {
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the Pokemon's stats/info
+    private JPanel createPkmnStatsInputs() {
         pkmnInfoTextFields = new JPanel();
         pkmnInfoTextFields.setLayout(new BoxLayout(pkmnInfoTextFields, Y_AXIS));
-//        pkmnInfoTextFields.setMaximumSize(new Dimension(500, 200));
-//        pkmnInfoTextFields.setAlignmentX(CENTER_ALIGNMENT);
-
         pkmnInfoTextFields.add(createNameAndTypeInputs());
-//        pkmnInfoTextFields.add(Box.createRigidArea(new Dimension(0, 20)));
         pkmnInfoTextFields.add(createStatsInputs());
 
         return pkmnInfoTextFields;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the Pokemon's name and type
     private JPanel createNameAndTypeInputs() {
         JPanel nameAndTypeInputs = new JPanel();
-//        nameAndTypeInputs.setLayout(new BoxLayout(nameAndTypeInputs, X_AXIS));
 
         nameField = new JTextField();
         nameField.setColumns(10);
-        nameField.setMaximumSize(new Dimension(100, 20));
+//        nameField.setMaximumSize(new Dimension(100, 20));
         nameField.getDocument().addDocumentListener(new MyDocumentListener());
-//        nameField.setAlignmentX((float) 0.175);
 
         String[] pkmnTypes = { "Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel",
                 "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"};
 
         typeField = new JComboBox<>(pkmnTypes);
         typeField.setSelectedIndex(0);
-//        typeField.setPreferredSize(new Dimension(100, 25));
         typeField.addActionListener(this);
 
         JLabel nameLabel = new JLabel("Name:", JLabel.TRAILING);
@@ -113,11 +114,33 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         return nameAndTypeInputs;
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the Pokemon's hp, atk, and def
     private JPanel createStatsInputs() {
-        JPanel statsInputs = new JPanel();
-//        statsInputs.setLayout(new BoxLayout(statsInputs, X_AXIS));
+        JComponent[] fields = new JComponent[3];
+        int fieldNum = 0;
 
+        hpField = new JFormattedTextField(numFormat);
+        hpField.setColumns(3);
+        hpField.getDocument().addDocumentListener(new MyDocumentListener());
+        fields[fieldNum++] = hpField;
+
+        atkField = new JFormattedTextField(numFormat);
+        atkField.setColumns(3);
+        atkField.getDocument().addDocumentListener(new MyDocumentListener());
+        fields[fieldNum++] = atkField;
+
+        defField = new JFormattedTextField(numFormat);
+        defField.setColumns(3);
+        defField.getDocument().addDocumentListener(new MyDocumentListener());
+        fields[fieldNum] = defField;
+
+        return combineStatsInputs(fields);
+    }
+
+    // EFFECTS: combines the different Pokemon stats input fields into one JPanel and returns it
+    private JPanel combineStatsInputs(JComponent[] fields) {
+        JPanel statsInputs = new JPanel();
         String[] labelsStrings = new String[] {
                 "HP:",
                 "ATK:",
@@ -125,31 +148,6 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         };
 
         JLabel[] labels = new JLabel[labelsStrings.length];
-        JComponent[] fields = new JComponent[labelsStrings.length];
-        int fieldNum = 0;
-
-        hpField = new JFormattedTextField(numFormat);
-        hpField.setColumns(3);
-        hpField.getDocument().addDocumentListener(new MyDocumentListener());
-//        hpField.setMinimumSize(new Dimension(35, 20));
-//        hpField.setPreferredSize(new Dimension(35, 20));
-//        hpField.setMaximumSize(new Dimension(35, 20));
-        fields[fieldNum++] = hpField;
-
-        atkField = new JFormattedTextField(numFormat);
-        atkField.setColumns(3);
-        atkField.getDocument().addDocumentListener(new MyDocumentListener());
-//        atkField.setPreferredSize(new Dimension(35, 20));
-        fields[fieldNum++] = atkField;
-
-        defField = new JFormattedTextField(numFormat);
-        defField.setColumns(3);
-        defField.getDocument().addDocumentListener(new MyDocumentListener());
-//        defField.setPreferredSize(new Dimension(35, 20));
-        fields[fieldNum] = defField;
-
-//        statsInputs.add(Box.createRigidArea(new Dimension(20, 0)));
-
         for (int i = 0; i < labelsStrings.length; i++) {
             labels[i] = new JLabel(labelsStrings[i], JLabel.TRAILING);
             labels[i].setLabelFor(fields[i]);
@@ -157,35 +155,20 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
             statsInputs.add(fields[i]);
             statsInputs.add(Box.createRigidArea(new Dimension(35, 0)));
         }
-
         return statsInputs;
     }
 
-    // based on TextInput Demo from documentation website
-    private MaskFormatter formatter(String s) {
-        MaskFormatter format = null;
-        try {
-            format = new MaskFormatter(s);
-        } catch (java.text.ParseException e) {
-            System.out.println("Formatter error");
-            System.exit(-1);
-        }
-        return format;
-    }
-
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the Pokemon's move set
     private JPanel createMoveInputs() {
         moveInputs = new JPanel();
         moveInputs.setLayout(new BoxLayout(moveInputs, Y_AXIS));
-//        moveInputs.setMaximumSize(new Dimension(500, 200));
-//        moveInputs.setAlignmentX(CENTER_ALIGNMENT);
 
         JLabel title = new JLabel("Move Set");
         title.setFont(new Font("", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
         JPanel move1And2 = new JPanel();
-//        move1And2.setLayout(new BoxLayout(move1And2, X_AXIS));
         JPanel move3And4 = new JPanel();
-//        move3And4.setLayout(new BoxLayout(move3And4, X_AXIS));
 
         for (int i = 0; i < 2; i++) {
             move1And2.add(createMoveInput(i + 1));
@@ -194,12 +177,15 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         for (int i = 0; i < 2; i++) {
             move3And4.add(createMoveInput(i + 3));
         }
+
         moveInputs.add(title);
         moveInputs.add(move1And2);
         moveInputs.add(move3And4);
         return moveInputs;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates an input field for one of the Pokemon's moves
     private JPanel createMoveInput(int i) {
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new BoxLayout(movePanel, Y_AXIS));
@@ -214,6 +200,8 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         return movePanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the name of the Pokemon's move
     private JPanel createMoveNameInput(int i) {
         JPanel panel = new JPanel();
         ArrayList<JTextField> fields = new ArrayList<>();
@@ -232,45 +220,51 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         return panel;
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // MODIFIES: this
+    // EFFECTS: creates the input fields for the power, pp, and accuracy of the Pokemon's move
     private JPanel createMovePPPowerAccuracyInput(int i) {
-        JPanel panel = new JPanel();
         ArrayList<JTextField> fields = moveFields.get("move" + i);
+        JFormattedTextField[] textFields = new JFormattedTextField[3];
+        int fieldNum = 0;
 
         JFormattedTextField powerField = new JFormattedTextField(numFormat);
         powerField.setColumns(2);
         powerField.getDocument().addDocumentListener(new MyDocumentListener());
         fields.add(powerField);
+        textFields[fieldNum++] = powerField;
 
         JFormattedTextField ppField = new JFormattedTextField(numFormat);
         ppField.setColumns(2);
         ppField.getDocument().addDocumentListener(new MyDocumentListener());
         fields.add(ppField);
+        textFields[fieldNum++] = ppField;
 
         JFormattedTextField accField = new JFormattedTextField(numFormat);
         accField.setColumns(2);
         accField.getDocument().addDocumentListener(new MyDocumentListener());
         fields.add(accField);
+        textFields[fieldNum] = accField;
 
-        JLabel powerLabel = new JLabel("POW:", JLabel.TRAILING);
-        powerLabel.setLabelFor(powerField);
-        panel.add(powerLabel);
-        panel.add(powerField);
+        return combineMoveInputs(textFields);
+    }
 
-        JLabel ppLabel = new JLabel("PP:", JLabel.TRAILING);
-        ppLabel.setLabelFor(ppField);
-        panel.add(ppLabel);
-        panel.add(ppField);
+    // EFFECTS: combines the power, pp, and accuracy input fields into one JPanel and returns it
+    private JPanel combineMoveInputs(JComponent[] fields) {
+        JPanel panel = new JPanel();
+        String[] labelsStrings = new String[] {"POW:", "PP:", "ACC:"};
 
-        JLabel accLabel = new JLabel("ACC:", JLabel.TRAILING);
-        accLabel.setLabelFor(accField);
-        panel.add(accLabel);
-        panel.add(accField);
-
+        JLabel[] labels = new JLabel[labelsStrings.length];
+        for (int i = 0; i < labelsStrings.length; i++) {
+            labels[i] = new JLabel(labelsStrings[i], JLabel.TRAILING);
+            labels[i].setLabelFor(fields[i]);
+            panel.add(labels[i]);
+            panel.add(fields[i]);
+        }
         return panel;
     }
 
-    // make it so create btn is not active until all fields are filled out (only 1 move fields must be filled)
+    // MODIFIES: this
+    // EFFECTS: creates a back button and create button, which is disabled at first, for the GUI
     private JPanel createButtons() {
         JPanel btnPanel = new JPanel();
 
@@ -291,6 +285,8 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         return btnPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: based on the inputs in the different input fields, creates a Pokemon which is then added to the Pokedex
     private void addPokemon() {
         String name = nameField.getText();
         String type = (String) typeField.getSelectedItem();
@@ -307,6 +303,8 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         pokedex.addPokemonToPokedex(pokemon);
     }
 
+    // MODIFIES: p
+    // EFFECTS: adds moves corresponding to the values in the different move input fields to the Pokemon
     private void addMove(Pokemon p, int i) {
         boolean movePresent = true;
         int power = 0;
@@ -331,7 +329,7 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         }
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // EFFECTS: determines if all the fields required for a Pokemon to be created are filled
     private boolean allRequiredFieldsFilled() {
         boolean name = nameField.getText().length() > 0;
         int hp = 0;
@@ -351,6 +349,11 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
             statsOK = false;
         }
 
+        return statsOK && allRequiredMoveFieldsFilled();
+    }
+
+    // EFFECTS: determines if all the fields are filled for at least one move field
+    private boolean allRequiredMoveFieldsFilled() {
         boolean movesPresent = false;
 
         for (int i = 1; i < 5; i++) {
@@ -370,29 +373,43 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
             }
 
             if (moveName && movePresent) {
-                if (power != 0 && pp != 0 && accuracy != 0) {
+                if (power > 0 && pp > 0 && accuracy > 0) {
                     movesPresent = true;
                     break;
                 }
             }
         }
-        return statsOK && movesPresent;
+
+        return movesPresent;
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears all the fields of its values
+    private void clearFields() {
+        nameField.setText("");
+        hpField.setText("");
+        atkField.setText("");
+        defField.setText("");
+
+        for (int i = 1; i < 5; i++) {
+            ArrayList<JTextField> move = moveFields.get("move" + i);
+            move.get(0).setText("");
+            move.get(1).setText("");
+            move.get(2).setText("");
+            move.get(3).setText("");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: determines what response should occur if a button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("create".equals(e.getActionCommand())) {
-            // add pokemon to Pokedex
             addPokemon();
+            clearFields();
         } else if ("back".equals(e.getActionCommand())) {
             appWindow.remove(this);
-            new MainMenuGUI(appWindow);
-//        } else {
-//            if (allRequiredFieldsFilled()) {
-//                createPkmnButton.setEnabled(true);
-//            } else {
-//                createPkmnButton.setEnabled(false);
-//            }
+            new MainMenuGUI(appWindow, pokedex, user);
         }
     }
 
@@ -400,20 +417,12 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            if (allRequiredFieldsFilled()) {
-                createPkmnButton.setEnabled(true);
-            } else {
-                createPkmnButton.setEnabled(false);
-            }
+            createPkmnButton.setEnabled(allRequiredFieldsFilled());
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            if (allRequiredFieldsFilled()) {
-                createPkmnButton.setEnabled(true);
-            } else {
-                createPkmnButton.setEnabled(false);
-            }
+            createPkmnButton.setEnabled(allRequiredFieldsFilled());
         }
 
         @Override

@@ -1,13 +1,10 @@
 package ui;
 
-import ui.game.MainMenu;
-import ui.gui.MainMenuGUI;
-
-import javax.swing.*;
+import ui.gui.StartUpGUI;
 
 // starts the application
 public class Main {
     public static void main(String[] args) {
-        new MainMenuGUI(new JFrame("Pokemon Clash"));
+        new StartUpGUI();
     }
 }
