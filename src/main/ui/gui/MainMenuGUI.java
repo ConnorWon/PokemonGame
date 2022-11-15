@@ -115,15 +115,13 @@ public class MainMenuGUI implements ActionListener {
     // EFFECTS: determines what response should occur if a button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
+        frame.remove(btnPanel);
+        frame.remove(titlePanel);
         if ("battle".equals(e.getActionCommand())) {
-            new TeamSelectGUI();
+            new TeamSelectGUI(frame, pokedex, user, red);
         } else if ("create".equals(e.getActionCommand())) {
-            frame.remove(btnPanel);
-            frame.remove(titlePanel);
             new CreatePokemonGUI(frame, pokedex, user);
         } else {
-            frame.remove(btnPanel);
-            frame.remove(titlePanel);
             new ClosingGUI(frame, pokedex, user);
         }
     }

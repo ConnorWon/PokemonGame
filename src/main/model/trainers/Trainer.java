@@ -49,6 +49,14 @@ public class Trainer implements Writable {
     }
 
     // MODIFIES: this
+    // EFFECTS: removes Pokemon at index i of the trainer's team
+    public void removeTeamMember(int i) {
+        if (i <= team.size() - 1) {
+            team.remove(i);
+        }
+    }
+
+    // MODIFIES: this
     // EFFECTS: clears the trainer's battle team
     public void clearBattleTeam() {
         battleTeam.clear();

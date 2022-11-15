@@ -115,6 +115,36 @@ public class TrainerTest {
         assertTrue(trainer.getBattleTeam().isEmpty());
     }
 
+    @Test
+    public void testRemoveTeamMember() {
+        trainer.addTeamMember(pikachu);
+        trainer.addTeamMember(charmander);
+        trainer.removeTeamMember(0);
+        assertEquals(1, trainer.getTeam().size());
+        assertTrue(trainer.getTeam().contains(charmander));
+        assertFalse(trainer.getTeam().contains(pikachu));
+    }
+
+    @Test
+    public void testRemoveTeamMemberMultipleTimes() {
+        trainer.addTeamMember(pikachu);
+        trainer.addTeamMember(charmander);
+        trainer.removeTeamMember(0);
+        trainer.removeTeamMember(0);
+        assertTrue(trainer.getTeam().isEmpty());
+    }
+
+    @Test
+    public void testRemoveTeamMemberIndexOverTeamSize() {
+        trainer.addTeamMember(pikachu);
+        trainer.addTeamMember(charmander);
+        trainer.removeTeamMember(0);
+        trainer.removeTeamMember(1);
+        assertEquals(1, trainer.getTeam().size());
+        assertTrue(trainer.getTeam().contains(charmander));
+        assertFalse(trainer.getTeam().contains(pikachu));
+    }
+
     // EFFECTS: checks to see if BattlingPokemon bp has the correct info
     private void checkPokemon(String name, String type, int hp, int atk, int def, BattlingPokemon bp) {
         assertEquals(name, bp.getName());
