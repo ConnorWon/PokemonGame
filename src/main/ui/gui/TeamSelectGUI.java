@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
+// Team Select Menu
 public class TeamSelectGUI extends JPanel implements ActionListener {
 
     private DefaultListModel pokemonListModel;
@@ -31,6 +32,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     private JPanel usablePokemonListPanel;
     private JScrollPane usablePokemonScrollPane;
 
+    // EFFECTS: constructs the GUI for the team select menu
     public TeamSelectGUI(JFrame frame, Pokedex pokedex, Trainer user, Trainer cpu) {
         this.frame = frame;
         this.pokedex = pokedex;
@@ -57,6 +59,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the panel that displays a list of usable Pokemon and the user's current team and the
+    //          corresponding event graphics for the two lists
     private JPanel createListsPanel() {
         JPanel listsPanel = new JPanel();
 
@@ -65,6 +70,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return listsPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel that displays a list of usable Pokemon and its corresponding event graphics
     private JPanel createUsablePokemonPanel() {
         JPanel usablePokemonPanel = new JPanel();
 
@@ -74,6 +81,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return usablePokemonPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel that displays the Pokemon usable in battle
     private JPanel createUsablePokemonList() {
         usablePokemonListPanel = new JPanel();
         usablePokemonListPanel.setLayout(new BoxLayout(usablePokemonListPanel, Y_AXIS));
@@ -93,6 +102,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return usablePokemonListPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel that displays the events related to the usable Pokemon list
     private JPanel createUsablePokemonPanelEvents() {
         JPanel eventPanel = new JPanel();
         eventPanel.setLayout(new BoxLayout(eventPanel, Y_AXIS));
@@ -102,6 +113,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return eventPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a button and combo box used to filter the usable Pokemon list by Pokemon typing
     private JPanel createUsablePokemonListSorter() {
         JPanel panel = new JPanel();
 
@@ -126,6 +139,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return panel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the add Pokemon to team button for the usable Pokemon list
     private JPanel createUsablePokemonAddButton() {
         JPanel panel = new JPanel();
 
@@ -143,6 +158,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return panel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel that displays the user's current team and its corresponding event graphics
     private JPanel createTeamPanel() {
         JPanel teamPanel = new JPanel();
 
@@ -152,6 +169,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return teamPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel that displays a list of the user's current team
     private JPanel createTeamList() {
         teamListPanel = new JPanel();
         teamListPanel.setLayout(new BoxLayout(teamListPanel, Y_AXIS));
@@ -170,6 +189,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return teamListPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the remove Pokemon from team button for the user's current team list
     private JPanel createTeamPanelEvents() {
         JPanel panel = new JPanel();
 
@@ -187,6 +208,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return panel;
     }
 
+    // EFFECTS: creates the back, which allows the user to return to the main menu, and the battle button, which allows
+    //          the user to begin a battle
     private JPanel createButtons() {
         JPanel panel = new JPanel();
 
@@ -207,6 +230,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return panel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: determines what response should occur if a button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("back".equals(e.getActionCommand())) {
@@ -220,8 +245,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
             removeSelectedPokemon();
         } else if ("battle".equals(e.getActionCommand())) {
             frame.remove(this);
-            // create battle teams
-            new BattleGameGUI();
+            user.prepareForBattle();
+            cpu.prepareForBattle();
+            new BattleGameGUI(frame, pokedex, user, cpu);
         } else if ("filter".equals((e.getActionCommand()))) {
             usablePokemonListPanel.remove(usablePokemonScrollPane);
             sortedPokedex.getUsablePokemon().clear();
@@ -229,6 +255,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the selected Pokemon in the usable Pokemon list to the user's current team and its corresponding
+    //          graphic
     private void addSelectedPokemon() {
         int index = usablePokemonList.getSelectedIndex();
 
@@ -247,6 +276,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes the selected Pokemon in the user's current team list from the user's current team and its
+    // corresponding graphic
     private void removeSelectedPokemon() {
         int index = userPokemonList.getSelectedIndex();
 
@@ -265,6 +297,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: filters the usable Pokemon list by the type specified in the combo box
     private void filterUsablePokemon() {
         String type = (String) typeFilter.getSelectedItem();
         pokemonListModel = new DefaultListModel<>();
@@ -291,6 +325,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this/list
+    // EFFECTS: sets the JList to its proper settings and returns it as a JScrollPane
     private JScrollPane constructScrollListPane(JList list, int rows) {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
