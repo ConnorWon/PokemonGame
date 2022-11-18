@@ -61,7 +61,6 @@ public class MainMenu {
 
     // MODIFIES: this
     // EFFECTS: initializes the data to be used for the app
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void initData() {
         boolean keepGoing = true;
 
@@ -73,12 +72,8 @@ public class MainMenu {
             if (choice.equals("y")) {
                 try {
                     loadData();
-                } catch (IOException e) {
-                    System.out.println("Unable to read from file: " + DATA_STORE);
-                    initUserTrainer();
-                    initPokedex();
                 } catch (Exception e) {
-                    System.out.println("No data found in file");
+                    System.out.println("Unable to read from file: " + DATA_STORE);
                     initUserTrainer();
                     initPokedex();
                 }

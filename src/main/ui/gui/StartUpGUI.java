@@ -15,6 +15,9 @@ import java.io.IOException;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
+// References:
+//      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+//      JTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
 // The startup screen
 public class StartUpGUI extends JPanel implements ActionListener {
 

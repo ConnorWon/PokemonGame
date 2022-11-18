@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
+// References:
+//      JList - https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+//      JComboBox - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
+//      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 // Team Select Menu
 public class TeamSelectGUI extends JPanel implements ActionListener {
 
@@ -31,6 +35,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     private JScrollPane teamScrollPane;
     private JPanel usablePokemonListPanel;
     private JScrollPane usablePokemonScrollPane;
+    private JPanel mainButtonsPanel;
 
     // EFFECTS: constructs the GUI for the team select menu
     public TeamSelectGUI(JFrame frame, Pokedex pokedex, Trainer user, Trainer cpu) {
@@ -211,7 +216,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     // EFFECTS: creates the back, which allows the user to return to the main menu, and the battle button, which allows
     //          the user to begin a battle
     private JPanel createButtons() {
-        JPanel panel = new JPanel();
+        mainButtonsPanel = new JPanel();
 
         JButton backButton = new JButton("Back");
         backButton.setActionCommand("back");
@@ -223,11 +228,15 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         battleButton.addActionListener(this);
         battleButton.setPreferredSize(new Dimension(100, 35));
 
-        panel.add(backButton);
-        panel.add(Box.createRigidArea(new Dimension(100, 50)));
-        panel.add(battleButton);
+        if (user.getTeam().size() < 3) {
+            battleButton.setEnabled(false);
+        }
 
-        return panel;
+        mainButtonsPanel.add(backButton);
+        mainButtonsPanel.add(Box.createRigidArea(new Dimension(100, 50)));
+        mainButtonsPanel.add(battleButton);
+
+        return mainButtonsPanel;
     }
 
     // MODIFIES: this
@@ -272,6 +281,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         teamScrollPane = constructScrollListPane(userPokemonList, 3);
         teamListPanel.add(teamScrollPane);
 
+        this.remove(mainButtonsPanel);
+        add(createButtons());
+
         frame.pack();
         frame.setVisible(true);
     }
@@ -292,6 +304,8 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         userPokemonList = new JList<>(teamListModel);
         teamScrollPane = constructScrollListPane(userPokemonList, 3);
         teamListPanel.add(teamScrollPane);
+        this.remove(mainButtonsPanel);
+        add(createButtons());
 
         frame.pack();
         frame.setVisible(true);

@@ -16,14 +16,12 @@ import java.io.FileNotFoundException;
 public class ClosingGUI extends JPanel implements ActionListener {
 
     private static final String DATA_STORE = "./data/savedPokedexAndUser.json";
-    private JFrame frame;
     private Pokedex pokedex;
     private Trainer user;
     private JsonWriter jsonWriter;
 
     // EFFECTS: constructs the GUI for the closing screen
     public ClosingGUI(JFrame frame, Pokedex pokedex, Trainer user) {
-        this.frame = frame;
         this.pokedex = pokedex;
         this.user = user;
         jsonWriter = new JsonWriter(DATA_STORE);

@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+// References:
+//      TrafficLightGUI
+//      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+//      JLayeredPane - https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html
 // The main menu
 public class MainMenuGUI implements ActionListener {
 

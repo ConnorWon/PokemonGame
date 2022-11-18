@@ -38,3 +38,40 @@ the current Pokedex and the user's trainer info to file
 Pokedex and user's trainer info from file
 - As a user, after selecting my Pokemon team once, I want to be able to use that same team again in 
 future battles without having to choose my team again
+
+## Instructions For Grader
+
+***To generate the first required event related to adding Xs to a Y***
+1. after start up, click the create Pokemon button in the main menu
+2. fill out all the empty fields above the Move Set Header
+3. fill out at least one move set field
+4. click the create button (all the fields should clear when the Pokemon gets added, if it doesn't just
+click the button again)
+5. this will add a Pokemon to the Pokedex
+
+***To generate the second required event related to adding Xs to a Y***
+1. after start up, click the Battle button in the main menu
+2. select a Pokemon in the "Available Pokemon" list (this is the Pokemon in the Pokedex) and click add 
+3. this will add a Pokemon from the Pokedex to the user's team (if you don't have a team of 3 already)
+
+***To generate a third event related to adding Xs to a Y***
+1. after start up, click the Battle button in the main menu
+2. click the JComboBox and select which type you want to sort the Pokedex by
+3. after selecting a type, click the filter button
+4. this will sort the display of the Pokedex by typing
+
+***To locate visual component 1***
+1. after getting through the startup, the image should appear on the main menu
+
+***To locate visual component 2***
+1. after start up, click the Battle button in the main menu
+2. click the battle button in the Team Select Menu after filling your team with 3 Pokemon
+3. the image should appear
+
+***To save the state of my application***
+- on startup, you should be prompted with the option to load the previously saved data
+
+***To reload the state of my application***
+- after clicking the quit button in the main menu, you will be prompted with the option to save your data
+  - the only way to quit the application is by pressing the quit button in the main menu, which ensures
+    that the user will always be prompted to save their data before closing the application

@@ -19,10 +19,10 @@ import static java.lang.Integer.parseInt;
 import static javax.swing.BoxLayout.*;
 
 // References:
-//      Buttons - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
-//      TextFields - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
-//      FormattedTextFields - https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
-//      Combo Box - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
+//      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+//      JTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
+//      JFormattedTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
+//      JComboBox - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
 // The create Pokemon menu
 public class CreatePokemonGUI extends JPanel implements ActionListener {
 
@@ -89,7 +89,6 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
 
         nameField = new JTextField();
         nameField.setColumns(10);
-//        nameField.setMaximumSize(new Dimension(100, 20));
         nameField.getDocument().addDocumentListener(new MyDocumentListener());
 
         String[] pkmnTypes = { "Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel",
