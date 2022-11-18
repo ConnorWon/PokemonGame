@@ -23,6 +23,7 @@ import static javax.swing.BoxLayout.*;
 //      JTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
 //      JFormattedTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
 //      JComboBox - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
+//      DocumentListener - https://docs.oracle.com/javase/tutorial/uiswing/events/documentlistener.html
 // The create Pokemon menu
 public class CreatePokemonGUI extends JPanel implements ActionListener {
 
@@ -412,13 +413,20 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         }
     }
 
+    // document listener used to detect changes in the text fields of the create Pokemon menu
     class MyDocumentListener implements DocumentListener {
 
+        // MODIFIES: this
+        // EFFECTS: when an input is inserted into a text field in the menu, determines whether to enable or disable the
+        //          create Pokemon button
         @Override
         public void insertUpdate(DocumentEvent e) {
             createPkmnButton.setEnabled(allRequiredFieldsFilled());
         }
 
+        // MODIFIES: this
+        // EFFECTS: when an input is removed from a text field in the menu, determines whether to enable or disable the
+        //          create Pokemon button
         @Override
         public void removeUpdate(DocumentEvent e) {
             createPkmnButton.setEnabled(allRequiredFieldsFilled());

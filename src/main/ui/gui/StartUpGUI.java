@@ -18,6 +18,7 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 // References:
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 //      JTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
+//      DocumentListener - https://docs.oracle.com/javase/tutorial/uiswing/events/documentlistener.html
 // The startup screen
 public class StartUpGUI extends JPanel implements ActionListener {
 
@@ -222,13 +223,20 @@ public class StartUpGUI extends JPanel implements ActionListener {
         return name.getText().length() > 0;
     }
 
+    // document listener used to detect changes in the text field of the startup screen
     class MyDocumentListener implements DocumentListener {
 
+        // MODIFIES: this
+        // EFFECTS: when an input is inserted into a text field in the menu, determines whether to enable or disable the
+        //          create button
         @Override
         public void insertUpdate(DocumentEvent e) {
             create.setEnabled(requiredFieldFilled());
         }
 
+        // MODIFIES: this
+        // EFFECTS: when an input is removed from a text field in the menu, determines whether to enable or disable the
+        //          create button
         @Override
         public void removeUpdate(DocumentEvent e) {
             create.setEnabled(requiredFieldFilled());
