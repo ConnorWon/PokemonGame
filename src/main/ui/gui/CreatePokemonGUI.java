@@ -24,7 +24,7 @@ import static javax.swing.BoxLayout.*;
 //      JFormattedTextField - https://docs.oracle.com/javase/tutorial/uiswing/components/formattedtextfield.html
 //      JComboBox - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
 //      DocumentListener - https://docs.oracle.com/javase/tutorial/uiswing/events/documentlistener.html
-// The create Pokemon menu
+// The create Pokemon menu GUI
 public class CreatePokemonGUI extends JPanel implements ActionListener {
 
     private JPanel pkmnInfoTextFields;
@@ -304,7 +304,7 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
     }
 
     // MODIFIES: p
-    // EFFECTS: adds moves corresponding to the values in the different move input fields to the Pokemon
+    // EFFECTS: adds moves based on the values in the different move input fields to the Pokemon
     private void addMove(Pokemon p, int i) {
         boolean movePresent = true;
         int power = 0;
@@ -352,7 +352,7 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         return statsOK && allRequiredMoveFieldsFilled();
     }
 
-    // EFFECTS: determines if all the fields are filled for at least one move field
+    // EFFECTS: determines if all the fields are filled for at least one move
     private boolean allRequiredMoveFieldsFilled() {
         boolean movesPresent = false;
 

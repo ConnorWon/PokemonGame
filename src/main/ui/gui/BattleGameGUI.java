@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 // References:
-//      TrafficLightGUI
+//      TrafficLightGUI from class lecture lab
 //      JLayeredPane - https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 //      JLabel - https://docs.oracle.com/javase/tutorial/uiswing/components/label.html
@@ -22,7 +22,6 @@ public class BattleGameGUI implements ActionListener {
 
     private static final int SWITCHING = -2;
     private static final int STRUGGLE = -1;
-
     private JFrame frame;
     private Pokedex pokedex;
     private Trainer user;
@@ -439,7 +438,7 @@ public class BattleGameGUI implements ActionListener {
         return move;
     }
 
-    // REQUIRES: userCurrent.getMoveSet().size() >= 4
+    // REQUIRES: userCurrent.getMoveSet().size() == 4
     // EFFECTS: creates a button for the user's Pokemon's fourth move
     private JButton createMove4Button(FightMenuListener listener) {
         Move m4 = userCurrent.getMoveSet().get(3);

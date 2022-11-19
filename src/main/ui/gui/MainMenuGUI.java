@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 // References:
-//      TrafficLightGUI
+//      TrafficLightGUI from class lecture lab
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 //      JLayeredPane - https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html
-// The main menu
+// The main menu GUI
 public class MainMenuGUI implements ActionListener {
 
     private JPanel btnPanel;
@@ -96,7 +96,7 @@ public class MainMenuGUI implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds the title text image to the GUI
+    // EFFECTS: creates the title text image for the GUI
     private void createTitleTextLabel() {
         String sep = System.getProperty("file.separator");
         titleText = new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images" + sep
@@ -106,7 +106,7 @@ public class MainMenuGUI implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds the title image to the GUI
+    // EFFECTS: creates the title image for the GUI
     private void createTitleImageLabel() {
         String sep = System.getProperty("file.separator");
         titleImage = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + sep + "data" + sep + "images"

@@ -60,7 +60,7 @@ public class StartUpGUI extends JPanel implements ActionListener {
         return panel;
     }
 
-    // EFFECTS: creates prompt response buttons
+    // EFFECTS: creates load data prompt's response buttons
     private JPanel createButtons() {
         JPanel btnPanel = new JPanel();
 

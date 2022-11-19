@@ -15,7 +15,7 @@ import static javax.swing.BoxLayout.Y_AXIS;
 //      JList - https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 //      JComboBox - https://docs.oracle.com/javase/tutorial/uiswing/components/combobox.html
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
-// Team Select Menu
+// Team Select Menu GUI
 public class TeamSelectGUI extends JPanel implements ActionListener {
 
     private DefaultListModel pokemonListModel;
@@ -145,7 +145,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates the add Pokemon to team button for the usable Pokemon list
+    // EFFECTS: creates the "add Pokemon to team" button for the usable Pokemon list
     private JPanel createUsablePokemonAddButton() {
         JPanel panel = new JPanel();
 
@@ -195,7 +195,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates the remove Pokemon from team button for the user's current team list
+    // EFFECTS: creates the "remove Pokemon from team" button for the user's current team list
     private JPanel createTeamPanelEvents() {
         JPanel panel = new JPanel();
 
@@ -213,8 +213,9 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         return panel;
     }
 
-    // EFFECTS: creates the back, which allows the user to return to the main menu, and the battle button, which allows
-    //          the user to begin a battle
+    // MODIFIES: this
+    // EFFECTS: creates the back button, which allows the user to return to the main menu, and the battle button, which
+    //          allows the user to begin a battle
     private JPanel createButtons() {
         mainButtonsPanel = new JPanel();
 
@@ -290,7 +291,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: removes the selected Pokemon in the user's current team list from the user's current team and its
-    // corresponding graphic
+    //          corresponding graphic
     private void removeSelectedPokemon() {
         int index = userPokemonList.getSelectedIndex();
 

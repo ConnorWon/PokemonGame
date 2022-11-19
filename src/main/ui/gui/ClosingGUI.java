@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 // References:
-//      Buttons - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
+//      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 // The closing screen
 public class ClosingGUI extends JPanel implements ActionListener {
 
@@ -49,7 +49,7 @@ public class ClosingGUI extends JPanel implements ActionListener {
         return panel;
     }
 
-    // EFFECTS: creates prompt response buttons
+    // EFFECTS: creates the save data prompt's response buttons
     private JPanel createButtons() {
         JPanel btnPanel = new JPanel();
 
