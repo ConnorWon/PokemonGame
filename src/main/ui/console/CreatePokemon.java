@@ -1,4 +1,4 @@
-package ui.game;
+package ui.console;
 
 import model.pokedex.Move;
 import model.pokedex.Pokedex;
