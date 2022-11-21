@@ -1,5 +1,6 @@
 package ui.gui;
 
+import model.event.EventLog;
 import model.pokedex.Pokedex;
 import model.trainers.Trainer;
 import persistence.JsonWriter;
@@ -75,8 +76,10 @@ public class ClosingGUI extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if ("yes".equals(e.getActionCommand())) {
             saveData();
+//            printLog();
             System.exit(0);
         } else if ("no".equals(e.getActionCommand())) {
+//            printLog();
             System.exit(0);
         }
     }
@@ -94,4 +97,20 @@ public class ClosingGUI extends JPanel implements ActionListener {
             System.out.println("Unable to write to file: " + DATA_STORE);
         }
     }
+
+    // TODO
+//    private void printLog() {
+//        EventLog el = EventLog.getInstance();
+//        for (Event next : el) {
+//            System.out.println(next.toString() + "\n\n");
+//        }
+//    }
+
+    // EFFECTS: prints the event log to the console
+    //    private void printLog() {
+    //        EventLog el = EventLog.getInstance();
+    //        for (Event next : el) {
+    //            System.out.println(next.toString() + "\n\n");
+    //        }
+    //    }
 }

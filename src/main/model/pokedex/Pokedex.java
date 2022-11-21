@@ -1,5 +1,7 @@
 package model.pokedex;
 
+import model.event.Event;
+import model.event.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -13,6 +15,10 @@ public class Pokedex implements Writable {
 
     // EFFECTS: constructs a Pokedex with 0 Pokemon within it
     public Pokedex() {
+        // this.name = name;
+        // if (name.equals("sorted")) {
+        //      EventLog.getInstance().logEvent(new Event("Pokedex has been sorted by a Pokemon typing));
+        // }
         usablePokemon = new ArrayList<>();
     }
 
@@ -23,6 +29,10 @@ public class Pokedex implements Writable {
     // MODIFIES: this
     // EFFECTS: adds a Pokemon to the Pokedex
     public void addPokemonToPokedex(Pokemon p) {
+        // if (name.equals("main")) {
+        //     EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the Pokedex"));
+        // }
+        // usablePokemon.add(p);
         usablePokemon.add(p);
     }
 

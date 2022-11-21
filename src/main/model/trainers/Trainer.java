@@ -40,6 +40,9 @@ public class Trainer implements Writable {
         if (team.size() < 3) {
             team.add(p);
         }
+        // if (!name.equals("Red") {
+        //      EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the " + name "'s team));
+        // }
     }
 
     // MODIFIES: this
