@@ -75,3 +75,108 @@ click the button again)
 ***To reload the state of my application***
 1. on startup, you will be prompted with the option to load the previously saved data
 2. click the "yes" button to reload the saved data
+
+## Phase 4: Task 2
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Pikachu added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Charmander added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Squirtle added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Bulbasaur added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Piplup added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Espeon added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Garchomp added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Lebron added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Weavile added to the Pokedex
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Lebron added to Connor's team
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Weavile added to Connor's team
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Garchomp added to Connor's team
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Pikachu added to Red's team
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Garchomp added to Red's team
+
+Thu Nov 24 22:05:02 PST 2022 <br/>
+Pokemon Squirtle added to Red's team
+
+Thu Nov 24 22:05:22 PST 2022 <br/>
+Pokemon Infernape added to the Pokedex
+
+Thu Nov 24 22:05:24 PST 2022 <br/>
+Pokedex filtered for no specific Pokemon type
+
+Thu Nov 24 22:05:26 PST 2022 <br/>
+Pokemon Lebron removed from Connor's team
+
+Thu Nov 24 22:05:27 PST 2022 <br/>
+Pokemon Weavile removed from Connor's team
+
+Thu Nov 24 22:05:27 PST 2022 <br/>
+Pokemon Garchomp removed from Connor's team
+
+Thu Nov 24 22:05:32 PST 2022 <br/>
+Pokedex filtered for Fire type Pokemon
+
+Thu Nov 24 22:05:34 PST 2022 <br/>
+Pokemon Infernape added to Connor's team
+
+Thu Nov 24 22:05:37 PST 2022 <br/>
+Pokedex filtered for Dragon type Pokemon
+
+Thu Nov 24 22:05:38 PST 2022 <br/>
+Pokemon Garchomp added to Connor's team
+
+Thu Nov 24 22:05:40 PST 2022 <br/>
+Pokedex filtered for no specific Pokemon type
+
+Thu Nov 24 22:05:43 PST 2022 <br/>
+Pokemon Weavile added to Connor's team
+
+Thu Nov 24 22:05:50 PST 2022 <br/>
+Red's team was cleared
+
+Thu Nov 24 22:05:50 PST 2022 <br/>
+Pokemon Garchomp added to Red's team
+
+Thu Nov 24 22:05:50 PST 2022 <br/>
+Pokemon Espeon added to Red's team
+
+Thu Nov 24 22:05:50 PST 2022 <br/>
+Pokemon Garchomp added to Red's team
+
+***Explanation:***
+
+Initial Adding of Pokemon to the Pokedex
+- occurs because when loading saved data my application has to re-add all the Pokemon in the 
+saved Pokedex back into an in application Pokedex through the addPokemonToPokedex method in the
+Pokedex class, and this method includes a call to logEvent to log the event of adding a Pokemon
+to the Pokedex
+
+Initial Adding of Pokemon to the user's (Connor's) team
+- occurs because when loading saved data my application has to re-add all the Pokemon in the saved
+User's team back into the in application user's team through the addTeamMember method in the
+trainer class, and this method includes a call to logEvent to log the event of adding a Pokemon to
+a trainer's team

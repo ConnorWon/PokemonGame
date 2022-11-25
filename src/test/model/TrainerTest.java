@@ -1,6 +1,8 @@
 package model;
 
 import model.battle.BattlingPokemon;
+import model.event.Event;
+import model.event.EventLog;
 import model.pokedex.Move;
 import model.trainers.Trainer;
 import model.pokedex.Pokemon;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +35,9 @@ public class TrainerTest {
         charmander = new Pokemon("Charmander", "Fire", 39, 52, 43);
         charmander.addMoveToMoveSet("Flamethrower", 90, 15, 100);
         charmander.addMoveToMoveSet("Ember", 30, 35, 100);
+
+        EventLog el = EventLog.getInstance();
+        el.clear();
     }
 
     @Test
@@ -143,6 +149,51 @@ public class TrainerTest {
         assertEquals(1, trainer.getTeam().size());
         assertTrue(trainer.getTeam().contains(charmander));
         assertFalse(trainer.getTeam().contains(pikachu));
+    }
+
+    @Test
+    public void testAddTeamMemberEventLogging() {
+        trainer.addTeamMember(pikachu);
+
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> itr = el.iterator();
+        itr.next();
+
+        assertTrue(itr.hasNext());
+        assertEquals("Pokemon Pikachu added to Red's team", itr.next().getDescription());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    public void testRemoveTeamMemberEventLogging() {
+        trainer.addTeamMember(pikachu);
+        trainer.removeTeamMember(0);
+
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> itr = el.iterator();
+        itr.next();
+
+        assertTrue(itr.hasNext());
+        assertEquals("Pokemon Pikachu added to Red's team", itr.next().getDescription());
+        assertEquals("Pokemon Pikachu removed from Red's team", itr.next().getDescription());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    public void testClearTeamEventLogging() {
+        trainer.addTeamMember(pikachu);
+        trainer.addTeamMember(charmander);
+        trainer.clearTeam();
+
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> itr = el.iterator();
+        itr.next();
+
+        assertTrue(itr.hasNext());
+        assertEquals("Pokemon Pikachu added to Red's team", itr.next().getDescription());
+        assertEquals("Pokemon Charmander added to Red's team", itr.next().getDescription());
+        assertEquals("Red's team was cleared", itr.next().getDescription());
+        assertFalse(itr.hasNext());
     }
 
     // EFFECTS: checks to see if BattlingPokemon bp has the correct info

@@ -25,6 +25,7 @@ public class BattleGameGUI implements ActionListener {
     private JFrame frame;
     private Pokedex pokedex;
     private Trainer user;
+    private Trainer cpu;
     private String userName;
     private String cpuName;
     private ArrayList<BattlingPokemon> userTeam;
@@ -44,6 +45,7 @@ public class BattleGameGUI implements ActionListener {
         this.frame = frame;
         this.pokedex = pokedex;
         this.user = user;
+        this.cpu = cpu;
 
         userName = user.getName();
         cpuName = cpu.getName();
@@ -217,7 +219,9 @@ public class BattleGameGUI implements ActionListener {
             frame.remove(textBoxPanel);
             frame.remove(battleImageLayers);
             user.clearBattleTeam();
-            new MainMenuGUI(frame, pokedex, user);
+            cpu.clearTeam();
+            cpu.clearBattleTeam();
+            new MainMenuGUI(frame, pokedex, user, cpu);
         }
     }
 

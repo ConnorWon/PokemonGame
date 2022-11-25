@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
@@ -25,7 +26,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     private Trainer user;
     private Trainer cpu;
     private Pokedex pokedex;
-    private Pokedex sortedPokedex;
+    private ArrayList<Pokemon> filteredPokedex;
     private JFrame frame;
     private JButton addPkmn;
     private JButton removePkmn;
@@ -43,7 +44,6 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         this.pokedex = pokedex;
         this.user = user;
         this.cpu = cpu;
-        sortedPokedex = new Pokedex();
 
         setLayout(new BoxLayout(this, Y_AXIS));
 
@@ -93,10 +93,10 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
         usablePokemonListPanel.setLayout(new BoxLayout(usablePokemonListPanel, Y_AXIS));
         JLabel listTitle = new JLabel("Available Pokemon");
 
+        filteredPokedex = pokedex.filterPokedex("None");
         pokemonListModel = new DefaultListModel<>();
-        for (Pokemon p : pokedex.getUsablePokemon()) {
+        for (Pokemon p : filteredPokedex) {
             pokemonListModel.addElement(p.getName());
-            sortedPokedex.addPokemonToPokedex(p);
         }
 
         usablePokemonList = new JList<>(pokemonListModel);
@@ -246,7 +246,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if ("back".equals(e.getActionCommand())) {
             frame.remove(this);
-            new MainMenuGUI(frame, pokedex, user);
+            new MainMenuGUI(frame, pokedex, user, cpu);
         } else if ("add".equals(e.getActionCommand())) {
             teamListPanel.remove(teamScrollPane);
             addSelectedPokemon();
@@ -260,7 +260,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
             new BattleGameGUI(frame, pokedex, user, cpu);
         } else if ("filter".equals((e.getActionCommand()))) {
             usablePokemonListPanel.remove(usablePokemonScrollPane);
-            sortedPokedex.getUsablePokemon().clear();
+            filteredPokedex.clear();
             filterUsablePokemon();
         }
     }
@@ -271,7 +271,7 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     private void addSelectedPokemon() {
         int index = usablePokemonList.getSelectedIndex();
 
-        user.addTeamMember(sortedPokedex.getUsablePokemon().get(index));
+        user.addTeamMember(filteredPokedex.get(index));
 
         teamListModel = new DefaultListModel<>();
         for (Pokemon p : user.getTeam()) {
@@ -317,19 +317,10 @@ public class TeamSelectGUI extends JPanel implements ActionListener {
     private void filterUsablePokemon() {
         String type = (String) typeFilter.getSelectedItem();
         pokemonListModel = new DefaultListModel<>();
+        filteredPokedex = pokedex.filterPokedex(type);
 
-        if (type.equals("None")) {
-            for (Pokemon p : pokedex.getUsablePokemon()) {
-                pokemonListModel.addElement(p.getName());
-                sortedPokedex.addPokemonToPokedex(p);
-            }
-        } else {
-            for (Pokemon p : pokedex.getUsablePokemon()) {
-                if (p.getType().equals(type)) {
-                    pokemonListModel.addElement(p.getName());
-                    sortedPokedex.addPokemonToPokedex(p);
-                }
-            }
+        for (Pokemon p : filteredPokedex) {
+            pokemonListModel.addElement(p.getName());
         }
 
         usablePokemonList = new JList<>(pokemonListModel);

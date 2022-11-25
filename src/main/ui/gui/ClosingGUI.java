@@ -76,10 +76,10 @@ public class ClosingGUI extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if ("yes".equals(e.getActionCommand())) {
             saveData();
-//            printLog();
+            printLog();
             System.exit(0);
         } else if ("no".equals(e.getActionCommand())) {
-//            printLog();
+            printLog();
             System.exit(0);
         }
     }
@@ -98,19 +98,11 @@ public class ClosingGUI extends JPanel implements ActionListener {
         }
     }
 
-    // TODO
-//    private void printLog() {
-//        EventLog el = EventLog.getInstance();
-//        for (Event next : el) {
-//            System.out.println(next.toString() + "\n\n");
-//        }
-//    }
-
     // EFFECTS: prints the event log to the console
-    //    private void printLog() {
-    //        EventLog el = EventLog.getInstance();
-    //        for (Event next : el) {
-    //            System.out.println(next.toString() + "\n\n");
-    //        }
-    //    }
+    private void printLog() {
+        EventLog el = EventLog.getInstance();
+        for (model.event.Event next : el) {
+            System.out.println(next.toString() + "\n");
+        }
+    }
 }

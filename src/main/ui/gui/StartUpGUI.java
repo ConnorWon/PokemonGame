@@ -88,7 +88,7 @@ public class StartUpGUI extends JPanel implements ActionListener {
             try {
                 loadData();
                 frame.remove(this);
-                new MainMenuGUI(frame, pokedex, user);
+                new MainMenuGUI(frame, pokedex, user, new Trainer("Red"));
             } catch (Exception error) {
                 System.out.println("Error with loading the data");
                 frame.remove(this);
@@ -102,7 +102,7 @@ public class StartUpGUI extends JPanel implements ActionListener {
         } else if ("create".equals(e.getActionCommand())) {
             user = new Trainer(name.getText());
             frame.remove(trainerPanel);
-            new MainMenuGUI(frame, pokedex, user);
+            new MainMenuGUI(frame, pokedex, user, new Trainer("Red"));
         }
     }
 
@@ -111,10 +111,8 @@ public class StartUpGUI extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: loads Pokedex and user's trainer info from file
     private void loadData() throws IOException {
-        System.out.println("Loading data...");
         pokedex = jsonReader.readForPokedex();
         user = jsonReader.readForTrainer();
-        System.out.println("Loaded data from " + DATA_STORE);
     }
 
     // MODIFIES: this

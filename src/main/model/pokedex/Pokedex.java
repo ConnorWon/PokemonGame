@@ -15,10 +15,6 @@ public class Pokedex implements Writable {
 
     // EFFECTS: constructs a Pokedex with 0 Pokemon within it
     public Pokedex() {
-        // this.name = name;
-        // if (name.equals("sorted")) {
-        //      EventLog.getInstance().logEvent(new Event("Pokedex has been sorted by a Pokemon typing));
-        // }
         usablePokemon = new ArrayList<>();
     }
 
@@ -29,11 +25,28 @@ public class Pokedex implements Writable {
     // MODIFIES: this
     // EFFECTS: adds a Pokemon to the Pokedex
     public void addPokemonToPokedex(Pokemon p) {
-        // if (name.equals("main")) {
-        //     EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the Pokedex"));
-        // }
-        // usablePokemon.add(p);
+        EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the Pokedex"));
         usablePokemon.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: returns a list of Pokemon from the Pokedex filtered for a specific typing
+    public ArrayList<Pokemon> filterPokedex(String type) {
+        ArrayList<Pokemon> availablePokemon = new ArrayList<>();
+        if (type.equals("None")) {
+            EventLog.getInstance().logEvent(new Event("Pokedex filtered for no specific Pokemon type"));
+            for (Pokemon p : usablePokemon) {
+                availablePokemon.add(p);
+            }
+        } else {
+            EventLog.getInstance().logEvent(new Event("Pokedex filtered for " + type + " type Pokemon"));
+            for (Pokemon p : usablePokemon) {
+                if (p.getType().equals(type)) {
+                    availablePokemon.add(p);
+                }
+            }
+        }
+        return availablePokemon;
     }
 
     // Based on the supplied Workroom example for CPSC 210

@@ -1,9 +1,14 @@
 package model;
 
+import model.event.Event;
+import model.event.EventLog;
 import model.pokedex.Pokedex;
 import model.pokedex.Pokemon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +22,8 @@ class PokedexTest {
     @BeforeEach
     public void runBefore() {
         pokedex = new Pokedex();
+        EventLog el = EventLog.getInstance();
+        el.clear();
     }
 
     @Test
@@ -59,6 +66,81 @@ class PokedexTest {
         assertEquals(45,actualCharmander.getAtk());
         assertEquals(35, actualCharmander.getDef());
         assertTrue(actualCharmander.getMoveSet().isEmpty());
+    }
+
+    @Test
+    public void testAddPokemonEventLogging() {
+        pokedex.addPokemonToPokedex(pikachu);
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> itr = el.iterator();
+        itr.next();
+
+        assertTrue(itr.hasNext());
+        assertEquals("Pokemon Pikachu added to the Pokedex", itr.next().getDescription());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    public void testFilterPokedexTypeNone() {
+        pokedex.addPokemonToPokedex(pikachu);
+        pokedex.addPokemonToPokedex(charmander);
+
+        assertEquals(pokedex.getUsablePokemon(), pokedex.filterPokedex("None"));
+    }
+
+    @Test
+    public void testFilterPokedexActualType() {
+        pokedex.addPokemonToPokedex(pikachu);
+        pokedex.addPokemonToPokedex(charmander);
+
+        ArrayList<Pokemon> testList = new ArrayList<>();
+        testList.add(charmander);
+
+        assertEquals(testList, pokedex.filterPokedex("Fire"));
+    }
+
+    @Test
+    public void testFilterPokedexNoPokemonHasType() {
+        pokedex.addPokemonToPokedex(pikachu);
+        pokedex.addPokemonToPokedex(charmander);
+
+        assertTrue(pokedex.filterPokedex("Water").isEmpty());
+    }
+
+    @Test
+    public void testFilterPokedexMultipleTimes() {
+        pokedex.addPokemonToPokedex(pikachu);
+        pokedex.addPokemonToPokedex(charmander);
+
+        ArrayList<Pokemon> testList1 = new ArrayList<>();
+        testList1.add(charmander);
+
+        ArrayList<Pokemon> testList2 = new ArrayList<>();
+        testList2.add(pikachu);
+
+        assertEquals(testList1, pokedex.filterPokedex("Fire"));
+        assertEquals(testList2, pokedex.filterPokedex("Electric"));
+        assertEquals(pokedex.getUsablePokemon(), pokedex.filterPokedex("None"));
+        assertTrue(pokedex.filterPokedex("Water").isEmpty());
+    }
+
+    @Test
+    public void testFilterPokedexEventLogging() {
+        pokedex.addPokemonToPokedex(pikachu);
+        pokedex.addPokemonToPokedex(charmander);
+        pokedex.filterPokedex("Fire");
+        pokedex.filterPokedex("Water");
+
+        EventLog el = EventLog.getInstance();
+        Iterator<Event> itr = el.iterator();
+        itr.next();
+
+        assertTrue(itr.hasNext());
+        assertEquals("Pokemon Pikachu added to the Pokedex", itr.next().getDescription());
+        assertEquals("Pokemon Charmander added to the Pokedex", itr.next().getDescription());
+        assertEquals("Pokedex filtered for Fire type Pokemon", itr.next().getDescription());
+        assertEquals("Pokedex filtered for Water type Pokemon", itr.next().getDescription());
+        assertFalse(itr.hasNext());
     }
 
 }

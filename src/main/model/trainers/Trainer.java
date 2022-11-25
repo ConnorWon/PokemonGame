@@ -1,6 +1,8 @@
 package model.trainers;
 
 import model.battle.BattlingPokemon;
+import model.event.Event;
+import model.event.EventLog;
 import model.pokedex.Pokemon;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,22 +41,23 @@ public class Trainer implements Writable {
     public void addTeamMember(Pokemon p) {
         if (team.size() < 3) {
             team.add(p);
+            EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to " + name + "'s team"));
         }
-        // if (!name.equals("Red") {
-        //      EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the " + name "'s team));
-        // }
     }
 
     // MODIFIES: this
     // EFFECTS: clears the trainer's team
     public void clearTeam() {
         team.clear();
+        EventLog.getInstance().logEvent(new Event(name + "'s team was cleared"));
     }
 
     // MODIFIES: this
     // EFFECTS: removes Pokemon at index i of the trainer's team
     public void removeTeamMember(int i) {
         if (i <= team.size() - 1) {
+            EventLog.getInstance().logEvent(new Event("Pokemon " + team.get(i).getName() + " removed from "
+                    + name + "'s team"));
             team.remove(i);
         }
     }

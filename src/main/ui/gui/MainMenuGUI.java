@@ -32,10 +32,11 @@ public class MainMenuGUI implements ActionListener {
     private Trainer red;
 
     // EFFECTS: constructs the GUI for the Main Menu
-    public MainMenuGUI(JFrame frame, Pokedex pokedex, Trainer user) {
+    public MainMenuGUI(JFrame frame, Pokedex pokedex, Trainer user, Trainer red) {
         this.pokedex = pokedex;
         this.user = user;
         this.frame = frame;
+        this.red = red;
         initCpuTrainer();
 
         createButtons();
@@ -124,7 +125,7 @@ public class MainMenuGUI implements ActionListener {
         if ("battle".equals(e.getActionCommand())) {
             new TeamSelectGUI(frame, pokedex, user, red);
         } else if ("create".equals(e.getActionCommand())) {
-            new CreatePokemonGUI(frame, pokedex, user);
+            new CreatePokemonGUI(frame, pokedex, user, red);
         } else {
             new ClosingGUI(frame, pokedex, user);
         }
@@ -139,7 +140,6 @@ public class MainMenuGUI implements ActionListener {
         int p2 = rand.nextInt(pokedex.getUsablePokemon().size());
         int p3 = rand.nextInt(pokedex.getUsablePokemon().size());
 
-        red = new Trainer("Red");
         red.addTeamMember(pokedex.getUsablePokemon().get(p1));
         red.addTeamMember(pokedex.getUsablePokemon().get(p2));
         red.addTeamMember(pokedex.getUsablePokemon().get(p3));

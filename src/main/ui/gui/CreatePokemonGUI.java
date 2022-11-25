@@ -40,13 +40,15 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
     private Trainer user;
     private NumberFormat numFormat = NumberFormat.getNumberInstance();
     private JButton createPkmnButton;
+    private Trainer red;
 
     // EFFECTS: constructs the GUI for the create Pokemon menu
-    public CreatePokemonGUI(JFrame appWindow, Pokedex pokedex, Trainer user) {
+    public CreatePokemonGUI(JFrame appWindow, Pokedex pokedex, Trainer user, Trainer red) {
         moveFields = new HashMap<>();
         this.appWindow = appWindow;
         this.pokedex = pokedex;
         this.user = user;
+        this.red = red;
         appWindow.setMinimumSize(new Dimension(500, 500));
         appWindow.setPreferredSize(new Dimension(500, 500));
         appWindow.setMaximumSize(new Dimension(500, 500));
@@ -58,10 +60,7 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
 
         setLayout(new BoxLayout(this, Y_AXIS));
 
-        JLabel title = new JLabel("Create Pokemon");
-        title.setFont(new Font("Times", Font.BOLD, 22));
-        title.setAlignmentX(CENTER_ALIGNMENT);
-        add(title);
+        add(createMenuTitle());
         add(Box.createRigidArea(new Dimension(0, 20)));
         add(createPkmnStatsInputs());
         add(createMoveInputs());
@@ -70,6 +69,13 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
         appWindow.add(this);
         appWindow.pack();
         appWindow.setVisible(true);
+    }
+
+    private JLabel createMenuTitle() {
+        JLabel title = new JLabel("Create Pokemon");
+        title.setFont(new Font("Times", Font.BOLD, 22));
+        title.setAlignmentX(CENTER_ALIGNMENT);
+        return title;
     }
 
     // MODIFIES: this
@@ -409,7 +415,7 @@ public class CreatePokemonGUI extends JPanel implements ActionListener {
             clearFields();
         } else if ("back".equals(e.getActionCommand())) {
             appWindow.remove(this);
-            new MainMenuGUI(appWindow, pokedex, user);
+            new MainMenuGUI(appWindow, pokedex, user, red);
         }
     }
 
