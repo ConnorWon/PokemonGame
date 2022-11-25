@@ -22,6 +22,7 @@ public class Pokedex implements Writable {
         return usablePokemon;
     }
 
+    // TODO: include that logging event in effects clause
     // MODIFIES: this
     // EFFECTS: adds a Pokemon to the Pokedex
     public void addPokemonToPokedex(Pokemon p) {
