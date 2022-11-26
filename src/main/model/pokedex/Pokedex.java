@@ -22,16 +22,15 @@ public class Pokedex implements Writable {
         return usablePokemon;
     }
 
-    // TODO: include that logging event in effects clause
     // MODIFIES: this
-    // EFFECTS: adds a Pokemon to the Pokedex
+    // EFFECTS: adds a Pokemon to the Pokedex, logs this event in event log
     public void addPokemonToPokedex(Pokemon p) {
         EventLog.getInstance().logEvent(new Event("Pokemon " + p.getName() + " added to the Pokedex"));
         usablePokemon.add(p);
     }
 
     // MODIFIES: this
-    // EFFECTS: returns a list of Pokemon from the Pokedex filtered for a specific typing
+    // EFFECTS: returns a list of Pokemon from the Pokedex filtered for a specific typing, logs this event in event log
     public ArrayList<Pokemon> filterPokedex(String type) {
         ArrayList<Pokemon> availablePokemon = new ArrayList<>();
         if (type.equals("None")) {

@@ -37,7 +37,7 @@ public class Trainer implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a Pokemon to the team, with a maximum of 3 Pokemon
+    // EFFECTS: adds a Pokemon to the team, with a maximum of 3 Pokemon, logs this event in event log
     public void addTeamMember(Pokemon p) {
         if (team.size() < 3) {
             team.add(p);
@@ -46,14 +46,14 @@ public class Trainer implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: clears the trainer's team
+    // EFFECTS: clears the trainer's team, logs this event in event log
     public void clearTeam() {
         team.clear();
         EventLog.getInstance().logEvent(new Event(name + "'s team was cleared"));
     }
 
     // MODIFIES: this
-    // EFFECTS: removes Pokemon at index i of the trainer's team
+    // EFFECTS: removes Pokemon at index i of the trainer's team, logs this event in event log
     public void removeTeamMember(int i) {
         if (i <= team.size() - 1) {
             EventLog.getInstance().logEvent(new Event("Pokemon " + team.get(i).getName() + " removed from "
