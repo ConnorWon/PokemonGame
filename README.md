@@ -180,3 +180,11 @@ Initial Adding of Pokemon to the user's (Connor's) team
 User's team back into the in application user's team through the addTeamMember method in the
 trainer class, and this method includes a call to logEvent to log the event of adding a Pokemon to
 a trainer's team
+
+## Phase 4: Task 3
+**Create an abstract class for the Pokemon and BattlingPokemon classes**
+- Reason: there is quite a bit of shared code between the Pokemon and BattlingPokemon classes
+- Refactoring Steps:
+  1. create an abstract class called Pokemon to put the shared code into
+  2. rename the current Pokemon class to PokedexPokemon
+  3. have both BattlingPokemon and PokedexPokemon extend the newly created Pokemon abstract class
