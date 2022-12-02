@@ -170,21 +170,26 @@ Pokemon Garchomp added to Red's team
 ***Explanation:***
 
 Initial Adding of Pokemon to the Pokedex
-- occurs because when loading saved data my application has to re-add all the Pokemon in the 
+- occurs because when loading saved data, my application has to re-add all the Pokemon in the 
 saved Pokedex back into an in application Pokedex through the addPokemonToPokedex method in the
 Pokedex class, and this method includes a call to logEvent to log the event of adding a Pokemon
 to the Pokedex
 
 Initial Adding of Pokemon to the user's (Connor's) team
-- occurs because when loading saved data my application has to re-add all the Pokemon in the saved
+- occurs because when loading saved data, my application has to re-add all the Pokemon in the saved
 User's team back into the in application user's team through the addTeamMember method in the
 trainer class, and this method includes a call to logEvent to log the event of adding a Pokemon to
 a trainer's team
 
 ## Phase 4: Task 3
 **Create an abstract class for the Pokemon and BattlingPokemon classes**
-- Reason: there is quite a bit of shared code between the Pokemon and BattlingPokemon classes
-- Refactoring Steps:
-  1. create an abstract class called Pokemon to put the shared code into
-  2. rename the current Pokemon class to PokedexPokemon
-  3. have both BattlingPokemon and PokedexPokemon extend the newly created Pokemon abstract class
+- Reason: there is quite a bit of shared code between the Pokemon and BattlingPokemon classes, so by
+extracting an abstract class for the duplicated code I can improve coupling within the application
+
+**Refactor the Pokedex class so it follows the Singleton Design Pattern**
+- Reason: my application only ever instantiates one Pokedex object during its run time and
+currently, in order for each of my GUI classes to access the Pokedex, the Pokedex object has to be
+passed between the GUI classes and stored as a field in each class. Also, the BattleGameGUI class
+doesn't even make use of the Pokedex. So, by making the Pokedex class follow the Singleton 
+Pattern, I can improve coupling in the application as I can eliminate unnecessary associations and dependencies
+between classes.
