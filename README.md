@@ -170,15 +170,15 @@ Pokemon Garchomp added to Red's team
 ***Explanation:***
 
 Initial Adding of Pokemon to the Pokedex
-- occurs because when loading saved data, my application has to re-add all the Pokemon in the 
+- occurs because when loading the saved data, my application has to re-add all the Pokemon in the 
 saved Pokedex back into an in application Pokedex through the addPokemonToPokedex method in the
-Pokedex class, and this method includes a call to logEvent to log the event of adding a Pokemon
+Pokedex class, and this method includes a call to logEvent, which is there to log the event of adding a Pokemon
 to the Pokedex
 
 Initial Adding of Pokemon to the user's (Connor's) team
-- occurs because when loading saved data, my application has to re-add all the Pokemon in the saved
+- occurs because when loading the saved data, my application has to re-add all the Pokemon in the saved
 User's team back into the in application user's team through the addTeamMember method in the
-trainer class, and this method includes a call to logEvent to log the event of adding a Pokemon to
+trainer class, and this method includes a call to logEvent, which is there to log the event of adding a Pokemon to
 a trainer's team
 
 ## Phase 4: Task 3
