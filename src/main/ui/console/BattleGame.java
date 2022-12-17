@@ -152,7 +152,6 @@ public class BattleGame {
         while (keepGoing) {
             String choice = input.next();
 
-            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
             if (choice != null && choice.matches("[0-9.]+")) {
                 int num = parseInt(choice);
 
@@ -187,7 +186,6 @@ public class BattleGame {
             displayDamage(-1, cpuName, userName, cpuCurrent, userCurrent);
         } else {
             while (keepGoing) {
-                // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
                 Random rand = new Random();
                 int choice = rand.nextInt(cpuCurrent.getMoveSet().size());
 
@@ -252,7 +250,6 @@ public class BattleGame {
         while (keepGoing) {
             String choice = input.next();
 
-            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
             if (choice != null && choice.matches("[0-9.]+")) {
                 keepGoing = determineSwitch(choice);
             } else {
@@ -264,7 +261,6 @@ public class BattleGame {
     // MODIFIES: this
     // EFFECTS: determines which Pokemon the user wants to switch to, checking to see if the switch is valid
     private boolean determineSwitch(String c) {
-        // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
         int choice = parseInt(c);
 
         if (choice > userTeam.size() || choice <= 0) {

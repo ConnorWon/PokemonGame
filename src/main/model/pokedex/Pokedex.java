@@ -49,8 +49,6 @@ public class Pokedex implements Writable {
         return availablePokemon;
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns the Pokedex as a JSON object
     @Override
     public JSONObject toJson() {
@@ -59,8 +57,6 @@ public class Pokedex implements Writable {
         return json;
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns Pokemon in Pokedex as a JSON array
     private JSONArray pokemonToJson() {
         JSONArray jsonArray = new JSONArray();

@@ -64,7 +64,6 @@ public class BattlingPokemon {
     // MODIFIES: this
     // EFFECTS: sets hitChance to a random number in [1, 100]
     public void setHitChance() {
-        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         this.hitChance = 1 + rand.nextInt(100);
     }
@@ -72,7 +71,6 @@ public class BattlingPokemon {
     // MODIFIES: this
     // EFFECTS: sets damageRoll to a random number in [85, 100]
     public void setDamageRoll() {
-        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         this.damageRoll = 85 + rand.nextInt(16);
     }
@@ -84,7 +82,6 @@ public class BattlingPokemon {
         m.usedMove();
 
         if (getHitChance() <= m.getAccuracy()) {
-            // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java
             return (int) Math.round(((42.0 * m.getPower() * getAtk() / target.getDef()) / 50.0 + 2)
                     * getDamageRoll() / 100.0);
         } else {
@@ -119,7 +116,6 @@ public class BattlingPokemon {
     //          calculates the recoil damage the Pokemon using struggle takes
     public int struggle(BattlingPokemon target) {
         setDamageRoll();
-        // reference: https://stackoverflow.com/questions/6468730/converting-double-to-integer-in-java
         int damage = (int) Math.round(((42.0 * 50 * getAtk() / target.getDef()) / 50.0 + 2) * getDamageRoll() / 100.0);
         int recoil = damage / 2;
         damageTaken(recoil);

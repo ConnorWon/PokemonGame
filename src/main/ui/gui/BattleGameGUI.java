@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 // References:
-//      TrafficLightGUI from class lecture lab
 //      JLayeredPane - https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 //      JLabel - https://docs.oracle.com/javase/tutorial/uiswing/components/label.html
@@ -546,7 +545,6 @@ public class BattleGameGUI implements ActionListener {
         if (movesHavePP(cpuCurrent)) {
             boolean keepGoing = true;
             while (keepGoing) {
-                // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
                 Random rand = new Random();
                 int choice = rand.nextInt(cpuCurrent.getMoveSet().size());
 

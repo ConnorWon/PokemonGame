@@ -76,8 +76,6 @@ public class Trainer implements Writable {
         }
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns the trainer's data as a JSON object
     @Override
     public JSONObject toJson() {
@@ -87,8 +85,6 @@ public class Trainer implements Writable {
         return json;
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns a trainer's Pokemon team as a JSON array
     private JSONArray teamToJson() {
         JSONArray jsonArray = new JSONArray();

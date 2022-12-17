@@ -88,8 +88,6 @@ public class MainMenu {
         }
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads Pokedex and user's trainer info from file
     private void loadData() throws IOException {
@@ -120,8 +118,6 @@ public class MainMenu {
         }
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: saves the Pokedex and user's trainer info to file
     private void saveData() {
@@ -169,7 +165,6 @@ public class MainMenu {
     // MODIFIES: this
     // EFFECTS: initializes the CPU trainer
     private void initCpuTrainer() {
-        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         int p1 = rand.nextInt(pokedex.getUsablePokemon().size());
         int p2 = rand.nextInt(pokedex.getUsablePokemon().size());

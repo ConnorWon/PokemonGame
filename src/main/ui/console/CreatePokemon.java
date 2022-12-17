@@ -114,7 +114,6 @@ public class CreatePokemon {
             System.out.println(stat + ":");
             choice = input.next();
 
-            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
             if (choice != null && choice.matches("[0-9.]+")) {
                 statNum = parseInt(choice);
 

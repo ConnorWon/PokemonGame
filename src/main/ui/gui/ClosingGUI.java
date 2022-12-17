@@ -84,8 +84,6 @@ public class ClosingGUI extends JPanel implements ActionListener {
         }
     }
 
-    // Based on the supplied Workroom example for CPSC 210
-    // link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: saves the Pokedex and user's trainer info to file
     private void saveData() {

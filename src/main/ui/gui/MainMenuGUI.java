@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 // References:
-//      TrafficLightGUI from class lecture lab
 //      JButton - https://docs.oracle.com/javase/tutorial/uiswing/components/button.html
 //      JLayeredPane - https://docs.oracle.com/javase/tutorial/uiswing/components/layeredpane.html
 // The main menu GUI
@@ -134,7 +133,6 @@ public class MainMenuGUI implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes the CPU trainer
     private void initCpuTrainer() {
-        // reference: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
         Random rand = new Random();
         int p1 = rand.nextInt(pokedex.getUsablePokemon().size());
         int p2 = rand.nextInt(pokedex.getUsablePokemon().size());

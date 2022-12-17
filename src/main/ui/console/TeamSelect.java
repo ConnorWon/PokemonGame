@@ -38,7 +38,6 @@ public class TeamSelect {
             displayPokemonInPokedex();
             String choice = input.next();
 
-            // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
             if (choice != null && choice.matches("[0-9.]+")) {
                 addToTeam(choice);
             } else {
@@ -103,7 +102,6 @@ public class TeamSelect {
     // MODIFIES: this
     // EFFECTS: adds the chosen Pokemon to the user's team
     private void addToTeam(String choice) {
-        // reference: https://www.freecodecamp.org/news/java-string-to-int-how-to-convert-a-string-to-an-integer/
         int num = parseInt(choice);
 
         if (num <= pokedex.getUsablePokemon().size()) {
